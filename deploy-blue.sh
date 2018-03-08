@@ -43,7 +43,7 @@ terraform init terraform-blue/
 echo ""
 echo "==> Terraform plan"
 echo ""
-terraform plan -state="$STATE" -var CLIENT_ID="$TF_VAR_CLIENT_ID" -var CLIENT_SECRET=$TF_VAR_CLIENT_SECRET -var password=$TF_VAR_PASSWORD terraform-blue/
+terraform plan -state="$STATE" -var CLIENT_ID="$TF_VAR_CLIENT_ID" -var CLIENT_SECRET=$TF_VAR_CLIENT_SECRET -var password=$TF_VAR_PASSWORD -var ssh_key_data=$TF_VAR_SSH_KEY_DATA terraform-blue/
 
 #echo ""
 #echo "==> Terraform apply"
