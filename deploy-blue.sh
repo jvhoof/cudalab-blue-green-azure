@@ -40,10 +40,10 @@ echo "==> Terraform init"
 echo ""
 terraform init -var CLIENT_ID="$TF_VAR_CLIENT_ID" -var CLIENT_SECRET=$TF_VAR_CLIENT_SECRET terraform-blue/
 
-#echo ""
-#echo "==> Terraform plan"
-#echo ""
-#docker run --rm -itv $PWD:/data -v terraform-run:/.terraform/ -v ~/.ssh:/ssh/ jvhoof/ansible-docker terraform plan -state="$STATE" -var-file="$SECRET" /data/terraform
+echo ""
+echo "==> Terraform plan"
+echo ""
+terraform plan -state="$STATE" -var CLIENT_ID="$TF_VAR_CLIENT_ID" -var CLIENT_SECRET=$TF_VAR_CLIENT_SECRET terraform-blue/
 
 #echo ""
 #echo "==> Terraform apply"
