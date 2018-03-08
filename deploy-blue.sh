@@ -37,7 +37,7 @@ echo "Over and out."
 echo ""
 echo "==> Terraform init"
 echo ""
-terraform init /data/terraform
+terraform init terraform-blue/
 
 #echo ""
 #echo "==> Terraform plan"
