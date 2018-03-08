@@ -22,7 +22,7 @@ TODAY=`date +"%Y-%m-%d"`
 echo "Test: ##vso[task.setvariable variable=TF_VAR_ccsecret]"
 set
 
-echo "TF_VAR_ccsecret: $TF_VAR_ccsecret"
+echo "TF_VAR_ccsecret: $TF_VAR_CCSECRET"
 echo "Hello World"
 echo "AGENT_WORKFOLDER is $AGENT_WORKFOLDER"
 echo "AGENT_WORKFOLDER contents:"
