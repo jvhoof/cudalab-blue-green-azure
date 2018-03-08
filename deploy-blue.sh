@@ -1,16 +1,14 @@
 #!/bin/bash
-cat << "EOF"
+echo "
 ##############################################################################################################
-#  ____                                      _       
-# | __ )  __ _ _ __ _ __ __ _  ___ _   _  __| | __ _ 
-# |  _ \ / _` | `__| `__/ _` |/ __| | | |/ _` |/ _` |
-# | |_) | (_| | |  | | | (_| | (__| |_| | (_| | (_| |
-# |____/ \__,_|_|  |_|  \__,_|\___|\__,_|\__,_|\__,_|
-#                                                    
+#  _                         
+# |_) _  __ __ _  _     _| _ 
+# |_)(_| |  | (_|(_ |_|(_|(_|
+#
 # Deployment of CUDALAB EU configuration in Microsoft Azure using Terraform and Ansible
 #
 ##############################################################################################################
-EOF
+"
 
 # Stop running when command returns error
 set -e
@@ -20,6 +18,8 @@ STATE="/tmp/terraform.tfstate"
 ANSIBLEWEBINVENTORY="/data/ansible/inventory/web"
 
 TODAY=`date +"%Y-%m-%d"`
+
+echo "##vso[task.setvariable variable=TF_VAR_ccsecret]"
 
 echo "TF_VAR_ccsecret: $TF_VAR_ccsecret"
 echo "Hello World"
