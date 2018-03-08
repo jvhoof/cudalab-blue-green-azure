@@ -35,7 +35,7 @@ terraform plan -state="$STATE" --out "$PLAN" -var ccSecret=$TF_VAR_CCSECRET -var
 echo ""
 echo "==> Terraform apply"
 echo ""
-terraform apply -state="$STATE" "$PLAN"
+terraform apply "$PLAN"
 
 #echo ""
 #echo "==> Terraform output to Ansible inventory"
