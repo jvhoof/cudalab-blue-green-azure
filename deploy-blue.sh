@@ -19,21 +19,7 @@ ANSIBLEWEBINVENTORY="/data/ansible/inventory/web"
 
 TODAY=`date +"%Y-%m-%d"`
 
-echo "Test: ##vso[task.setvariable variable=TF_VAR_ccsecret]"
 set
-
-echo "TF_VAR_ccsecret: $TF_VAR_CCSECRET"
-echo "Hello World"
-echo "AGENT_WORKFOLDER is $AGENT_WORKFOLDER"
-echo "AGENT_WORKFOLDER contents:"
-ls -1 $AGENT_WORKFOLDER
-echo "AGENT_BUILDDIRECTORY is $AGENT_BUILDDIRECTORY"
-echo "AGENT_BUILDDIRECTORY contents:"
-ls -1 $AGENT_BUILDDIRECTORY
-echo "BUILD_SOURCESDIRECTORY is $BUILD_SOURCESDIRECTORY"
-echo "BUILD_SOURCESDIRECTORY contents:"
-ls -1 $BUILD_SOURCESDIRECTORY
-echo "Over and out."
 
 echo ""
 echo "==> Terraform init"
@@ -43,12 +29,12 @@ terraform init terraform-blue/
 echo ""
 echo "==> Terraform plan"
 echo ""
-terraform plan -state="$STATE" -var CLIENT_ID="$TF_VAR_CLIENT_ID" -var CLIENT_SECRET=$TF_VAR_CLIENT_SECRET -var password=$TF_VAR_PASSWORD -var ssh_key_data=$TF_VAR_SSH_KEY_DATA terraform-blue/
+terraform plan -state="$STATE" -var ccSecret=$TF_VAR_CCSECRET -var password=$TF_VAR_PASSWORD -var ssh_key_data=$TF_VAR_SSH_KEY_DATA terraform-blue/
 
-#echo ""
-#echo "==> Terraform apply"
-#echo ""
-#docker run --rm -itv $PWD:/data -v terraform-run:/.terraform/ -v ~/.ssh:/ssh/ jvhoof/ansible-docker terraform apply -state="$STATE" -var-file="$SECRET" /data/terraform 
+echo ""
+echo "==> Terraform apply"
+echo ""
+terraform apply -state="$STATE" -var ccSecret=$TF_VAR_CCSECRET -var password=$TF_VAR_PASSWORD -var ssh_key_data=$TF_VAR_SSH_KEY_DATA terraform-blue/
 
 #echo ""
 #echo "==> Terraform output to Ansible inventory"
