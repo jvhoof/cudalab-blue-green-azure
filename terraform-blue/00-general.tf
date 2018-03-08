@@ -1,2 +1,4 @@
 variable "ssh_key_data" {}
-variable "password" {}
+variable "password" {
+    default = "${var.PASSWORD}""
+}
