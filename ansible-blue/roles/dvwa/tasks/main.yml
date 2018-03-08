@@ -1,0 +1,53 @@
+---
+- name: DVWA
+  docker_container:
+    name: dvwa
+    image: vulnerables/web-dvwa
+    state: started
+    pull: true
+    ports:
+    - "9100:80"
+
+- name: Wait 300 seconds for port 9100 to become open on the host, don't start checking for 10 seconds
+  wait_for:
+    port: 9100
+    delay: 10
+
+- name: Get session data from DVWA
+  uri:
+    url: http://{{ hostvars[inventory_hostname].ansible_host }}:9100/setup.php
+    method: GET
+    status_code: 200 
+    return_content: yes
+    body_format: raw
+  register: result
+
+#- debug:
+#    msg: "System {{ inventory_hostname }} has returned login {{ result.headers }}"
+
+#- set_fact: 
+#    usertoken: "{{ result.content | regex_replace(\"^.*user_token\' value=\'(.+)\'.*?$\",'\\1') }}"
+
+- set_fact: 
+    test: "{{ result.content | regex_replace(\"\'\") }}"
+
+- set_fact: 
+    usertoken: "{{ test | regex_replace('^(?s).*value=([a-z0-9]+) \\/(?s).*$','\\1') }}"
+
+- set_fact: 
+    sessiontoken: "{{ result.set_cookie | regex_replace('^(?s).*(PHPSESSID=[a-z0-9]+);(?s).*$','\\1') }}"
+
+- debug:
+    msg: "System {{ inventory_hostname }} has returned sessiontoken {{ sessiontoken }}"
+
+
+- name: Setup DVWA
+  uri:
+    url: http://{{ hostvars[inventory_hostname].ansible_host }}:9100/setup.php
+    method: POST
+    body: "create_db=Create+%2f+Reset+Database&user_token={{ usertoken }}"
+    status_code: 302 
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
+      Cookie: "security=impossible; {{ sessiontoken }}"
+

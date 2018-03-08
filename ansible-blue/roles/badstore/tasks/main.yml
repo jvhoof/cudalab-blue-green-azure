@@ -1,0 +1,9 @@
+---
+- name: Badstore
+  docker_container:
+    name: badstore
+    image: jvhoof/badstore-docker
+    state: started
+    pull: true
+    ports:
+    - "9000:80"
