@@ -38,12 +38,12 @@ echo "Over and out."
 echo ""
 echo "==> Terraform init"
 echo ""
-terraform init -var CLIENT_ID="$TF_VAR_CLIENT_ID" -var CLIENT_SECRET=$TF_VAR_CLIENT_SECRET terraform-blue/
+terraform init terraform-blue/
 
 echo ""
 echo "==> Terraform plan"
 echo ""
-terraform plan -state="$STATE" -var CLIENT_ID="$TF_VAR_CLIENT_ID" -var CLIENT_SECRET=$TF_VAR_CLIENT_SECRET terraform-blue/
+terraform plan -state="$STATE" -var CLIENT_ID="$TF_VAR_CLIENT_ID" -var CLIENT_SECRET=$TF_VAR_CLIENT_SECRET -var password=$TF_VAR_PASSWORD terraform-blue/
 
 #echo ""
 #echo "==> Terraform apply"
