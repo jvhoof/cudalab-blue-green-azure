@@ -14,7 +14,8 @@ echo "
 set -e
 
 #SECRET="/ssh/secrets.tfvars"
-STATE="/tmp/terraform.tfstate"
+STATE="terraform.tfstate"
+PLAN="terraform.plan"
 ANSIBLEWEBINVENTORY="/data/ansible/inventory/web"
 
 TODAY=`date +"%Y-%m-%d"`
@@ -29,12 +30,12 @@ terraform init terraform-blue/
 echo ""
 echo "==> Terraform plan"
 echo ""
-terraform plan -state="$STATE" -var ccSecret=$TF_VAR_CCSECRET -var password=$TF_VAR_PASSWORD -var ssh_key_data=$TF_VAR_SSH_KEY_DATA terraform-blue/
+terraform plan -state="$STATE" --out "$PLAN" -var ccSecret=$TF_VAR_CCSECRET -var password=$TF_VAR_PASSWORD -var ssh_key_data=$TF_VAR_SSH_KEY_DATA terraform-blue/
 
 echo ""
 echo "==> Terraform apply"
 echo ""
-terraform apply -state="$STATE" -var ccSecret=$TF_VAR_CCSECRET -var password=$TF_VAR_PASSWORD -var ssh_key_data=$TF_VAR_SSH_KEY_DATA terraform-blue/
+terraform apply -state="$STATE" -var ccSecret=$TF_VAR_CCSECRET -var password=$TF_VAR_PASSWORD -var ssh_key_data=$TF_VAR_SSH_KEY_DATA "$PLAN"
 
 #echo ""
 #echo "==> Terraform output to Ansible inventory"
