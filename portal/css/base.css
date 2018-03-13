@@ -1,0 +1,12 @@
+.product_tile{
+  background: url('../images/elements-sprite_150.jpg') no-repeat;
+  height: 150px;
+  width: 150px;
+  text-indent: -9999px;
+  position: absolute;
+  z-index: 3;
+}
+
+.product_tile {
+  background-position: -300px -150px;
+}

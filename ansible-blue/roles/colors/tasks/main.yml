@@ -1,7 +1,7 @@
 ---
 - name: Ansible copy directory to the remote server
   copy:
-    src: /data/colors
+    src: colors
     dest: /data
 
 - name: Color-blue

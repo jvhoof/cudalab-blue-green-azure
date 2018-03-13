@@ -1,7 +1,7 @@
 ---
 - name: Ansible copy directory to the remote server
   copy:
-    src: /data/portal
+    src: portal
     dest: /data
 
 - name: Portal
