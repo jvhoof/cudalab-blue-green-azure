@@ -1,0 +1,4 @@
+---
+
+- debug:
+    msg: "Received token: {{ token.json.token }} test_token {{ test_token }} base_url {{ base_url }}"

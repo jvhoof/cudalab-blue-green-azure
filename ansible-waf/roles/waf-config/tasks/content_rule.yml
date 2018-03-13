@@ -1,0 +1,43 @@
+#### WAF Create PORTAL content rule ###
+- name: Get {{ waf_content_rule_portal_name }}  content rule
+  uri:
+    url: http://{{ hostvars[inventory_hostname].ansible_host }}:8000/restapi/v3/services/{{ waf_service_name }}/content-rules/{{ waf_content_rule_portal_name }}
+    method: GET
+    user: "{{ token.json.token }}"
+    password: ""
+    force_basic_auth: yes
+    headers:
+      Content-Type: "application/json"
+    status_code: 200
+  register: service
+  ignore_errors: True
+- debug:
+    msg: "{{service.json}}"
+
+- name: Create {{ waf_content_rule_portal_name }}  content rule
+  when: service|failed
+  uri:
+    url: http://{{ hostvars[inventory_hostname].ansible_host }}:8000/restapi/v3/services/{{ waf_service_name }}/content-rules
+    method: POST
+    user: "{{ token.json.token }}"
+    password: ""
+    force_basic_auth: yes
+    body: '{ "access-log": "Enable", "url-match": "/*", "status": "On", "mode": "Active", "name": "{{ waf_content_rule_portal_name }}", "comments": "{{ waf_content_rule_portal_comment }}", "web-firewall-policy": "default", "app-id": "{{ waf_service_name }}", "host-match": "az-portal.{{ domain }}" }'
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+    status_code: 201
+
+- name: Edit {{ waf_content_rule_portal_name }} content rule
+  when: service|succeeded
+  uri:
+    url: http://{{ hostvars[inventory_hostname].ansible_host }}:8000/restapi/v3/services/{{ waf_service_name }}/content-rules/{{ waf_content_rule_portal_name }}
+    method: PUT
+    user: "{{ token.json.token }}"
+    password: ""
+    force_basic_auth: yes
+    body: '{ "access-log": "Enable", "url-match": "/*", "status": "On", "mode": "Active", "name": "{{ waf_content_rule_portal_name }}", "comments": "{{ waf_content_rule_portal_comment }}", "web-firewall-policy": "default", "app-id": "{{ waf_service_name }}", "host-match": "{{ waf_content_rule_dvwa_hostname }}" }'
+    body_format: json
+    headers:
+      Content-Type: "application/json"
+    status_code: 200
