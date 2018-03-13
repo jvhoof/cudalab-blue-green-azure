@@ -5,7 +5,7 @@ variable "location" {
 
 variable "prefix" {
   description = "The shortened abbreviation to represent your resource group that will go on the front of some resources."
-  default     = "CL-TEST1"
+  default     = "CLTEST2"
 }
 
 variable "vnet" {
