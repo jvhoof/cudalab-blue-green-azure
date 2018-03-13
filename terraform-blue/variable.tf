@@ -82,7 +82,7 @@ variable "waf_defaultgateway" {
 
 variable "waf_vmsize" {
   description = ""
-  default     = "Standard_DS1_v2"
+  default     = "Standard_DS1"
 }
 
 variable "admin_password" {

@@ -4,10 +4,10 @@ resource "azurerm_resource_group" "resourcegroupsql" {
 }
 
 resource "azurerm_network_interface" "sqlifc" {
-  name                = "${var.prefix}-VM-SQL-IFC"
-  location            = "${azurerm_resource_group.resourcegroupsql.location}"
-  resource_group_name = "${azurerm_resource_group.resourcegroupsql.name}"
-  enable_ip_forwarding  = true
+  name                 = "${var.prefix}-VM-SQL-IFC"
+  location             = "${azurerm_resource_group.resourcegroupsql.location}"
+  resource_group_name  = "${azurerm_resource_group.resourcegroupsql.name}"
+  enable_ip_forwarding = true
 
   ip_configuration {
     name                          = "interface1"
@@ -22,7 +22,7 @@ resource "azurerm_virtual_machine" "sqlvm" {
   location              = "${azurerm_resource_group.resourcegroupsql.location}"
   resource_group_name   = "${azurerm_resource_group.resourcegroupsql.name}"
   network_interface_ids = ["${azurerm_network_interface.sqlifc.id}"]
-  vm_size               = "Standard_DS1_v2"
+  vm_size               = "Standard_DS1"
 
   storage_image_reference {
     publisher = "Canonical"
@@ -46,6 +46,7 @@ resource "azurerm_virtual_machine" "sqlvm" {
 
   os_profile_linux_config {
     disable_password_authentication = false
+
     ssh_keys {
       path     = "/home/azureuser/.ssh/authorized_keys"
       key_data = "${var.ssh_key_data}"
@@ -58,25 +59,30 @@ resource "azurerm_virtual_machine" "sqlvm" {
 }
 
 data "template_file" "sql_ansible" {
-  count = 1
+  count    = 1
   template = "${file("${path.module}/hostname.tpl")}"
+
   vars {
     index = "${count.index + 1}"
     name  = "sql"
     env   = "p"
     extra = " ansible_host=${element(split(",",azurerm_network_interface.sqlifc.private_ip_address),count.index)}"
+
     # extra = ""
   }
-  depends_on          = ["azurerm_virtual_machine.sqlvm"]
+
+  depends_on = ["azurerm_virtual_machine.sqlvm"]
 }
 
 data "template_file" "sql_ansible_inventory" {
   template = "${file("${path.module}/ansible_sql_hosts.tpl")}"
+
   vars {
-    env         = "production"
-    sql_hosts   = "${join("\n",data.template_file.sql_ansible.*.rendered)}"
+    env       = "production"
+    sql_hosts = "${join("\n",data.template_file.sql_ansible.*.rendered)}"
   }
-  depends_on          = ["azurerm_virtual_machine.sqlvm"]
+
+  depends_on = ["azurerm_virtual_machine.sqlvm"]
 }
 
 output "sql_private_ip_address" {
@@ -84,5 +90,5 @@ output "sql_private_ip_address" {
 }
 
 output "sql_ansible_inventory" {
-	value = "${data.template_file.sql_ansible_inventory.rendered}"
+  value = "${data.template_file.sql_ansible_inventory.rendered}"
 }
