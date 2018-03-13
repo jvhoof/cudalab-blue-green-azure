@@ -16,7 +16,7 @@ set -e
 #SECRET="/ssh/secrets.tfvars"
 STATE="terraform.tfstate"
 PLAN="terraform.plan"
-ANSIBLEWEBINVENTORY="/data/ansible/inventory/web"
+ANSIBLEWEBINVENTORY="ansible-blue/inventory/web"
 
 TODAY=`date +"%Y-%m-%d"`
 
@@ -37,12 +37,12 @@ echo "==> Terraform apply"
 echo ""
 terraform apply "$PLAN"
 
-#echo ""
-#echo "==> Terraform output to Ansible inventory"
-#echo ""
-#docker run --rm -itv $PWD:/data -v terraform-run:/.terraform/ -v ~/.ssh:/ssh/ jvhoof/ansible-docker sh -c "terraform output -state=\"$STATE\" ansible_web_inventory > \"$ANSIBLEWEBINVENTORY\""
+echo ""
+echo "==> Terraform output to Ansible inventory"
+echo ""
+terraform output -state="$STATE" ansible_web_inventory > "$ANSIBLEWEBINVENTORY"
 
-#echo ""
-#echo "==> Ansible configuration"
-#echo ""
-#docker run --rm -itv $PWD:/data -v ~/.ssh:/ssh/ jvhoof/ansible-docker ansible-playbook /data/ansible/deploy-docker.yml -vvv -i /data/ansible/inventory/web
+echo ""
+echo "==> Ansible configuration"
+echo ""
+ansible-playbook ansible-blue/deploy-docker.yml -vvv -i "$ANSIBLEWEBINVENTORY"
