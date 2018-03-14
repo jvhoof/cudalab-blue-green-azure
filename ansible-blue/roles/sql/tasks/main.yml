@@ -13,7 +13,7 @@
     ports:
       - "3306:3306"
     env:
-      MYSQL_ROOT_PASSWORD: "{{ action_user_pw }}"
+      MYSQL_ROOT_PASSWORD: "{{ db_password }}"
     volumes:
      - /data/db:/var/lib/mysql
 
