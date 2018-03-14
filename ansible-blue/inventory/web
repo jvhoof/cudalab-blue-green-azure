@@ -1,5 +1,0 @@
-[web]
-web-p-01  ansible_host=13.80.120.178
-
-[production:children]
-web

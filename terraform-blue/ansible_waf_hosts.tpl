@@ -1,5 +1,5 @@
 [waf]
-${waf_hosts}
+${waf_hosts} gather_facts=no
 
 [${env}:children]
 waf

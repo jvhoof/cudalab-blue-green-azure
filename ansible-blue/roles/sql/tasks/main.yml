@@ -17,7 +17,7 @@
     volumes:
      - /data/db:/var/lib/mysql
 
-- name: Wait 300 seconds for port 9200 to become open on the host, don't start checking for 10 seconds
+- name: Wait 300 seconds for port 3306 to become open on the host, don't start checking for 10 seconds
   wait_for:
     port: 3306
     delay: 10
