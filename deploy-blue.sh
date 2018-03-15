@@ -60,7 +60,7 @@ echo "==> Ansible configuration web server"
 echo ""
 ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLEWEBINVENTORY"
 
-cat "$TF_VAR    "
+echo "--> [$DB_PASSWORD]"
 echo ""
 echo "==> Ansible configuration sql server"
 echo ""
