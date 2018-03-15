@@ -28,6 +28,7 @@ do
  d) DB_PASSWORD=${OPTARG};;
  esac
 done
+echo "--> DB Password: $DB_PASSWORD"
 
 echo ""
 echo "==> Terraform init"
