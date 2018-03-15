@@ -21,7 +21,13 @@ ANSIBLESQLINVENTORY="ansible-blue/inventory/sql"
 
 TODAY=`date +"%Y-%m-%d"`
 
-set
+while getopts d: option
+do
+ case "${option}"
+ in
+ d) DB_PASSWORD=${OPTARG};;
+ esac
+done
 
 echo ""
 echo "==> Terraform init"
@@ -53,7 +59,8 @@ echo "==> Ansible configuration web server"
 echo ""
 ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLEWEBINVENTORY"
 
+cat "$TF_VAR    "
 echo ""
 echo "==> Ansible configuration sql server"
 echo ""
-ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLESQLINVENTORY" --extra-vars "db_password=$TF_VAR_DB_PASSWORD"
+ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLESQLINVENTORY" --extra-vars "db_password=$DB_PASSWORD"
