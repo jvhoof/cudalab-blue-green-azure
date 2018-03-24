@@ -1,11 +1,11 @@
 variable "location" {
   description = "The name of the resource group in which to create the virtual network."
-  default     = "West Europe"
+  default     = "East US 2"
 }
 
 variable "prefix" {
   description = "The shortened abbreviation to represent your resource group that will go on the front of some resources."
-  default     = "CLTEST2"
+  default     = "JVH100"
 }
 
 variable "vnet" {

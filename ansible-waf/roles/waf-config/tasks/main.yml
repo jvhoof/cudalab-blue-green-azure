@@ -6,9 +6,6 @@
 #  - Configure system settings (Beware: changing the timezone will issue a reboot of the unit)
 #  - Add SSL Certificate for services
 #  - Configure service and content rules
-#  - Add SSL Certificate for MGMT
-#  - Configure HTTPS admin access only
-#  - Update security policy per content rule and import from template
 
 ### WAF Getting ready ###
 - name: WAF - Check if login page is ready
@@ -21,6 +18,7 @@
   retries: 60
   delay: 15
 
+### WAF Auth Token ###
 - include_tasks: waf-get-token.yml
   vars:
     request_url: "{{ waf_base_url }}"
@@ -32,13 +30,6 @@
     request_url: "{{ waf_base_url }}"
     request_path: "/restapi/v3/system"
     request_body: '{ "device-name": "{{ waf_device_name }}", "hostname": "{{ inventory_hostname }}", "domain": "{{ waf_domain }}", "time-zone": "{{ waf_timezone }}" }'
-
-- name: test
-  set_fact:
-    test: "blah"
-
-- debug:
-    msg: "Contents of {{ waf_token }}"
 
 ### WAF SSL Certificate ###
 - name: "WAF - Get SSL certificate"
