@@ -31,7 +31,7 @@
     delay: 10
 
 # Create database demo
-- name: Create a new database with name 'bobdata'
+- name: Create a new database with name 'demo'
   mysql_db:
     name: demo
     state: present
@@ -42,6 +42,9 @@
     password: 12345
     priv: 'demo.*:ALL'
     state: present
+    login_host: localhost
+    login_user: root
+    login_password: "{{ db_password }}"
 
 # Copy database dump file to remote host and restore it to database 'my_db'
 - name: Copy database dump file
