@@ -30,28 +30,17 @@
     port: 3306
     delay: 10
 
-# Removes anonymous user account for localhost
-- mysql_user:
-    name: ''
-    host: localhost
-    state: absent
-
-# Removes all anonymous user accounts
-- mysql_user:
-    name: ''
-    host_all: yes
-    state: absent
-
-# Create database user with name 'bob' and password '12345' with all database privileges
-- mysql_user:
-    name: bob
-    password: 12345
-    priv: '*.*:ALL'
-    state: present
-
+# Create database demo
 - name: Create a new database with name 'bobdata'
   mysql_db:
     name: demo
+    state: present
+
+# Create database user with name 'bob' and password '12345' with all database privileges
+- mysql_user:
+    name: demo
+    password: 12345
+    priv: 'demo.*:ALL'
     state: present
 
 # Copy database dump file to remote host and restore it to database 'my_db'
@@ -65,10 +54,3 @@
     name: demo
     state: import
     target: /tmp/colors.sql
-
-- name: Import file.sql similar to mysql -u <username> -p <password> < hostname.sql
-  mysql_db:
-    state: import
-    name: all
-    target: /tmp/{{ inventory_hostname }}.sql
-
