@@ -35,6 +35,9 @@
   mysql_db:
     name: demo
     state: present
+    login_host: localhost
+    login_user: root
+    login_password: "{{ db_password }}"
 
 # Create database user with name 'bob' and password '12345' with all database privileges
 - mysql_user:
