@@ -26,7 +26,6 @@ while getopts d: option; do
         d) DB_PASSWORD=$OPTARG ;;
     esac
 done
-echo "--> DB Password: $DB_PASSWORD"
 
 echo ""
 echo "==> Terraform init"
@@ -58,7 +57,6 @@ echo "==> Ansible configuration web server"
 echo ""
 #ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLEWEBINVENTORY"
 
-echo "--> [$DB_PASSWORD]"
 echo ""
 echo "==> Ansible configuration sql server"
 echo ""
