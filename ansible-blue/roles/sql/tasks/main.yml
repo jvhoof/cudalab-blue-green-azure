@@ -35,7 +35,7 @@
   mysql_db:
     name: demo
     state: present
-    login_host: {{ hostvars[inventory_hostname].ansible_host }}
+    login_host: "{{ hostvars[inventory_hostname].ansible_host }}"
     login_user: root
     login_password: "{{ db_password }}"
 
@@ -46,7 +46,7 @@
     password: 12345
     priv: 'demo.*:ALL'
     state: present
-    login_host: {{ hostvars[inventory_hostname].ansible_host }}
+    login_host: "{{ hostvars[inventory_hostname].ansible_host }}"
     login_user: root
     login_password: "{{ db_password }}"
 
@@ -61,6 +61,6 @@
     name: demo
     state: import
     target: /tmp/colors.sql
-    login_host: {{ hostvars[inventory_hostname].ansible_host }}
+    login_host: "{{ hostvars[inventory_hostname].ansible_host }}"
     login_user: root
     login_password: "{{ db_password }}"
