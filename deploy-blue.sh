@@ -21,7 +21,7 @@ ANSIBLESQLINVENTORY="ansible-blue/inventory/sql"
 
 TODAY=`date +"%Y-%m-%d"`
 
-while getopts d: option do
+while getopts d: option; do
     case "${option}" in
         d) DB_PASSWORD=$OPTARG ;;
     esac
