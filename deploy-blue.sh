@@ -23,9 +23,7 @@ TODAY=`date +"%Y-%m-%d"`
 
 while getopts d: option do
     case "${option}" in
-        d) 
-            DB_PASSWORD=$OPTARG
-            ;;
+        d) DB_PASSWORD=$OPTARG ;;
     esac
 done
 echo "--> DB Password: $DB_PASSWORD"
