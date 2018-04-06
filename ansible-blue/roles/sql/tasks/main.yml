@@ -17,6 +17,7 @@
     name: db
     image: mariadb
     state: started
+    recreate: yes
     pull: true
     ports:
       - "3306:3306"
