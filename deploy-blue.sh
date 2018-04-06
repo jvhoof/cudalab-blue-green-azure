@@ -58,7 +58,7 @@ terraform output -state="$STATE" sql_ansible_inventory > "$ANSIBLESQLINVENTORY"
 echo ""
 echo "==> Ansible configuration web server"
 echo ""
-ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLEWEBINVENTORY"
+#ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLEWEBINVENTORY"
 
 echo "--> [$DB_PASSWORD]"
 echo ""
