@@ -177,5 +177,5 @@ output "waf_private_ip_address" {
 }
 
 output "waf_ansible_inventory" {
-  value = "${data.template_file.ansible_inventory_waf.rendered}"
+  value = "${data.template_file.waf_ansible_inventory.rendered}"
 }
