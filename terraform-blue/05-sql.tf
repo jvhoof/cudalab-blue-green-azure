@@ -60,22 +60,18 @@ resource "azurerm_virtual_machine" "sqlvm" {
 
 data "template_file" "sql_ansible" {
   count    = 1
-  template = "${file("${path.module}/hostname.tpl")}"
+  template = "${file("${path.module}/ansible_host.tpl")}"
 
   vars {
-    index = "${count.index + 1}"
-    name  = "sql"
-    env   = "p"
+    name  = "${var.prefix}-VM-SQL"
     extra = " ansible_host=${element(split(",",azurerm_network_interface.sqlifc.private_ip_address),count.index)}"
-
-    # extra = ""
   }
 
   depends_on = ["azurerm_virtual_machine.sqlvm"]
 }
 
 data "template_file" "sql_ansible_inventory" {
-  template = "${file("${path.module}/ansible_sql_hosts.tpl")}"
+  template = "${file("${path.module}/sql_ansible_hosts.tpl")}"
 
   vars {
     env       = "production"

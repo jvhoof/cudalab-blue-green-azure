@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "resourcegroupwaf" {
-  name     = "${var.prefix}-RG-WAF"
+  name     = "${var.prefix}-RG"
   location = "${var.location}"
 }
 
@@ -64,83 +64,53 @@ resource "azurerm_lb_rule" "waflbrulehttps" {
   frontend_ip_configuration_name = "${var.prefix}-LB-WAF-PIP"
   probe_id                       = "${azurerm_lb_probe.waflbprobe.id}"
   backend_address_pool_id        = "${azurerm_lb_backend_address_pool.waflbbackend.id}"
+  depends_on                     = ["azurerm_lb_probe.waflbprobe"]
 }
 
-resource "azurerm_lb_nat_rule" "wafmgmthttpa" {
-  resource_group_name = "${azurerm_resource_group.resourcegroupwaf.name}"
-  loadbalancer_id = "${azurerm_lb.waflb.id}"
-  name = "MGMThttpA"
-  protocol = "Tcp"
-  frontend_port = 8000
-  backend_port = 8000
+resource "azurerm_lb_nat_rule" "waflbnatrulehttp" {
+  name                           = "MGMT-HTTP-WAF-${count.index}"
+  count                          = "${length(var.waf_ip_addresses)}"
+  loadbalancer_id                = "${azurerm_lb.waflb.id}"
+  resource_group_name            = "${azurerm_resource_group.resourcegroupwaf.name}"
+  protocol                       = "tcp"
+  frontend_port                  = "${count.index + 8000}"
+  backend_port                   = 8000
   frontend_ip_configuration_name = "${var.prefix}-LB-WAF-PIP"
 }
 
-resource "azurerm_lb_nat_rule" "wafmgmthttpsa" {
-  resource_group_name = "${azurerm_resource_group.resourcegroupwaf.name}"
-  loadbalancer_id = "${azurerm_lb.waflb.id}"
-  name = "MGMThttpsA"
-  protocol = "Tcp"
-  frontend_port = 8443
-  backend_port = 8443
+resource "azurerm_lb_nat_rule" "waflbnatrulehttps" {
+  name                           = "MGMT-HTTPS-WAF-${count.index}"
+  count                          = "${length(var.waf_ip_addresses)}"
+  loadbalancer_id                = "${azurerm_lb.waflb.id}"
+  resource_group_name            = "${azurerm_resource_group.resourcegroupwaf.name}"
+  protocol                       = "tcp"
+  frontend_port                  = "${count.index + 8443}"
+  backend_port                   = 8443
   frontend_ip_configuration_name = "${var.prefix}-LB-WAF-PIP"
 }
 
-resource "azurerm_lb_nat_rule" "wafmgmthttpb" {
+resource "azurerm_network_interface" "wafifc" {
+  name                = "${var.prefix}-VM-WAF-IFC-${count.index}"
+  count               = "${length(var.waf_ip_addresses)}"
+  location            = "${azurerm_resource_group.resourcegroupwaf.location}"
   resource_group_name = "${azurerm_resource_group.resourcegroupwaf.name}"
-  loadbalancer_id = "${azurerm_lb.waflb.id}"
-  name = "MGMThttpB"
-  protocol = "Tcp"
-  frontend_port = 8001
-  backend_port = 8000
-  frontend_ip_configuration_name = "${var.prefix}-LB-WAF-PIP"
-}
-
-resource "azurerm_lb_nat_rule" "wafmgmthttpsb" {
-  resource_group_name = "${azurerm_resource_group.resourcegroupwaf.name}"
-  loadbalancer_id = "${azurerm_lb.waflb.id}"
-  name = "MGMThttpsB"
-  protocol = "Tcp"
-  frontend_port = 8444
-  backend_port = 8443
-  frontend_ip_configuration_name = "${var.prefix}-LB-WAF-PIP"
-}
-
-resource "azurerm_network_interface" "wafifca" {
-  name                  = "${var.prefix}-VM-WAF-A-IFC"
-  location              = "${azurerm_resource_group.resourcegroupwaf.location}"
-  resource_group_name   = "${azurerm_resource_group.resourcegroupwaf.name}"
 
   ip_configuration {
     name                                    = "interface1"
     subnet_id                               = "${azurerm_subnet.subnet2.id}"
     private_ip_address_allocation           = "static"
-    private_ip_address                      = "${var.waf_a_ipaddress}"
+    private_ip_address                      = "${element(var.waf_ip_addresses, count.index)}"
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.waflbbackend.id}"]
-    load_balancer_inbound_nat_rules_ids = ["${azurerm_lb_nat_rule.wafmgmthttpa.id}", "${azurerm_lb_nat_rule.wafmgmthttpsa.id}" ]
+    load_balancer_inbound_nat_rules_ids     = ["${element(azurerm_lb_nat_rule.waflbnatrulehttp.*.id, count.index)}", "${element(azurerm_lb_nat_rule.waflbnatrulehttps.*.id, count.index)}"]
   }
 }
 
-resource "azurerm_network_interface" "wafifcb" {
-  name                  = "${var.prefix}-VM-WAF-B-IFC"
+resource "azurerm_virtual_machine" "wafvm" {
+  name                  = "${var.prefix}-VM-WAF-${count.index}"
+  count                 = "${length(var.waf_ip_addresses)}"
   location              = "${azurerm_resource_group.resourcegroupwaf.location}"
   resource_group_name   = "${azurerm_resource_group.resourcegroupwaf.name}"
-
-  ip_configuration {
-    name                                    = "interface1"
-    subnet_id                               = "${azurerm_subnet.subnet2.id}"
-    private_ip_address_allocation           = "static"
-    private_ip_address                      = "${var.waf_b_ipaddress}"
-    load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.waflbbackend.id}"]
-    load_balancer_inbound_nat_rules_ids = ["${azurerm_lb_nat_rule.wafmgmthttpb.id}", "${azurerm_lb_nat_rule.wafmgmthttpsb.id}" ]
-  }
-}
-
-resource "azurerm_virtual_machine" "wafvma" {
-  name                  = "${var.prefix}-VM-WAF-A"
-  location              = "${azurerm_resource_group.resourcegroupwaf.location}"
-  resource_group_name   = "${azurerm_resource_group.resourcegroupwaf.name}"
-  network_interface_ids = ["${azurerm_network_interface.wafifca.id}"]
+  network_interface_ids = ["${element(azurerm_network_interface.wafifc.*.id, count.index)}"]
   vm_size               = "${var.waf_vmsize}"
   availability_set_id   = "${azurerm_availability_set.wafavset.id}"
 
@@ -158,20 +128,20 @@ resource "azurerm_virtual_machine" "wafvma" {
   }
 
   storage_os_disk {
-    name              = "${var.prefix}-VM-WAF-A-OSDISK"
+    name              = "${var.prefix}-VM-WAF-OSDISK-${count.index}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
   os_profile {
-    computer_name  = "${var.prefix}-VM-WAF-B"
+    computer_name  = "${var.prefix}-VM-WAF-${count.index}"
     admin_username = "azureuser"
     admin_password = "${var.password}"
   }
 
-  os_profile_linux_config { 
-    disable_password_authentication = false 
+  os_profile_linux_config {
+    disable_password_authentication = false
   }
 
   tags {
@@ -179,45 +149,33 @@ resource "azurerm_virtual_machine" "wafvma" {
   }
 }
 
-resource "azurerm_virtual_machine" "wafvmb" {
-  name                  = "${var.prefix}-VM-WAF-B"
-  location              = "${azurerm_resource_group.resourcegroupwaf.location}"
-  resource_group_name   = "${azurerm_resource_group.resourcegroupwaf.name}"
-  network_interface_ids = ["${azurerm_network_interface.wafifcb.id}"]
-  vm_size               = "${var.waf_vmsize}"
-  availability_set_id   = "${azurerm_availability_set.wafavset.id}"
+data "template_file" "ansible_host" {
+  count    = "${length(var.waf_ip_addresses)}"
+  template = "${file("${path.module}/ansible_host.tpl")}"
 
-  storage_image_reference {
-    publisher = "barracudanetworks"
-    offer     = "waf"
-    sku       = "byol"
-    version   = "latest"
+  vars {
+    name      = "${var.prefix}-VM-WAF-${count.index}"
+    arguments = " ansible_host=${element(var.waf_ip_addresses, count.index)} gather_facts=no"
   }
 
-  plan {
-    publisher = "barracudanetworks"
-    product   = "waf"
-    name      = "byol"
+  depends_on = ["azurerm_virtual_machine.wafvm"]
+}
+
+data "template_file" "waf_ansible_inventory" {
+  template = "${file("${path.module}/ansible_inventory_waf.tpl")}"
+
+  vars {
+    env       = "production"
+    waf_hosts = "${join("\n",data.template_file.ansible_host.*.rendered)}"
   }
 
-  storage_os_disk {
-    name              = "${var.prefix}-VM-WAF-B-OSDISK"
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Standard_LRS"
-  }
+  depends_on = ["azurerm_virtual_machine.wafvm"]
+}
 
-  os_profile {
-    computer_name  = "${var.prefix}-VM-WAF-B"
-    admin_username = "azureuser"
-    admin_password = "${var.password}"
-  }
+output "waf_private_ip_address" {
+  value = "${azurerm_network_interface.wafifc.*.private_ip_address}"
+}
 
-  os_profile_linux_config { 
-    disable_password_authentication = false 
-  }
-
-  tags {
-    environment = "staging"
-  }
+output "waf_ansible_inventory" {
+  value = "${data.template_file.ansible_inventory_waf.rendered}"
 }

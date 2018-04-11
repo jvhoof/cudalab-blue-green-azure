@@ -18,6 +18,7 @@ STATE="terraform.tfstate"
 PLAN="terraform.plan"
 ANSIBLEWEBINVENTORY="ansible-blue/inventory/web"
 ANSIBLESQLINVENTORY="ansible-blue/inventory/sql"
+ANSIBLEWAFINVENTORY="ansible-waf/inventory/waf"
 
 TODAY=`date +"%Y-%m-%d"`
 
@@ -53,11 +54,26 @@ echo ""
 terraform output -state="$STATE" sql_ansible_inventory > "$ANSIBLESQLINVENTORY"
 
 echo ""
+echo "==> Terraform output to Ansible waf inventory"
+echo ""
+terraform output -state="$STATE" waf_ansible_inventory > "$ANSIBLEWAFINVENTORY"
+
+echo ""
 echo "==> Ansible configuration web server"
 echo ""
-#ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLEWEBINVENTORY"
+ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLEWEBINVENTORY"
 
 echo ""
 echo "==> Ansible configuration sql server"
 echo ""
 ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLESQLINVENTORY" --extra-vars "db_password=$DB_PASSWORD"
+
+echo ""
+echo "==> Ansible bootstrap waf server"
+echo ""
+ansible-playbook ansible-waf/bootstrap.yml -i "$ANSIBLESQLINVENTORY"
+
+echo ""
+echo "==> Ansible configuration waf server"
+echo ""
+ansible-playbook ansible-waf/deploy.yml -i "$ANSIBLEWAFINVENTORY"

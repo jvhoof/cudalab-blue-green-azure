@@ -60,22 +60,18 @@ resource "azurerm_virtual_machine" "webvm" {
 
 data "template_file" "web_ansible" {
   count    = 1
-  template = "${file("${path.module}/hostname.tpl")}"
+  template = "${file("${path.module}/ansible_host.tpl")}"
 
   vars {
-    index = "${count.index + 1}"
-    name  = "web"
-    env   = "p"
-    extra = " ansible_host=${element(split(",",azurerm_network_interface.webifc.private_ip_address),count.index)}"
-
-    # extra = ""
+    name      = "${var.prefix}-VM-WEB"
+    arguments = " ansible_host=${element(split(",",azurerm_network_interface.webifc.private_ip_address),count.index)} gather_facts=no"
   }
 
   depends_on = ["azurerm_virtual_machine.webvm"]
 }
 
 data "template_file" "web_ansible_inventory" {
-  template = "${file("${path.module}/ansible_web_hosts.tpl")}"
+  template = "${file("${path.module}/ansible_inventory_web.tpl")}"
 
   vars {
     env       = "production"
