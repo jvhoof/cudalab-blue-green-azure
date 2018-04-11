@@ -1,1 +1,1 @@
-${name} ${extra}
+${name} ${arguments}
