@@ -63,8 +63,8 @@ data "template_file" "sql_ansible" {
   template = "${file("${path.module}/ansible_host.tpl")}"
 
   vars {
-    name  = "${var.prefix}-VM-SQL"
-    extra = " ansible_host=${element(split(",",azurerm_network_interface.sqlifc.private_ip_address),count.index)}"
+    name      = "${var.prefix}-VM-SQL"
+    arguments = " ansible_host=${element(split(",",azurerm_network_interface.sqlifc.private_ip_address),count.index)}"
   }
 
   depends_on = ["azurerm_virtual_machine.sqlvm"]

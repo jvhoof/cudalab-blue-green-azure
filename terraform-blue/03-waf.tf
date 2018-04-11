@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "resourcegroupwaf" {
-  name     = "${var.prefix}-RG"
+  name     = "${var.prefix}-RG-WAF"
   location = "${var.location}"
 }
 
