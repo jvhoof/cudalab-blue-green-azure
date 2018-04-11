@@ -60,14 +60,11 @@ variable "ngf_vmsize" {
   default     = "Standard_DS1"
 }
 
-variable "waf_a_ipaddress" {
-  description = ""
-  default     = "172.30.101.10"
-}
-
-variable "waf_b_ipaddress" {
-  description = ""
-  default     = "172.30.101.11"
+variable "waf_ip_addresses" {
+  default = [
+    "172.30.101.10",
+    "172.30.101.11",
+  ]
 }
 
 variable "waf_subnetmask" {
