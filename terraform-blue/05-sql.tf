@@ -71,7 +71,7 @@ data "template_file" "sql_ansible" {
 }
 
 data "template_file" "sql_ansible_inventory" {
-  template = "${file("${path.module}/sql_ansible_hosts.tpl")}"
+  template = "${file("${path.module}/ansible_inventory_sql.tpl")}"
 
   vars {
     env       = "production"
