@@ -1,5 +1,5 @@
 [sql]
-${sql_hosts} gather_facts=no
+${sql_hosts}
 
 [${env}:children]
 sql

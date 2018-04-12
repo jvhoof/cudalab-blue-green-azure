@@ -64,7 +64,7 @@ data "template_file" "web_ansible" {
 
   vars {
     name      = "${var.prefix}-VM-WEB"
-    arguments = " ansible_host=${element(split(",",azurerm_network_interface.webifc.private_ip_address),count.index)} gather_facts=no"
+    arguments = "ansible_host=${element(split(",",azurerm_network_interface.webifc.private_ip_address),count.index)} gather_facts=no"
   }
 
   depends_on = ["azurerm_virtual_machine.webvm"]

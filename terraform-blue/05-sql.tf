@@ -64,7 +64,7 @@ data "template_file" "sql_ansible" {
 
   vars {
     name      = "${var.prefix}-VM-SQL"
-    arguments = " ansible_host=${element(split(",",azurerm_network_interface.sqlifc.private_ip_address),count.index)}"
+    arguments = "ansible_host=${element(split(",",azurerm_network_interface.sqlifc.private_ip_address),count.index)} gather_facts=no"
   }
 
   depends_on = ["azurerm_virtual_machine.sqlvm"]

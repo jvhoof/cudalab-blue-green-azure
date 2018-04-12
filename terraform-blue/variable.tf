@@ -84,12 +84,10 @@ variable "waf_vmsize" {
 
 variable "admin_password" {
   description = "administrator password"
-  default     = "Q1w2e34567890--"
 }
 
 variable "ccSecret" {
   description = "Next Gen Control Center Secret"
-  default     = "Q1w2e34567890--"
 }
 
 variable "ccIpAddress" {

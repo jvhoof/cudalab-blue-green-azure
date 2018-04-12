@@ -1,5 +1,5 @@
 [web]
-${web_hosts} gather_facts=no
+${web_hosts}
 
 [${env}:children]
 web
