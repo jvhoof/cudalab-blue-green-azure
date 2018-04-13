@@ -50,7 +50,7 @@ resource "azurerm_virtual_machine" "webvm" {
   os_profile {
     computer_name  = "${var.PREFIX}-VM-WEB"
     admin_username = "azureuser"
-    admin_password = "${var.password}"
+    admin_password = "${var.PASSWORD}"
   }
 
   os_profile_linux_config {
