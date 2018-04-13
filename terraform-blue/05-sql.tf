@@ -58,7 +58,7 @@ resource "azurerm_virtual_machine" "sqlvm" {
 
     ssh_keys {
       path     = "/home/azureuser/.ssh/authorized_keys"
-      key_data = "${var.ssh_key_data}"
+      key_data = "${var.SSH_KEY_DATA}"
     }
   }
 
