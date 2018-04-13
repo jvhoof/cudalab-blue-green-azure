@@ -20,10 +20,10 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_subnet" "subnet1" {
-  name                 = "${var.prefix}-SUBNET-NGF"
+  name                 = "${var.prefix}-SUBNET-CGF"
   resource_group_name  = "${azurerm_resource_group.resourcegroupvnet.name}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
-  address_prefix       = "${var.subnet_ngf}"
+  address_prefix       = "${var.subnet_cgf}"
 }
 
 resource "azurerm_subnet" "subnet2" {
@@ -59,21 +59,21 @@ resource "azurerm_route_table" "webroute" {
     name                   = "${var.prefix}-WebToInternet"
     address_prefix         = "0.0.0.0/0"
     next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
+    next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.prefix}-WebToWAF"
     address_prefix         = "172.30.101.0/24"
     next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
+    next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.prefix}-WebToDB"
     address_prefix         = "172.30.103.0/24"
     next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
+    next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 }
 
@@ -86,14 +86,14 @@ resource "azurerm_route_table" "wafroute" {
     name                   = "${var.prefix}-WAFToWEB"
     address_prefix         = "172.30.102.0/24"
     next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
+    next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.prefix}-WAFToDB"
     address_prefix         = "172.30.103.0/24"
     next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
+    next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 }
 
@@ -106,20 +106,20 @@ resource "azurerm_route_table" "dbroute" {
     name                   = "${var.prefix}-DBToInternet"
     address_prefix         = "0.0.0.0/0"
     next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
+    next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.prefix}-DBToWAF"
     address_prefix         = "172.30.101.0/24"
     next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
+    next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.prefix}-DBToWEB"
     address_prefix         = "172.30.102.0/24"
     next_hop_type          = "VirtualAppliance"
-    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
+    next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 }

@@ -73,7 +73,7 @@ variable "vnet" {
   default     = "172.30.100.0/22"
 }
 
-variable "subnet_ngf" {
+variable "subnet_cgf" {
   description = ""
   default     = "172.30.100.0/24"
 }
@@ -93,22 +93,22 @@ variable "subnet_db" {
   default     = "172.30.103.0/24"
 }
 
-variable "ngf_a_ipaddress" {
+variable "cgf_a_ipaddress" {
   description = ""
   default     = "172.30.100.10"
 }
 
-variable "ngf_subnetmask" {
+variable "cgf_subnetmask" {
   description = ""
   default     = "24"
 }
 
-variable "ngf_defaultgateway" {
+variable "cgf_defaultgateway" {
   description = ""
   default     = "172.30.100.1"
 }
 
-variable "ngf_vmsize" {
+variable "cgf_vmsize" {
   description = ""
   default     = "Standard_DS1"
 }
