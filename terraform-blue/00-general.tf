@@ -34,9 +34,8 @@ variable "ccRangeId" {
 }
 
 # Barracuda Firewall Control Center Cluster identifier
-variable "ccClusterName" {
-  description = "Barracuda Firewall Control Center Cluster Name"
-}
+#  description = "Barracuda Firewall Control Center Cluster Name"
+variable "ccClusterName" {}
 
 # Barracuda Firewall Control Center Firewall identifier
 variable "cgfVmName" {
