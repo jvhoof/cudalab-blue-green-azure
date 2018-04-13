@@ -1,3 +1,12 @@
+##############################################################################################################
+#  _                         
+# |_) _  __ __ _  _     _| _ 
+# |_)(_| |  | (_|(_ |_|(_|(_|
+#                                                    
+# Terraform configuration for Blue/Green deployment: Web Server
+#
+##############################################################################################################
+
 resource "azurerm_resource_group" "resourcegroupweb" {
   name     = "${var.prefix}-RG-WEB"
   location = "${var.location}"

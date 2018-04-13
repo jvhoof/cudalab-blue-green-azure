@@ -1,3 +1,12 @@
+##############################################################################################################
+#  _                         
+# |_) _  __ __ _  _     _| _ 
+# |_)(_| |  | (_|(_ |_|(_|(_|
+#                                                    
+# Terraform configuration for Blue/Green deployment: SQL Server
+#
+##############################################################################################################
+
 resource "azurerm_resource_group" "resourcegroupsql" {
   name     = "${var.prefix}-RG-SQL"
   location = "${var.location}"

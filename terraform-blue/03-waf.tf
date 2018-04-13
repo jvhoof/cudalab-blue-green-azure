@@ -1,3 +1,12 @@
+##############################################################################################################
+#  _                         
+# |_) _  __ __ _  _     _| _ 
+# |_)(_| |  | (_|(_ |_|(_|(_|
+#                                                    
+# Terraform configuration for Blue/Green deployment: Barracuda Web Application Firewall
+#
+##############################################################################################################
+
 resource "azurerm_resource_group" "resourcegroupwaf" {
   name     = "${var.prefix}-RG-WAF"
   location = "${var.location}"

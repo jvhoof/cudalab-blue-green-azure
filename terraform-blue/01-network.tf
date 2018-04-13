@@ -1,3 +1,12 @@
+##############################################################################################################
+#  _                         
+# |_) _  __ __ _  _     _| _ 
+# |_)(_| |  | (_|(_ |_|(_|(_|
+#                                                    
+# Terraform configuration for Blue/Green deployment: Networking
+#
+##############################################################################################################
+
 resource "azurerm_resource_group" "resourcegroupvnet" {
   name     = "${var.prefix}-RG-VNET"
   location = "${var.location}"
@@ -47,26 +56,25 @@ resource "azurerm_route_table" "webroute" {
   resource_group_name = "${azurerm_resource_group.resourcegroupvnet.name}"
 
   route {
-    name                = "${var.prefix}-WebToInternet"
-    address_prefix          = "0.0.0.0/0"
-    next_hop_type           = "VirtualAppliance"
-    next_hop_in_ip_address  = "${var.ngf_a_ipaddress}"
+    name                   = "${var.prefix}-WebToInternet"
+    address_prefix         = "0.0.0.0/0"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
   }
 
   route {
-    name                = "${var.prefix}-WebToWAF"
-    address_prefix          = "172.30.101.0/24"
-    next_hop_type           = "VirtualAppliance"
-    next_hop_in_ip_address  = "${var.ngf_a_ipaddress}"
+    name                   = "${var.prefix}-WebToWAF"
+    address_prefix         = "172.30.101.0/24"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
   }
 
   route {
-    name                = "${var.prefix}-WebToDB"
-    address_prefix          = "172.30.103.0/24"
-    next_hop_type           = "VirtualAppliance"
-    next_hop_in_ip_address  = "${var.ngf_a_ipaddress}"
+    name                   = "${var.prefix}-WebToDB"
+    address_prefix         = "172.30.103.0/24"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
   }
-
 }
 
 resource "azurerm_route_table" "wafroute" {
@@ -75,17 +83,17 @@ resource "azurerm_route_table" "wafroute" {
   resource_group_name = "${azurerm_resource_group.resourcegroupvnet.name}"
 
   route {
-    name                = "${var.prefix}-WAFToWEB"
-    address_prefix          = "172.30.102.0/24"
-    next_hop_type           = "VirtualAppliance"
-    next_hop_in_ip_address  = "${var.ngf_a_ipaddress}"
+    name                   = "${var.prefix}-WAFToWEB"
+    address_prefix         = "172.30.102.0/24"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
   }
 
   route {
-    name                = "${var.prefix}-WAFToDB"
-    address_prefix          = "172.30.103.0/24"
-    next_hop_type           = "VirtualAppliance"
-    next_hop_in_ip_address  = "${var.ngf_a_ipaddress}"
+    name                   = "${var.prefix}-WAFToDB"
+    address_prefix         = "172.30.103.0/24"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
   }
 }
 
@@ -95,23 +103,23 @@ resource "azurerm_route_table" "dbroute" {
   resource_group_name = "${azurerm_resource_group.resourcegroupvnet.name}"
 
   route {
-    name                    = "${var.prefix}-DBToInternet"
-    address_prefix           = "0.0.0.0/0"
-    next_hop_type           = "VirtualAppliance"
-    next_hop_in_ip_address  = "${var.ngf_a_ipaddress}"
+    name                   = "${var.prefix}-DBToInternet"
+    address_prefix         = "0.0.0.0/0"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
   }
 
   route {
-    name                = "${var.prefix}-DBToWAF"
-    address_prefix          = "172.30.101.0/24"
-    next_hop_type           = "VirtualAppliance"
-    next_hop_in_ip_address  = "${var.ngf_a_ipaddress}"
+    name                   = "${var.prefix}-DBToWAF"
+    address_prefix         = "172.30.101.0/24"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
   }
 
   route {
-    name                = "${var.prefix}-DBToWEB"
-    address_prefix          = "172.30.102.0/24"
-    next_hop_type           = "VirtualAppliance"
-    next_hop_in_ip_address  = "${var.ngf_a_ipaddress}"
+    name                   = "${var.prefix}-DBToWEB"
+    address_prefix         = "172.30.102.0/24"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "${var.ngf_a_ipaddress}"
   }
 }

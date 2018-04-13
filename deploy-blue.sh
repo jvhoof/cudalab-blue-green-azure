@@ -36,7 +36,7 @@ terraform init terraform-blue/
 echo ""
 echo "==> Terraform plan"
 echo ""
-terraform plan -state="$STATE" --out "$PLAN" -var "ccSecret=$TF_VAR_CCSECRET" -var "password=$TF_VAR_PASSWORD" -var "ssh_key_data=$TF_VAR_SSH_KEY_DATA" terraform-blue/
+terraform plan -state="$STATE" --out "$PLAN" -var "ccSecret=$CCSECRET" -var "password=$PASSWORD" -var "ssh_key_data=$SSH_KEY_DATA" terraform-blue/
 
 echo ""
 echo "==> Terraform apply"
@@ -61,12 +61,12 @@ terraform output -state="$STATE" waf_ansible_inventory > "$ANSIBLEWAFINVENTORY"
 echo ""
 echo "==> Ansible configuration web server"
 echo ""
-#ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLEWEBINVENTORY"
+ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLEWEBINVENTORY"
 
 echo ""
 echo "==> Ansible configuration sql server"
 echo ""
-#ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLESQLINVENTORY" --extra-vars "db_password=$DB_PASSWORD"
+ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLESQLINVENTORY" --extra-vars "db_password=$DB_PASSWORD"
 
 echo ""
 echo "==> Ansible bootstrap waf server"
