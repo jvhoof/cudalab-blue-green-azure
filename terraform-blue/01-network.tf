@@ -23,14 +23,14 @@ resource "azurerm_subnet" "subnet1" {
   name                 = "${var.PREFIX}-SUBNET-CGF"
   resource_group_name  = "${azurerm_resource_group.resourcegroupvnet.name}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
-  address_PREFIX       = "${var.subnet_cgf}"
+  address_prefix       = "${var.subnet_cgf}"
 }
 
 resource "azurerm_subnet" "subnet2" {
   name                 = "${var.PREFIX}-SUBNET-WAF"
   resource_group_name  = "${azurerm_resource_group.resourcegroupvnet.name}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
-  address_PREFIX       = "${var.subnet_waf}"
+  address_prefix       = "${var.subnet_waf}"
   route_table_id       = "${azurerm_route_table.wafroute.id}"
 }
 
@@ -38,7 +38,7 @@ resource "azurerm_subnet" "subnet3" {
   name                 = "${var.PREFIX}-SUBNET-WEB"
   resource_group_name  = "${azurerm_resource_group.resourcegroupvnet.name}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
-  address_PREFIX       = "${var.subnet_web}"
+  address_prefix       = "${var.subnet_web}"
   route_table_id       = "${azurerm_route_table.webroute.id}"
 }
 
@@ -46,7 +46,7 @@ resource "azurerm_subnet" "subnet4" {
   name                 = "${var.PREFIX}-SUBNET-DB"
   resource_group_name  = "${azurerm_resource_group.resourcegroupvnet.name}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
-  address_PREFIX       = "${var.subnet_db}"
+  address_prefix       = "${var.subnet_db}"
   route_table_id       = "${azurerm_route_table.dbroute.id}"
 }
 
@@ -57,21 +57,21 @@ resource "azurerm_route_table" "webroute" {
 
   route {
     name                   = "${var.PREFIX}-WebToInternet"
-    address_PREFIX         = "0.0.0.0/0"
+    address_prefix         = "0.0.0.0/0"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.PREFIX}-WebToWAF"
-    address_PREFIX         = "172.30.101.0/24"
+    address_prefix         = "172.30.101.0/24"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.PREFIX}-WebToDB"
-    address_PREFIX         = "172.30.103.0/24"
+    address_prefix         = "172.30.103.0/24"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
@@ -84,14 +84,14 @@ resource "azurerm_route_table" "wafroute" {
 
   route {
     name                   = "${var.PREFIX}-WAFToWEB"
-    address_PREFIX         = "172.30.102.0/24"
+    address_prefix         = "172.30.102.0/24"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.PREFIX}-WAFToDB"
-    address_PREFIX         = "172.30.103.0/24"
+    address_prefix         = "172.30.103.0/24"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
@@ -104,21 +104,21 @@ resource "azurerm_route_table" "dbroute" {
 
   route {
     name                   = "${var.PREFIX}-DBToInternet"
-    address_PREFIX         = "0.0.0.0/0"
+    address_prefix         = "0.0.0.0/0"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.PREFIX}-DBToWAF"
-    address_PREFIX         = "172.30.101.0/24"
+    address_prefix         = "172.30.101.0/24"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.PREFIX}-DBToWEB"
-    address_PREFIX         = "172.30.102.0/24"
+    address_prefix         = "172.30.102.0/24"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }

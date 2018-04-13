@@ -31,8 +31,6 @@ while getopts c:d:p:s option; do
     esac
 done
 
-set 
-
 echo ""
 echo "==> Terraform init"
 echo ""
