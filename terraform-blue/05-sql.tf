@@ -8,12 +8,12 @@
 ##############################################################################################################
 
 resource "azurerm_resource_group" "resourcegroupsql" {
-  name     = "${var.prefix}-RG-SQL"
+  name     = "${var.PREFIX}-RG-SQL"
   location = "${var.location}"
 }
 
 resource "azurerm_network_interface" "sqlifc" {
-  name                 = "${var.prefix}-VM-SQL-IFC"
+  name                 = "${var.PREFIX}-VM-SQL-IFC"
   location             = "${azurerm_resource_group.resourcegroupsql.location}"
   resource_group_name  = "${azurerm_resource_group.resourcegroupsql.name}"
   enable_ip_forwarding = true
@@ -27,7 +27,7 @@ resource "azurerm_network_interface" "sqlifc" {
 }
 
 resource "azurerm_virtual_machine" "sqlvm" {
-  name                  = "${var.prefix}-VM-SQL"
+  name                  = "${var.PREFIX}-VM-SQL"
   location              = "${azurerm_resource_group.resourcegroupsql.location}"
   resource_group_name   = "${azurerm_resource_group.resourcegroupsql.name}"
   network_interface_ids = ["${azurerm_network_interface.sqlifc.id}"]
@@ -41,14 +41,14 @@ resource "azurerm_virtual_machine" "sqlvm" {
   }
 
   storage_os_disk {
-    name              = "${var.prefix}-VM-SQL-OSDISK"
+    name              = "${var.PREFIX}-VM-SQL-OSDISK"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
   os_profile {
-    computer_name  = "${var.prefix}-VM-SQL"
+    computer_name  = "${var.PREFIX}-VM-SQL"
     admin_username = "azureuser"
     admin_password = "${var.password}"
   }
@@ -72,7 +72,7 @@ data "template_file" "sql_ansible" {
   template = "${file("${path.module}/ansible_host.tpl")}"
 
   vars {
-    name      = "${var.prefix}-VM-SQL"
+    name      = "${var.PREFIX}-VM-SQL"
     arguments = "ansible_host=${element(split(",",azurerm_network_interface.sqlifc.private_ip_address),count.index)} gather_facts=no"
   }
 

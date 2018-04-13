@@ -8,28 +8,28 @@
 ##############################################################################################################
 
 # Prefix for all resources created for this deployment in Microsoft Azure
-variable "prefix" {
+variable "PREFIX" {
   description = "The shortened abbreviation to represent deployment that will go on the front of some resources."
 }
 
 # SSH key used for the backend web and sql server
-variable "ssh_key_data" {}
+variable "SSH_KEY_DATA" {}
 
 # Static password used for CGF, WAF and SQL database
-variable "password" {}
+variable "PASSWORD" {}
 
 # Barracuda Firewall Control Center Secret for deployment
-variable "ccSecret" {
+variable "CCSECRET" {
   description = "Barracuda Firewall Control Center Secret"
 }
 
 # Barracuda Firewall Control Center Public IP to fetch the configuration PAR file
-variable "ccIpAddress" {
+variable "CCIPADDRESS" {
   description = "Barracuda Firewall Control Center IP Address"
 }
 
 # Barracuda Firewall Control Center Range identifier
-variable "ccRangeId" {
+variable "CCRANGEID" {
   description = "Barracuda Firewall Control Center Range ID"
 }
 
@@ -38,7 +38,7 @@ variable "ccRangeId" {
 variable "CCCLUSTERNAME" {}
 
 # Barracuda Firewall Control Center Firewall identifier
-variable "cgfVmName" {
+variable "CGFVMNAME" {
   description = "CloudGen Firewall Name"
 }
 

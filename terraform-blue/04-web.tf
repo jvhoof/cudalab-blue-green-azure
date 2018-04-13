@@ -8,12 +8,12 @@
 ##############################################################################################################
 
 resource "azurerm_resource_group" "resourcegroupweb" {
-  name     = "${var.prefix}-RG-WEB"
+  name     = "${var.PREFIX}-RG-WEB"
   location = "${var.location}"
 }
 
 resource "azurerm_network_interface" "webifc" {
-  name                 = "${var.prefix}-VM-WEB-IFC"
+  name                 = "${var.PREFIX}-VM-WEB-IFC"
   location             = "${azurerm_resource_group.resourcegroupweb.location}"
   resource_group_name  = "${azurerm_resource_group.resourcegroupweb.name}"
   enable_ip_forwarding = true
@@ -27,7 +27,7 @@ resource "azurerm_network_interface" "webifc" {
 }
 
 resource "azurerm_virtual_machine" "webvm" {
-  name                  = "${var.prefix}-VM-WEB"
+  name                  = "${var.PREFIX}-VM-WEB"
   location              = "${azurerm_resource_group.resourcegroupweb.location}"
   resource_group_name   = "${azurerm_resource_group.resourcegroupweb.name}"
   network_interface_ids = ["${azurerm_network_interface.webifc.id}"]
@@ -41,14 +41,14 @@ resource "azurerm_virtual_machine" "webvm" {
   }
 
   storage_os_disk {
-    name              = "${var.prefix}-VM-WEB-OSDISK"
+    name              = "${var.PREFIX}-VM-WEB-OSDISK"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
   os_profile {
-    computer_name  = "${var.prefix}-VM-WEB"
+    computer_name  = "${var.PREFIX}-VM-WEB"
     admin_username = "azureuser"
     admin_password = "${var.password}"
   }
@@ -72,7 +72,7 @@ data "template_file" "web_ansible" {
   template = "${file("${path.module}/ansible_host.tpl")}"
 
   vars {
-    name      = "${var.prefix}-VM-WEB"
+    name      = "${var.PREFIX}-VM-WEB"
     arguments = "ansible_host=${element(split(",",azurerm_network_interface.webifc.private_ip_address),count.index)} gather_facts=no"
   }
 
