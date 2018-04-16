@@ -11,6 +11,7 @@
     install_recommends: no
   with_items:
     - { name: 'python-mysqldb' }
+    - { name: 'mariadb-client-core-10.0' }
 
 - name: DB
   docker_container:
