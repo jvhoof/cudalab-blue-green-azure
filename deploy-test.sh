@@ -23,7 +23,7 @@ echo "--> $6"
 echo "--> $7"
 echo "--> $8"
 
-while getopts c:d:p:s option; do
+while getopts "c:d:p:s:" option; do
     case "${option}" in
         c) CCSECRET="$OPTARG" ;;
         d) DB_PASSWORD="$OPTARG" ;;
