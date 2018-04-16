@@ -17,5 +17,22 @@ echo "--> $0"
 echo "--> $1"
 echo "--> $2"
 echo "--> $3"
+echo "--> $4"
+echo "--> $5"
+echo "--> $6"
+echo "--> $7"
+echo "--> $8"
 
-echo "--> $2" > /tmp/keytest
+while getopts c:d:p:s option; do
+    case "${option}" in
+        c) CCSECRET=$OPTARG ;;
+        d) DB_PASSWORD=$OPTARG ;;
+        p) PASSWORD=$OPTARG ;;
+        s) SSH_KEY_DATA=$OPTARG ;;
+    esac
+done
+
+echo "--> $CCSECRET"
+echo "--> $DB_PASSWORD"
+echo "--> $PASSWORD"
+echo "--> $SSH_KEY_DATA" > /tmp/keytest
