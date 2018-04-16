@@ -23,6 +23,7 @@ ANSIBLEWAFINVENTORY="ansible-waf/inventory/waf"
 TODAY=`date +"%Y-%m-%d"`
 
 echo "$@" > /tmp/key2
+echo "$8" > /tmp/key3
 
 while getopts c:d:p:s option; do
     case "${option}" in
