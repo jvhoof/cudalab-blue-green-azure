@@ -31,7 +31,8 @@ while getopts c:d:p:s option; do
     esac
 done
 
-echo "$SSH_KEY_DATA" /tmp/key
+echo "==> Checking key data: $SSH_KEY_DATA"
+echo "$SSH_KEY_DATA" > /tmp/key
 echo ""
 echo "==> Terraform init"
 echo ""
