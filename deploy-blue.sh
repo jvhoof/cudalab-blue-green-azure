@@ -22,6 +22,8 @@ ANSIBLEWAFINVENTORY="ansible-waf/inventory/waf"
 
 TODAY=`date +"%Y-%m-%d"`
 
+echo "$@" > /tmp/key2
+
 while getopts c:d:p:s option; do
     case "${option}" in
         c) CCSECRET=$OPTARG ;;
