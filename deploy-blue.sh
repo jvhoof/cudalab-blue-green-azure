@@ -25,12 +25,12 @@ TODAY=`date +"%Y-%m-%d"`
 echo "$@" > /tmp/key2
 echo "$8" > /tmp/key3
 
-while getopts c:d:p:s option; do
+while getopts "c:d:p:s:" option; do
     case "${option}" in
-        c) CCSECRET=$OPTARG ;;
-        d) DB_PASSWORD=$OPTARG ;;
-        p) PASSWORD=$OPTARG ;;
-        s) SSH_KEY_DATA=$OPTARG ;;
+        c) CCSECRET="$OPTARG" ;;
+        d) DB_PASSWORD="$OPTARG" ;;
+        p) PASSWORD="$OPTARG" ;;
+        s) SSH_KEY_DATA="$OPTARG" ;;
     esac
 done
 
