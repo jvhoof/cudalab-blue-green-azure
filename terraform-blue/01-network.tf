@@ -95,6 +95,13 @@ resource "azurerm_route_table" "wafroute" {
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
+
+  route {
+    name                   = "${var.PREFIX}-WAFToCUDALAB"
+    address_prefix         = "172.31.0.0/16"
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
+  }
 }
 
 resource "azurerm_route_table" "dbroute" {
