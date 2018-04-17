@@ -67,7 +67,7 @@ terraform output -state="$STATE" waf_ansible_inventory > "$ANSIBLEWAFINVENTORY"
 echo ""
 echo "==> Ansible configuration web server"
 echo ""
-ansible-playbook ansible-blue/deploy-docker.yml -i "$ANSIBLEWEBINVENTORY"
+ansible-playbook -vvv -K ansible-blue/deploy-docker.yml -i "$ANSIBLEWEBINVENTORY"
 
 echo ""
 echo "==> Ansible configuration sql server"
