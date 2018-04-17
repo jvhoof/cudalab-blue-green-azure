@@ -77,7 +77,7 @@ echo ""
 echo ""
 echo "==> Ansible bootstrap waf server"
 echo ""
-ansible-playbook ansible-waf/bootstrap.yml -i "$ANSIBLESQLINVENTORY"
+ansible-playbook ansible-waf/bootstrap.yml -i "$ANSIBLEWAFINVENTORY"
 
 echo ""
 echo "==> Ansible configuration waf server"
