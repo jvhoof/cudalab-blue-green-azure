@@ -6,8 +6,7 @@
     port: 22
     delay: 10
     timeout: 900
-  become: False
-  become_user: jvhoof
+  become: no
   delegate_to: localhost
 
 - name: updates a server
@@ -33,4 +32,5 @@
     port: 22
     delay: 10
     timeout: 600
+  become: no
   delegate_to: localhost
