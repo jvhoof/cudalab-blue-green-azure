@@ -7,6 +7,7 @@
     delay: 10
     timeout: 900
   become: False
+  become_user: jvhoof
   delegate_to: localhost
 
 - name: updates a server
