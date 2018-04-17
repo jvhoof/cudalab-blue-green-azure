@@ -42,6 +42,10 @@ variable "CGFVMNAME" {
   description = "CloudGen Firewall Name"
 }
 
+variable "WAF_LICENSE_TOKENS" {
+  description = "Array of license tokens for CloudGen WAF"
+}
+
 ##############################################################################################################
 # Microsoft Azure Service Principle information for deployment
 ##############################################################################################################
