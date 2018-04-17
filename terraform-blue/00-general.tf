@@ -44,6 +44,7 @@ variable "CGFVMNAME" {
 
 variable "WAF_LICENSE_TOKENS" {
   description = "Array of license tokens for CloudGen WAF"
+  type        = "list"
 }
 
 ##############################################################################################################
