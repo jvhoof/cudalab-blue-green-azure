@@ -6,7 +6,7 @@
     port: 22
     delay: 10
     timeout: 900
-  connection: local
+  delegate_to: localhost
 
 - name: updates a server
   apt: update_cache=yes
