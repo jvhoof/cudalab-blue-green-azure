@@ -55,7 +55,7 @@
                 -F "name={{ waf_certificate_name }}" \
                 -F "type=pkcs12" \
                 -F "key_type=rsa" \
-                -F "signed_certificate=@{{ lookup('env', 'DOWNLOADSECUREFILE2_SECUREFILEPATH') }};type=application/x-pkcs12" \
+                -F "signed_certificate=@{{ waf_certificate_location }};type=application/x-pkcs12" \
                 -F "assign_associated_key=no" \
                 -F "allow_private_key_export=Yes" \
                 -F "password={{ waf_certificate_password }}"'
