@@ -10,6 +10,10 @@ echo "
 ##############################################################################################################
 "
 
+set
+
+echo "--> Secure file location 1: $DOWNLOADSECUREFILE1_SECUREFILEPATH"
+echo "--> Secure file location 2: $DOWNLOADSECUREFILE2_SECUREFILEPATH"
 echo "--> $TEST"
 
 echo "--> $TESTENC"
