@@ -35,6 +35,12 @@ while getopts "c:d:p:s:" option; do
 done
 
 echo ""
+echo "==> Verifying SSH key"
+echo ""
+chmod 700 `dirname $DOWNLOADSECUREFILE1_SECUREFILEPATH`
+chmod 600 $DOWNLOADSECUREFILE1_SECUREFILEPATH
+
+echo ""
 echo "==> Terraform init"
 echo ""
 terraform init terraform-blue/
