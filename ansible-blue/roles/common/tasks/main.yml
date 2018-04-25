@@ -22,8 +22,8 @@
 # 
 - name: Restart server
   shell: sleep 2 && /sbin/shutdown -r now "Ansible system package upgraded"
-  args: 
-    removes=/var/run/reboot-required
+#  args: 
+#    removes=/var/run/reboot-required
   async: 1
   poll: 0
   ignore_errors: true
