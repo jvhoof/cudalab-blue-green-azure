@@ -17,6 +17,7 @@
 
 - name: Wait 300 seconds for port 9300 to become open on the host, don't start checking for 10 seconds
   wait_for:
+    host: "{{ hostvars[inventory_hostname].ansible_host }}"
     port: 9300
     delay: 10
     timeout: 300
@@ -36,6 +37,7 @@
 
 - name: Wait 300 seconds for port 9400 to become open on the host, don't start checking for 10 seconds
   wait_for:
+    host: "{{ hostvars[inventory_hostname].ansible_host }}"
     port: 9400
     delay: 10
     timeout: 300
@@ -55,6 +57,7 @@
 
 - name: Wait 300 seconds for port 9500 to become open on the host, don't start checking for 10 seconds
   wait_for:
+    host: "{{ hostvars[inventory_hostname].ansible_host }}"
     port: 9500
     delay: 10
     timeout: 300

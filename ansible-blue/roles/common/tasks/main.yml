@@ -10,7 +10,11 @@
   delegate_to: localhost
 
 - name: Update package cache & dist-upgrade
-  apt: upgrade=dist
+  apt: 
+    upgrade: dist
+    update_cache: yes
+  async: 600
+  poll: 10
 
 - name: Check if a reboot is required
   register: file

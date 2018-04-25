@@ -4,7 +4,7 @@
     src: portal
     dest: /data
 
-- name: Portal
+- name: Install Portal webserver docker container
   docker_container:
     name: portal
     image: nimmis/apache-php7
