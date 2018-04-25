@@ -25,8 +25,9 @@ TODAY=`date +"%Y-%m-%d"`
 echo "$@" > /tmp/key2
 echo "$8" > /tmp/key3
 
-while getopts "c:d:p:s:" option; do
+while getopts "a:c:d:p:s:" option; do
     case "${option}" in
+        a) ANSIBLEOPTS="$OPTARG" ;;
         c) CCSECRET="$OPTARG" ;;
         d) DB_PASSWORD="$OPTARG" ;;
         p) PASSWORD="$OPTARG" ;;
@@ -35,7 +36,7 @@ while getopts "c:d:p:s:" option; do
 done
 
 echo ""
-echo "==> Verifying SSH key"
+echo "==> Verifying SSH key location and permissions"
 echo ""
 chmod 700 `dirname $DOWNLOADSECUREFILE1_SECUREFILEPATH`
 chmod 600 $DOWNLOADSECUREFILE1_SECUREFILEPATH
@@ -73,19 +74,19 @@ terraform output -state="$STATE" waf_ansible_inventory > "$ANSIBLEWAFINVENTORY"
 echo ""
 echo "==> Ansible configuration web server"
 echo ""
-ansible-playbook ansible-blue/deploy.yml -i "$ANSIBLEWEBINVENTORY"
+ansible-playbook ansible-blue/deploy.yml $ANSIBLEOPTS -i "$ANSIBLEWEBINVENTORY"
 
 echo ""
 echo "==> Ansible configuration sql server"
 echo ""
-ansible-playbook ansible-blue/deploy.yml -i "$ANSIBLESQLINVENTORY" --extra-vars "db_password=$DB_PASSWORD"
+ansible-playbook ansible-blue/deploy.yml $ANSIBLEOPTS -i "$ANSIBLESQLINVENTORY" --extra-vars "db_password=$DB_PASSWORD"
 
 echo ""
 echo "==> Ansible bootstrap waf server"
 echo ""
-ansible-playbook ansible-blue-waf/bootstrap.yml -i "$ANSIBLEWAFINVENTORY"
+ansible-playbook ansible-blue-waf/bootstrap.yml $ANSIBLEOPTS -i "$ANSIBLEWAFINVENTORY"
 
 echo ""
 echo "==> Ansible configuration waf server"
 echo ""
-ansible-playbook ansible-blue-waf/deploy.yml -i "$ANSIBLEWAFINVENTORY" --extra-vars "waf_password=$PASSWORD"
+ansible-playbook ansible-blue-waf/deploy.yml $ANSIBLEOPTS -i "$ANSIBLEWAFINVENTORY" --extra-vars "waf_password=$PASSWORD"

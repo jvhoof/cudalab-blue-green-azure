@@ -12,6 +12,9 @@
   wait_for:
     port: 9100
     delay: 10
+    timeout: 300
+  become: no
+  delegate_to: localhost
 
 - name: Get session data from DVWA
   uri:

@@ -19,3 +19,6 @@
   wait_for:
     port: 9200
     delay: 10
+    timeout: 300
+  become: no
+  delegate_to: localhost

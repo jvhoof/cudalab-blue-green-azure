@@ -31,6 +31,9 @@
   wait_for:
     port: 3306
     delay: 10
+    timeout: 300
+  become: no
+  delegate_to: localhost
 
 # Create database demo
 - name: Create a new database with name 'demo'
