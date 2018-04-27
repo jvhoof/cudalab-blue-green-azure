@@ -18,7 +18,7 @@
 
 - name: WAF - Check if we have a login page and the WAF is already provisioned
   uri: 
-    url: http://{{ hostvars[inventory_hostname].ansible_host }}:8000/cgi-mod/index.cgi
+    url: http://{{ hostvars[inventory_hostname].ansible_host }}:8000/
     return_content: true
     timeout: 60
   register: response
@@ -27,7 +27,7 @@
 
 - name: WAF - Is already provisioned, ending this playbook
   meta: end_play
-  when: "'Please enter your administrator login and password' in response.content"
+  when: "'/cgi-mod/index.cgi' in response.content"
 
 - name: Check if license page is ready
   uri: 
