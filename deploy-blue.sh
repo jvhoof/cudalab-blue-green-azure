@@ -89,4 +89,4 @@ ansible-playbook ansible-blue-waf/bootstrap.yml $ANSIBLEOPTS -i "$ANSIBLEWAFINVE
 echo ""
 echo "==> Ansible configuration waf server"
 echo ""
-ansible-playbook ansible-blue-waf/deploy.yml $ANSIBLEOPTS -i "$ANSIBLEWAFINVENTORY" --extra-vars "waf_password=$PASSWORD"
+#ansible-playbook ansible-blue-waf/deploy.yml $ANSIBLEOPTS -i "$ANSIBLEWAFINVENTORY" --extra-vars "waf_password=$PASSWORD"

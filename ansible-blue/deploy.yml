@@ -3,7 +3,7 @@
   gather_facts: False
   become: yes
   become_method: sudo
-  serial: 1                                 # define the action will be done one by one
+#  serial: 1                                 # define the action will be done one by one
   roles:
   - role: common                            # define 'common' role should be apply to hosts
   - role: docker                            # define 'docker' role should be apply to hosts
@@ -16,7 +16,7 @@
   gather_facts: False
   become: yes
   become_method: sudo
-  serial: 1                                 # define the action will be done one by one
+#  serial: 1                                 # define the action will be done one by one
   roles:
   - role: common                            # define 'common' role should be apply to hosts
   - role: docker                            # define 'docker' role should be apply to hosts

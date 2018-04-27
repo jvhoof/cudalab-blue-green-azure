@@ -1,5 +1,0 @@
-[waf]
-waf-p-01  ansible_host=172.16.137.4 ansible_connection=local gather_facts=no waf_license_token="MGRG9-X6649-P1188"
-
-[production:children]
-waf
