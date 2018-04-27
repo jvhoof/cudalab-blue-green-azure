@@ -16,9 +16,11 @@ set -e
 #SECRET="/ssh/secrets.tfvars"
 STATE="terraform.tfstate"
 PLAN="terraform.plan"
-ANSIBLEWEBINVENTORY="ansible-blue/inventory/web"
-ANSIBLESQLINVENTORY="ansible-blue/inventory/sql"
-ANSIBLEWAFINVENTORY="ansible-blue-waf/inventory/waf"
+ANSIBLEINVENTORYDIR="ansible-blue/inventory"
+ANSIBLEWAFINVENTORYDIR="ansible-blue-waf/inventory"
+ANSIBLEWEBINVENTORY="$ANSIBLEINVENTORYDIR/web"
+ANSIBLESQLINVENTORY="$ANSIBLEINVENTORYDIR/sql"
+ANSIBLEWAFINVENTORY="$ANSIBLEWAFINVENTORYDIR/waf"
 
 TODAY=`date +"%Y-%m-%d"`
 
@@ -55,6 +57,12 @@ echo ""
 echo "==> Terraform apply"
 echo ""
 terraform apply "$PLAN"
+
+echo ""
+echo "==> Creating inventory directories for Ansible"
+echo ""
+mkdir -p $ANSIBLEINVENTORYDIR
+mkdir -p $ANSIBLEWAFINVENTORYDIR
 
 echo ""
 echo "==> Terraform output to Ansible web inventory"
