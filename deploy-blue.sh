@@ -46,17 +46,17 @@ chmod 600 $DOWNLOADSECUREFILE1_SECUREFILEPATH
 echo ""
 echo "==> Terraform init"
 echo ""
-terraform init terraform-blue/
+#terraform init terraform-blue/
 
 echo ""
 echo "==> Terraform plan"
 echo ""
-terraform plan -state="$STATE" --out "$PLAN" -var "CCSECRET=$CCSECRET" -var "PASSWORD=$PASSWORD" -var "SSH_KEY_DATA=$SSH_KEY_DATA" terraform-blue/
+#terraform plan -state="$STATE" --out "$PLAN" -var "CCSECRET=$CCSECRET" -var "PASSWORD=$PASSWORD" -var "SSH_KEY_DATA=$SSH_KEY_DATA" terraform-blue/
 
 echo ""
 echo "==> Terraform apply"
 echo ""
-terraform apply "$PLAN"
+#terraform apply "$PLAN"
 
 echo ""
 echo "==> Creating inventory directories for Ansible"
@@ -67,34 +67,34 @@ mkdir -p $ANSIBLEWAFINVENTORYDIR
 echo ""
 echo "==> Terraform output to Ansible web inventory"
 echo ""
-terraform output -state="$STATE" web_ansible_inventory > "$ANSIBLEWEBINVENTORY"
+#terraform output -state="$STATE" web_ansible_inventory > "$ANSIBLEWEBINVENTORY"
 
 echo ""
 echo "==> Terraform output to Ansible sql inventory"
 echo ""
-terraform output -state="$STATE" sql_ansible_inventory > "$ANSIBLESQLINVENTORY"
+#terraform output -state="$STATE" sql_ansible_inventory > "$ANSIBLESQLINVENTORY"
 
 echo ""
 echo "==> Terraform output to Ansible waf inventory"
 echo ""
-terraform output -state="$STATE" waf_ansible_inventory > "$ANSIBLEWAFINVENTORY"
+#terraform output -state="$STATE" waf_ansible_inventory > "$ANSIBLEWAFINVENTORY"
 
 echo ""
 echo "==> Ansible configuration web server"
 echo ""
-ansible-playbook ansible-blue/deploy.yml $ANSIBLEOPTS -i "$ANSIBLEWEBINVENTORY"
+#ansible-playbook ansible-blue/deploy.yml $ANSIBLEOPTS -i "$ANSIBLEWEBINVENTORY"
 
 echo ""
 echo "==> Ansible configuration sql server"
 echo ""
-ansible-playbook ansible-blue/deploy.yml $ANSIBLEOPTS -i "$ANSIBLESQLINVENTORY" --extra-vars "db_password=$DB_PASSWORD"
+#ansible-playbook ansible-blue/deploy.yml $ANSIBLEOPTS -i "$ANSIBLESQLINVENTORY" --extra-vars "db_password=$DB_PASSWORD"
 
 echo ""
 echo "==> Ansible bootstrap waf server"
 echo ""
-#ansible-playbook ansible-blue-waf/bootstrap.yml $ANSIBLEOPTS -i "$ANSIBLEWAFINVENTORY"
+ansible-playbook ansible-blue-waf/bootstrap.yml $ANSIBLEOPTS -i "$ANSIBLEWAFINVENTORY"
 
 echo ""
 echo "==> Ansible configuration waf server"
 echo ""
-#ansible-playbook ansible-blue-waf/deploy.yml $ANSIBLEOPTS -i "$ANSIBLEWAFINVENTORY" --extra-vars "waf_password=$PASSWORD"
+ansible-playbook ansible-blue-waf/deploy.yml $ANSIBLEOPTS -i "$ANSIBLEWAFINVENTORY" --extra-vars "waf_password=$PASSWORD"
