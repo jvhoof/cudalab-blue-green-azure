@@ -72,34 +72,39 @@ variable "location" {
   default     = "East US 2"
 }
 
+variable "network_cudalab" {
+  description = ""
+  default     = "172.31.0.0/16"
+}
+
 variable "vnet" {
   description = ""
-  default     = "172.30.100.0/22"
+  default     = "172.30.104.0/24"
 }
 
 variable "subnet_cgf" {
   description = ""
-  default     = "172.30.100.0/24"
+  default     = "172.30.104.0/26"
 }
 
 variable "subnet_waf" {
   description = ""
-  default     = "172.30.101.0/24"
+  default     = "172.30.104.64/26"
 }
 
 variable "subnet_web" {
   description = ""
-  default     = "172.30.102.0/24"
+  default     = "172.30.104.128/26"
 }
 
 variable "subnet_db" {
   description = ""
-  default     = "172.30.103.0/24"
+  default     = "172.30.104.192/26"
 }
 
 variable "cgf_a_ipaddress" {
   description = ""
-  default     = "172.30.100.10"
+  default     = "172.30.104.10"
 }
 
 variable "cgf_subnetmask" {
@@ -109,7 +114,7 @@ variable "cgf_subnetmask" {
 
 variable "cgf_defaultgateway" {
   description = ""
-  default     = "172.30.100.1"
+  default     = "172.30.104.1"
 }
 
 variable "cgf_vmsize" {
@@ -119,8 +124,8 @@ variable "cgf_vmsize" {
 
 variable "waf_ip_addresses" {
   default = [
-    "172.30.101.10",
-    "172.30.101.11",
+    "172.30.104.70",
+    "172.30.104.71",
   ]
 }
 
@@ -131,7 +136,7 @@ variable "waf_subnetmask" {
 
 variable "waf_defaultgateway" {
   description = ""
-  default     = "172.30.101.1"
+  default     = "172.30.104.65"
 }
 
 variable "waf_vmsize" {
@@ -141,12 +146,12 @@ variable "waf_vmsize" {
 
 variable "web_ipaddress" {
   description = ""
-  default     = "172.30.102.10"
+  default     = "172.30.104.132"
 }
 
 variable "sql_ipaddress" {
   description = ""
-  default     = "172.30.103.10"
+  default     = "172.30.104.196"
 }
 
 ##############################################################################################################

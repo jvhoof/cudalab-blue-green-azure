@@ -64,14 +64,14 @@ resource "azurerm_route_table" "webroute" {
 
   route {
     name                   = "${var.PREFIX}-WebToWAF"
-    address_prefix         = "172.30.101.0/24"
+    address_prefix         = "${var.subnet_waf}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.PREFIX}-WebToDB"
-    address_prefix         = "172.30.103.0/24"
+    address_prefix         = "${var.subnet_db}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
@@ -84,21 +84,21 @@ resource "azurerm_route_table" "wafroute" {
 
   route {
     name                   = "${var.PREFIX}-WAFToWEB"
-    address_prefix         = "172.30.102.0/24"
+    address_prefix         = "${var.subnet_web}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.PREFIX}-WAFToDB"
-    address_prefix         = "172.30.103.0/24"
+    address_prefix         = "${var.subnet_db}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.PREFIX}-WAFToCUDALAB"
-    address_prefix         = "172.31.0.0/16"
+    address_prefix         = "${var.network_cudalab}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
@@ -118,14 +118,14 @@ resource "azurerm_route_table" "dbroute" {
 
   route {
     name                   = "${var.PREFIX}-DBToWAF"
-    address_prefix         = "172.30.101.0/24"
+    address_prefix         = "${var.subnet_waf}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
 
   route {
     name                   = "${var.PREFIX}-DBToWEB"
-    address_prefix         = "172.30.102.0/24"
+    address_prefix         = "${var.subnet_web}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress}"
   }
