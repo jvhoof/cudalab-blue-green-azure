@@ -1,6 +1,5 @@
 #### WAF edit item ###
 - name: "WAF - Edit item {{ request_comment }}"
-  when: service|succeeded
   uri:
     url: "{{ request_url }}{{ request_path }}"
     method: PUT

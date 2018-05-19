@@ -38,12 +38,12 @@
     request_body: '{ "device-name": "{{ waf_device_name }}", "hostname": "{{ inventory_hostname }}", "domain": "{{ waf_domain }}", "time-zone": "{{ waf_timezone }}" }'
 
 ### WAF Configure cluster information ###
-- include_tasks: waf-edit-item.yml
+- include_tasks: waf-edit-item-reboot.yml
   vars:
-    request_comment: "Configure SSL encryption HTTPS Service"
+    request_comment: "Configure cluster information"
     request_url: "{{ waf_base_url }}"
     request_path: "/restapi/v3/cluster"
-    request_body: '{ "transmit-heartbeat-on": [], "heartbeat-frequency": 0, "cluster-name": "{{ inventory_hostname }}", "cluster-shared-secret": "{{ waf_password }}", "monitor-link": [], "failback-mode": "Automatic", "heartbeat-count-per-interface": 0}'
+    request_body: '{ "cluster-name": "{{ inventory_hostname }}", "cluster-shared-secret": "{{ waf_password }}", "monitor-link": [], "failback-mode": "Automatic", "heartbeat-count-per-interface": 0}'
     body_format: json
 
 ### WAF SSL Certificate ###
@@ -92,7 +92,7 @@
   when: inventory_hostname == ansible_play_hosts[0]
 
 ### WAF Configure SSL encryption HTTPS Service
-- include_tasks: waf-edit-item.yml
+- include_tasks: waf-edit-item-reboot.yml
   vars:
     request_comment: "Configure SSL encryption HTTPS Service"
     request_url: "{{ waf_base_url }}"
