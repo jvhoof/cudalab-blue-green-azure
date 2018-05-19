@@ -46,6 +46,16 @@
     request_body: '{ "cluster-name": "{{ inventory_hostname }}", "cluster-shared-secret": "{{ waf_password }}", "failback-mode": "Automatic", "heartbeat-count-per-interface": "2"}'
     body_format: json
 
+### WAF Join cluster ###
+- include_tasks: waf-edit-item-reboot.yml
+  vars:
+    request_comment: "Join cluster"
+    request_url: "{{ waf_base_url }}"
+    request_path: "/restapi/v3/cluster"
+    request_body: '{ "ip-address": "{{ hostvars[ansible_play_hosts[0]].ansible_host }}" }'
+    body_format: json
+  when: inventory_hostname != ansible_play_hosts[0]
+
 ### WAF SSL Certificate ###
 - name: "WAF - Get SSL certificate"
   uri:
