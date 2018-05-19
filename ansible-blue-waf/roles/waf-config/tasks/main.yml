@@ -47,7 +47,7 @@
     body_format: json
 
 ### WAF Join cluster ###
-- include_tasks: waf-edit-item-reboot.yml
+- include_tasks: waf-create-edit-item.yml
   vars:
     request_comment: "Join cluster"
     request_url: "{{ waf_base_url }}"
