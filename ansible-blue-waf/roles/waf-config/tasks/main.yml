@@ -43,7 +43,7 @@
     request_comment: "Configure cluster information"
     request_url: "{{ waf_base_url }}"
     request_path: "/restapi/v3/cluster"
-    request_body: '{ "cluster-name": "{{ inventory_hostname }}", "cluster-shared-secret": "{{ waf_password }}", "monitor-link": [], "failback-mode": "Automatic", "heartbeat-count-per-interface": 2}'
+    request_body: '{ "cluster-name": "{{ inventory_hostname }}", "cluster-shared-secret": "{{ waf_password }}", "failback-mode": "Automatic", "heartbeat-count-per-interface": "2"}'
     body_format: json
 
 ### WAF SSL Certificate ###
