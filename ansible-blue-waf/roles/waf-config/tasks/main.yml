@@ -51,7 +51,7 @@
   vars:
     request_comment: "Join cluster"
     request_url: "{{ waf_base_url }}"
-    request_path: "/restapi/v3/cluster"
+    request_path: "/restapi/v3/cluster/nodes"
     request_body: '{ "ip-address": "{{ hostvars[ansible_play_hosts[0]].ansible_host }}" }'
     body_format: json
   when: inventory_hostname != ansible_play_hosts[0]
