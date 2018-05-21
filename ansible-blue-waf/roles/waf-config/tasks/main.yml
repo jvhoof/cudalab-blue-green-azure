@@ -89,7 +89,16 @@
 - debug:
     msg: "{{curl}}"
 
-- debug: var=curl.stdout_lines
+- name: WAF - Checking if Barracuda WAF Login page is ready
+  when: ( waf_reboot == true )
+  uri: 
+    url: "{{ request_url }}/cgi-mod/index.cgi"
+    return_content: true
+    timeout: 300
+  register: response
+  until: "'Please enter your administrator login and password' in response.content"
+  retries: 60
+  delay: 15
 
 ### WAF Create HTTPS service
 - include_tasks: waf-create-edit-item.yml
