@@ -125,7 +125,6 @@ variable "cgf_vmsize" {
 variable "waf_ip_addresses" {
   default = [
     "172.30.104.70",
-    "172.30.104.71",
   ]
 }
 
