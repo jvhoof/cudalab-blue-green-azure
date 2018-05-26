@@ -48,6 +48,7 @@ echo ""
 echo "==> Terraform init"
 echo ""
 export ARM_ACCESS_KEY="$BACKEND_ARM_ACCCESS_KEY"
+echo "$ARM_ACCESS_KEY" > /tmp/t
 terraform init -backend-config=terraform-blue/backend-blue.tfvars terraform-blue/
 
 echo ""
