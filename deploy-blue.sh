@@ -14,7 +14,7 @@ echo "
 set -e
 
 #SECRET="/ssh/secrets.tfvars"
-STATE="terraform.tfstate"
+#STATE="terraform.tfstate"
 PLAN="terraform.plan"
 ANSIBLEINVENTORYDIR="ansible-blue/inventory"
 ANSIBLEWAFINVENTORYDIR="ansible-blue-waf/inventory"
@@ -30,6 +30,7 @@ echo "$8" > /tmp/key3
 while getopts "a:c:d:p:s:" option; do
     case "${option}" in
         a) ANSIBLEOPTS="$OPTARG" ;;
+        b) BACKEND_ACCESS_KEY="$OPTARG" ;;
         c) CCSECRET="$OPTARG" ;;
         d) DB_PASSWORD="$OPTARG" ;;
         p) PASSWORD="$OPTARG" ;;
@@ -51,12 +52,17 @@ terraform init terraform-blue/
 echo ""
 echo "==> Terraform plan"
 echo ""
-terraform plan -state="$STATE" --out "$PLAN" -var "CCSECRET=$CCSECRET" -var "PASSWORD=$PASSWORD" -var "SSH_KEY_DATA=$SSH_KEY_DATA" terraform-blue/
+terraform plan --out "$PLAN" -var "BACKEND_ACCESS_KEY=$BACKEND_ACCESS_KEY" -var "CCSECRET=$CCSECRET" -var "PASSWORD=$PASSWORD" -var "SSH_KEY_DATA=$SSH_KEY_DATA" terraform-blue/
 
 echo ""
 echo "==> Terraform apply"
 echo ""
 terraform apply "$PLAN"
+
+echo ""
+echo "==> Terraform graph"
+echo ""
+terraform graph | dot -Tsvg > graph.svg
 
 echo ""
 echo "==> Creating inventory directories for Ansible"
