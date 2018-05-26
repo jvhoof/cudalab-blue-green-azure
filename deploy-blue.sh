@@ -47,7 +47,7 @@ chmod 600 $DOWNLOADSECUREFILE1_SECUREFILEPATH
 echo ""
 echo "==> Terraform init"
 echo ""
-terraform init terraform-blue/ -backend-config=backend.tfvars -backend-config="ARM_ACCESS_KEY=$ARM_ACCESS_KEY"
+terraform init -backend-config=backend.tfvars -backend-config="ARM_ACCESS_KEY=$ARM_ACCESS_KEY" terraform-blue/
 
 echo ""
 echo "==> Terraform plan"
