@@ -51,20 +51,10 @@ variable "WAF_LICENSE_TOKENS" {
 # Microsoft Azure Storage Account for storage of Terraform state file
 ##############################################################################################################
 
-variable "BACKEND_STORAGE_ACCOUNT_NAME" {}
-variable "BACKEND_CONTAINER_NAME" {}
-variable "BACKEND_KEY" {}
-variable "BACKEND_ACCESS_KEY" {}
-
 terraform {
   required_version = ">= 0.11"
 
-  backend "azurerm" {
-    storage_account_name = "${var.BACKEND_STORAGE_ACCOUNT_NAME}"
-    container_name       = "${var.BACKEND_CONTAINER_NAME}"
-    key                  = "${var.BACKEND_KEY}"
-    access_key           = "${var.BACKEND_ACCESS_KEY}"
-  }
+  backend "azurerm" {}
 }
 
 ##############################################################################################################

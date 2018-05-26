@@ -47,7 +47,7 @@ chmod 600 $DOWNLOADSECUREFILE1_SECUREFILEPATH
 echo ""
 echo "==> Terraform init"
 echo ""
-terraform init terraform-blue/
+terraform init terraform-blue/ -backend-config=backend.tfvars -backend-config="ARM_ACCESS_KEY=$ARM_ACCESS_KEY"
 
 echo ""
 echo "==> Terraform plan"
@@ -62,7 +62,7 @@ terraform apply "$PLAN"
 echo ""
 echo "==> Terraform graph"
 echo ""
-terraform graph | dot -Tsvg > graph.svg
+terraform graph | dot -Tsvg > blue-graph.svg
 
 echo ""
 echo "==> Creating inventory directories for Ansible"
