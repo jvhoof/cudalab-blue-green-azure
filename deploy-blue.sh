@@ -47,9 +47,13 @@ chmod 600 $DOWNLOADSECUREFILE1_SECUREFILEPATH
 echo ""
 echo "==> Terraform init"
 echo ""
-export ARM_ACCESS_KEY="$BACKEND_ARM_ACCCESS_KEY"
-echo "$BACKEND_ARM_ACCESS_KEY" > /tmp/t2
-terraform init -backend-config=terraform-blue/backend-blue.tfvars -backend_config="ARM_ACCESS_KEY=$BACKEND_ARM_ACCESS_KEY" terraform-blue/
+terraform init -backend-config=terraform-blue/backend-blue.tfvars -backend_config="access_key=$BACKEND_ARM_ACCESS_KEY" terraform-blue/
+terraform init \
+  -backend-config="storage_account_name=$BACKEND_STORAGE_ACCOUNT_NAME" \
+  -backend-config="container_name=$BACKEND_CONTAINER_NAME" \
+  -backend-config="key=$BACKEND_KEY" \
+  -backend-config="access_key=$BACKEND_ARM_ACCESS_KEY" \
+  terraform-blue/
 
 echo ""
 echo "==> Terraform plan"
