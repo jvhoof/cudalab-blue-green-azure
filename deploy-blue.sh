@@ -80,17 +80,17 @@ mkdir -p $ANSIBLEWAFINVENTORYDIR
 echo ""
 echo "==> Terraform output to Ansible web inventory"
 echo ""
-terraform output -state="$STATE" web_ansible_inventory > "$ANSIBLEWEBINVENTORY"
+terraform output web_ansible_inventory > "$ANSIBLEWEBINVENTORY"
 
 echo ""
 echo "==> Terraform output to Ansible sql inventory"
 echo ""
-terraform output -state="$STATE" sql_ansible_inventory > "$ANSIBLESQLINVENTORY"
+terraform output sql_ansible_inventory > "$ANSIBLESQLINVENTORY"
 
 echo ""
 echo "==> Terraform output to Ansible waf inventory"
 echo ""
-terraform output -state="$STATE" waf_ansible_inventory > "$ANSIBLEWAFINVENTORY"
+terraform output waf_ansible_inventory > "$ANSIBLEWAFINVENTORY"
 
 echo ""
 echo "==> Ansible configuration web server"
