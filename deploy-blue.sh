@@ -69,7 +69,7 @@ terraform apply "$PLAN"
 echo ""
 echo "==> Terraform graph"
 echo ""
-terraform graph | dot -Tsvg > blue-graph.svg
+terraform graph terraform-blue/ | dot -Tsvg > blue-graph.svg
 
 echo ""
 echo "==> Creating inventory directories for Ansible"
