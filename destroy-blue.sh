@@ -16,6 +16,12 @@ set -e
 #SECRET="/ssh/secrets.tfvars"
 #STATE="terraform.tfstate"
 
+while getopts "b:" option; do
+    case "${option}" in
+        b) BACKEND_ARM_ACCESS_KEY="$OPTARG" ;;
+    esac
+done
+
 echo ""
 echo "==> Terraform init"
 echo ""
