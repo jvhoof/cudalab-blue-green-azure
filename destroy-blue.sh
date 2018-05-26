@@ -36,4 +36,4 @@ terraform init \
 echo ""
 echo "==> Terraform destory"
 echo ""
-terraform destroy -var "CCSECRET=$CCSECRET" -var "PASSWORD=$PASSWORD" -var "SSH_KEY_DATA=$SSH_KEY_DATA" terraform-blue/
+terraform destroy -var "CCSECRET=$CCSECRET" -var "PASSWORD=$PASSWORD" -var "SSH_KEY_DATA=$SSH_KEY_DATA" -auto-approve terraform-blue/
