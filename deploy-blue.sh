@@ -27,9 +27,10 @@ TODAY=`date +"%Y-%m-%d"`
 echo "$@" > /tmp/key2
 echo "$8" > /tmp/key3
 
-while getopts "a:c:d:p:s:" option; do
+while getopts "a:b:c:d:p:s:" option; do
     case "${option}" in
         a) ANSIBLEOPTS="$OPTARG" ;;
+        b) BACKEND_ARM_ACCESS_KEY="$OPTARG" ;;
         c) CCSECRET="$OPTARG" ;;
         d) DB_PASSWORD="$OPTARG" ;;
         p) PASSWORD="$OPTARG" ;;
@@ -46,7 +47,8 @@ chmod 600 $DOWNLOADSECUREFILE1_SECUREFILEPATH
 echo ""
 echo "==> Terraform init"
 echo ""
-terraform init -backend-config=terraform-blue/backend-blue.tfvars -backend-config="ARM_ACCESS_KEY=$ARM_ACCESS_KEY" terraform-blue/
+export ARM_ACCESS_KEY="$BACKEND_ARM_ACCCESS_KEY"
+terraform init -backend-config=terraform-blue/backend-blue.tfvars terraform-blue/
 
 echo ""
 echo "==> Terraform plan"
