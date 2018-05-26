@@ -30,7 +30,6 @@ echo "$8" > /tmp/key3
 while getopts "a:c:d:p:s:" option; do
     case "${option}" in
         a) ANSIBLEOPTS="$OPTARG" ;;
-        b) BACKEND_ACCESS_KEY="$OPTARG" ;;
         c) CCSECRET="$OPTARG" ;;
         d) DB_PASSWORD="$OPTARG" ;;
         p) PASSWORD="$OPTARG" ;;
@@ -47,7 +46,7 @@ chmod 600 $DOWNLOADSECUREFILE1_SECUREFILEPATH
 echo ""
 echo "==> Terraform init"
 echo ""
-terraform init -backend-config=terraform-blue/backend.tfvars -backend-config="ARM_ACCESS_KEY=$ARM_ACCESS_KEY" terraform-blue/
+terraform init -backend-config=terraform-blue/backend-blue.tfvars -backend-config="ARM_ACCESS_KEY=$ARM_ACCESS_KEY" terraform-blue/
 
 echo ""
 echo "==> Terraform plan"
