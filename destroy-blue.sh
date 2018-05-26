@@ -26,7 +26,6 @@ echo ""
 echo "==> Terraform init"
 echo ""
 echo "BACKEND_STORAGE_ACCOUNT_NAME: [$BACKEND_STORAGE_ACCOUNT_NAME]"
-#terraform init -backend-config=terraform-blue/backend-blue.tfvars -backend_config="access_key=$BACKEND_ARM_ACCESS_KEY" terraform-blue/
 terraform init \
   -backend-config="storage_account_name=$BACKEND_STORAGE_ACCOUNT_NAME" \
   -backend-config="container_name=$BACKEND_CONTAINER_NAME" \
