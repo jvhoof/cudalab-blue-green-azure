@@ -49,12 +49,12 @@ echo "==> Terraform init"
 echo ""
 export ARM_ACCESS_KEY="$BACKEND_ARM_ACCCESS_KEY"
 echo "$BACKEND_ARM_ACCESS_KEY" > /tmp/t2
-terraform init -backend-config=terraform-blue/backend-blue.tfvars terraform-blue/
+terraform init -backend-config=terraform-blue/backend-blue.tfvars -backend_config="ARM_ACCESS_KEY=$BACKEND_ARM_ACCESS_KEY" terraform-blue/
 
 echo ""
 echo "==> Terraform plan"
 echo ""
-terraform plan --out "$PLAN" -var "BACKEND_ACCESS_KEY=$BACKEND_ACCESS_KEY" -var "CCSECRET=$CCSECRET" -var "PASSWORD=$PASSWORD" -var "SSH_KEY_DATA=$SSH_KEY_DATA" terraform-blue/
+terraform plan --out "$PLAN" -var "CCSECRET=$CCSECRET" -var "PASSWORD=$PASSWORD" -var "SSH_KEY_DATA=$SSH_KEY_DATA" terraform-blue/
 
 echo ""
 echo "==> Terraform apply"
