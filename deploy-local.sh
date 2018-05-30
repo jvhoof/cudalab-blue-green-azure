@@ -5,45 +5,48 @@ echo "
 # |_) _  __ __ _  _     _| _ 
 # |_)(_| |  | (_|(_ |_|(_|(_|
 #
-# Deployment of CUDALAB EU configuration in Microsoft Azure using Terraform and Ansible
+# Local deployment tests
 #
 ##############################################################################################################
 "
 
-# Stop running when command returns error
-set -e
+# Terraform state file in Azure Storage
+BACKEND_ARM_ACCESS_KEY='AGeNHL5JEBQFomT5W+YazJGmzYJIu2JAMg1twOsic6La7Ccg0dlmeQdQZQuQ8SlXhl4BtF8hM+v71H1CcFWhLA=='
+BACKEND_CONTAINER_NAME='cudalab-blue'
+BACKEND_KEY='cudalabcicd-blue.tfstate'
+BACKEND_STORAGE_ACCOUNT_NAME='cudalabcicd'
 
-#SECRET="/ssh/secrets.tfvars"
-#STATE="terraform.tfstate"
-PLAN="terraform.plan"
-ANSIBLEINVENTORYDIR="ansible-blue/inventory"
-ANSIBLEWAFINVENTORYDIR="ansible-blue-waf/inventory"
-ANSIBLEWEBINVENTORY="$ANSIBLEINVENTORYDIR/web"
-ANSIBLESQLINVENTORY="$ANSIBLEINVENTORYDIR/sql"
-ANSIBLEWAFINVENTORY="$ANSIBLEWAFINVENTORYDIR/waf"
+# Passwords
+CCSECRET='Q1w2e34567890--'
+DB_PASSWORD='Q1w2e34567890--'
+PASSWORD='Q1w2e34567890--'
+SSH_KEY_DATA='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCv+GS5/x2zYlcGPkksiJCxyn8xKBSsPTljoHRHDINq9v/ADn92hXWudOPh07CTEgzdMVHKLSCmt7vtIY2oVdd2k8Q4Fej/cYw9el4shF6SNG8/68nuTkxn2Y6FyNTPjiblOKDv+DMQZPxddfkRx33HEFUwR1ClT0og2IoCxw1CaYN3CblZ2YHHeGRI7vZQ2//tn53IG3wtYMxCAKevrE8W6P1gC+qg+A7cUVsIyNT16JOkKJUT5Wsh/Epr7NyeFRbomnYVJEVZnFQsj84RbQvhCMxIHytcuBYlJ0sHfWwiksLGnP3MGPWtTZnpqiL134kzn94ng/Tb4hSAfhJmw4aT jvhoof@sarango'
 
-while getopts "a:b:c:d:p:s:" option; do
-    case "${option}" in
-        a) ANSIBLEOPTS="$OPTARG" ;;
-        b) BACKEND_ARM_ACCESS_KEY="$OPTARG" ;;
-        c) CCSECRET="$OPTARG" ;;
-        d) DB_PASSWORD="$OPTARG" ;;
-        p) PASSWORD="$OPTARG" ;;
-        s) SSH_KEY_DATA="$OPTARG" ;;
-    esac
-done
+# Deployment namingprefix
+TF_VAR_prefix='JVH102'
 
-echo ""
-echo "==> Verifying SSH key location and permissions"
-echo ""
-chmod 700 `dirname $DOWNLOADSECUREFILE1_SECUREFILEPATH`
-chmod 600 $DOWNLOADSECUREFILE1_SECUREFILEPATH
+# CGF CC data
+TF_VAR_CCCLUSTERNAME='jvanhoof'
+TF_VAR_CCIPADDRESS='64.235.148.20'
+TF_VAR_CCRANGEID='98'
+TF_VAR_CCFGVMNAME='CLOUD-AZURE-BLUE-CGF-A'
+
+# Azure Credentials
+TF_VAR_client_id='f693b7e5-b39a-44e1-8078-64d686ac2fc1'
+TF_VAR_client_secret='9828a5f8-8d61-4e7b-a6fd-75a7dd8ae81a'
+TF_VAR_subscription_id='31de56f1-2378-43ae-bdf7-2c229adf2f7f'
+TF_VAR_tenant_id='4c2cee7c-97ca-4f42-88ea-6acf44978369'
+
+# WAF License tokens
+TF_VAR_waf_license_tokens='[ "613AE-2TX48-P5254", "AYCA3-19XA4-79XG3" ]'
+
+# Secure files locations
+DOWNLOADSECUREFILE1_SECUREFILEPATH='~/.ssh/cudalab/id_rsa_az'
+DOWNLOADSECUREFILE2_SECUREFILEPATH='~/.ssh/cudalab/ssl/star_cudalab_eu.pfx'
 
 echo ""
 echo "==> Terraform init"
 echo ""
-echo "BACKEND_STORAGE_ACCOUNT_NAME: [$BACKEND_STORAGE_ACCOUNT_NAME]"
-#terraform init -backend-config=terraform-blue/backend-blue.tfvars -backend_config="access_key=$BACKEND_ARM_ACCESS_KEY" terraform-blue/
 terraform init \
   -backend-config="storage_account_name=$BACKEND_STORAGE_ACCOUNT_NAME" \
   -backend-config="container_name=$BACKEND_CONTAINER_NAME" \

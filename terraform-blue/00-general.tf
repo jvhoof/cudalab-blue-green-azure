@@ -12,7 +12,7 @@ variable "PREFIX" {
   description = "The shortened abbreviation to represent deployment that will go on the front of some resources."
 }
 
-# SSH key used for the backend web and sql server
+# SSH public key used for the backend web and sql server
 variable "SSH_KEY_DATA" {}
 
 # Static password used for CGF, WAF and SQL database
