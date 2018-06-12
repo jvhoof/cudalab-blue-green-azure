@@ -90,8 +90,8 @@ terraform graph | dot -Tsvg > "../graph-$DEPLOYMENTCOLOR.svg"
 echo ""
 echo "==> Creating inventory directories for Ansible"
 echo ""
-mkdir -p $ANSIBLEINVENTORYDIR
-mkdir -p $ANSIBLEWAFINVENTORYDIR
+mkdir -p "../$ANSIBLEINVENTORYDIR"
+mkdir -p "../$ANSIBLEWAFINVENTORYDIR"
 
 echo ""
 echo "==> Terraform output to Ansible web inventory"
