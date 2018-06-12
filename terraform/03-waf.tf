@@ -8,19 +8,19 @@
 ##############################################################################################################
 
 resource "azurerm_resource_group" "resourcegroupwaf" {
-  name     = "${var.PREFIX}-RG-WAF"
+  name     = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-RG-WAF"
   location = "${var.LOCATION}"
 }
 
 resource "azurerm_availability_set" "wafavset" {
-  name                = "${var.PREFIX}-WAF-AVSET"
+  name                = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-WAF-AVSET"
   location            = "${var.LOCATION}"
   managed             = true
   resource_group_name = "${azurerm_resource_group.resourcegroupwaf.name}"
 }
 
 resource "azurerm_public_ip" "waflbpip" {
-  name                         = "${var.PREFIX}-LB-WAF-PIP"
+  name                         = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-LB-WAF-PIP"
   location                     = "${var.LOCATION}"
   resource_group_name          = "${azurerm_resource_group.resourcegroupwaf.name}"
   public_ip_address_allocation = "static"
@@ -28,12 +28,12 @@ resource "azurerm_public_ip" "waflbpip" {
 }
 
 resource "azurerm_lb" "waflb" {
-  name                = "${var.PREFIX}-LB-WAF"
+  name                = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-LB-WAF"
   location            = "${var.LOCATION}"
   resource_group_name = "${azurerm_resource_group.resourcegroupwaf.name}"
 
   frontend_ip_configuration {
-    name                 = "${var.PREFIX}-LB-WAF-PIP"
+    name                 = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-LB-WAF-PIP"
     public_ip_address_id = "${azurerm_public_ip.waflbpip.id}"
   }
 }
@@ -58,7 +58,7 @@ resource "azurerm_lb_rule" "waflbrulehttp" {
   protocol                       = "Tcp"
   frontend_port                  = 80
   backend_port                   = 80
-  frontend_ip_configuration_name = "${var.PREFIX}-LB-WAF-PIP"
+  frontend_ip_configuration_name = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-LB-WAF-PIP"
   probe_id                       = "${azurerm_lb_probe.waflbprobe.id}"
   backend_address_pool_id        = "${azurerm_lb_backend_address_pool.waflbbackend.id}"
 }
@@ -70,7 +70,7 @@ resource "azurerm_lb_rule" "waflbrulehttps" {
   protocol                       = "Tcp"
   frontend_port                  = 443
   backend_port                   = 443
-  frontend_ip_configuration_name = "${var.PREFIX}-LB-WAF-PIP"
+  frontend_ip_configuration_name = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-LB-WAF-PIP"
   probe_id                       = "${azurerm_lb_probe.waflbprobe.id}"
   backend_address_pool_id        = "${azurerm_lb_backend_address_pool.waflbbackend.id}"
   depends_on                     = ["azurerm_lb_probe.waflbprobe"]
@@ -84,7 +84,7 @@ resource "azurerm_lb_nat_rule" "waflbnatrulehttp" {
   protocol                       = "tcp"
   frontend_port                  = "${count.index + 8000}"
   backend_port                   = 8000
-  frontend_ip_configuration_name = "${var.PREFIX}-LB-WAF-PIP"
+  frontend_ip_configuration_name = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-LB-WAF-PIP"
 }
 
 resource "azurerm_lb_nat_rule" "waflbnatrulehttps" {
@@ -95,11 +95,11 @@ resource "azurerm_lb_nat_rule" "waflbnatrulehttps" {
   protocol                       = "tcp"
   frontend_port                  = "${count.index + 8443}"
   backend_port                   = 8443
-  frontend_ip_configuration_name = "${var.PREFIX}-LB-WAF-PIP"
+  frontend_ip_configuration_name = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-LB-WAF-PIP"
 }
 
 resource "azurerm_network_interface" "wafifc" {
-  name                = "${var.PREFIX}-VM-WAF-IFC-${count.index}"
+  name                = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-WAF-IFC-${count.index}"
   count               = "${length(var.waf_ip_addresses[var.DEPLOYMENTCOLOR])}"
   location            = "${azurerm_resource_group.resourcegroupwaf.location}"
   resource_group_name = "${azurerm_resource_group.resourcegroupwaf.name}"
@@ -115,7 +115,7 @@ resource "azurerm_network_interface" "wafifc" {
 }
 
 resource "azurerm_virtual_machine" "wafvm" {
-  name                  = "${var.PREFIX}-VM-WAF-${count.index}"
+  name                  = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-WAF-${count.index}"
   count                 = "${length(var.waf_ip_addresses[var.DEPLOYMENTCOLOR])}"
   location              = "${azurerm_resource_group.resourcegroupwaf.location}"
   resource_group_name   = "${azurerm_resource_group.resourcegroupwaf.name}"
@@ -137,14 +137,14 @@ resource "azurerm_virtual_machine" "wafvm" {
   }
 
   storage_os_disk {
-    name              = "${var.PREFIX}-VM-WAF-OSDISK-${count.index}"
+    name              = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-WAF-OSDISK-${count.index}"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
   os_profile {
-    computer_name  = "${var.PREFIX}-VM-WAF-${count.index}"
+    computer_name  = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-WAF-${count.index}"
     admin_username = "azureuser"
     admin_password = "${var.PASSWORD}"
   }
@@ -163,7 +163,7 @@ data "template_file" "waf_ansible" {
   template = "${file("${path.module}/ansible_host_waf.tpl")}"
 
   vars {
-    name      = "${var.PREFIX}-VM-WAF-${count.index}"
+    name      = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-WAF-${count.index}"
     arguments = "ansible_host=${element(var.waf_ip_addresses[var.DEPLOYMENTCOLOR], count.index)} ansible_connection=local gather_facts=no waf_license_token=${element(var.WAF_LICENSE_TOKENS, count.index)} "
   }
 

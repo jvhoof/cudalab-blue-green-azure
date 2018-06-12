@@ -8,12 +8,12 @@
 ##############################################################################################################
 
 resource "azurerm_resource_group" "resourcegroupweb" {
-  name     = "${var.PREFIX}-RG-WEB"
+  name     = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-RG-WEB"
   location = "${var.LOCATION}"
 }
 
 resource "azurerm_network_interface" "webifc" {
-  name                 = "${var.PREFIX}-VM-WEB-IFC"
+  name                 = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-WEB-IFC"
   location             = "${azurerm_resource_group.resourcegroupweb.location}"
   resource_group_name  = "${azurerm_resource_group.resourcegroupweb.name}"
   enable_ip_forwarding = true
@@ -27,7 +27,7 @@ resource "azurerm_network_interface" "webifc" {
 }
 
 resource "azurerm_virtual_machine" "webvm" {
-  name                  = "${var.PREFIX}-VM-WEB"
+  name                  = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-WEB"
   location              = "${azurerm_resource_group.resourcegroupweb.location}"
   resource_group_name   = "${azurerm_resource_group.resourcegroupweb.name}"
   network_interface_ids = ["${azurerm_network_interface.webifc.id}"]
@@ -41,14 +41,14 @@ resource "azurerm_virtual_machine" "webvm" {
   }
 
   storage_os_disk {
-    name              = "${var.PREFIX}-VM-WEB-OSDISK"
+    name              = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-WEB-OSDISK"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
 
   os_profile {
-    computer_name  = "${var.PREFIX}-VM-WEB"
+    computer_name  = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-WEB"
     admin_username = "azureuser"
     admin_password = "${var.PASSWORD}"
   }
@@ -72,7 +72,7 @@ data "template_file" "web_ansible" {
   template = "${file("${path.module}/ansible_host_lnx.tpl")}"
 
   vars {
-    name      = "${var.PREFIX}-VM-WEB"
+    name      = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-WEB"
     arguments = "ansible_host=${element(split(",",azurerm_network_interface.webifc.private_ip_address),count.index)} gather_facts=no"
   }
 

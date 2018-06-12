@@ -8,26 +8,26 @@
 ##############################################################################################################
 
 resource "azurerm_resource_group" "resourcegroupvnet" {
-  name     = "${var.PREFIX}-RG-VNET"
+  name     = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-RG-VNET"
   location = "${var.LOCATION}"
 }
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = "${var.PREFIX}-VNET"
+  name                = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VNET"
   address_space       = ["${var.vnet[var.DEPLOYMENTCOLOR]}"]
   location            = "${azurerm_resource_group.resourcegroupvnet.location}"
   resource_group_name = "${azurerm_resource_group.resourcegroupvnet.name}"
 }
 
 resource "azurerm_subnet" "subnet1" {
-  name                 = "${var.PREFIX}-SUBNET-CGF"
+  name                 = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-SUBNET-CGF"
   resource_group_name  = "${azurerm_resource_group.resourcegroupvnet.name}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
   address_prefix       = "${var.subnet_cgf[var.DEPLOYMENTCOLOR]}"
 }
 
 resource "azurerm_subnet" "subnet2" {
-  name                 = "${var.PREFIX}-SUBNET-WAF"
+  name                 = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-SUBNET-WAF"
   resource_group_name  = "${azurerm_resource_group.resourcegroupvnet.name}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
   address_prefix       = "${var.subnet_waf[var.DEPLOYMENTCOLOR]}"
@@ -35,7 +35,7 @@ resource "azurerm_subnet" "subnet2" {
 }
 
 resource "azurerm_subnet" "subnet3" {
-  name                 = "${var.PREFIX}-SUBNET-WEB"
+  name                 = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-SUBNET-WEB"
   resource_group_name  = "${azurerm_resource_group.resourcegroupvnet.name}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
   address_prefix       = "${var.subnet_web[var.DEPLOYMENTCOLOR]}"
@@ -43,7 +43,7 @@ resource "azurerm_subnet" "subnet3" {
 }
 
 resource "azurerm_subnet" "subnet4" {
-  name                 = "${var.PREFIX}-SUBNET-DB"
+  name                 = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-SUBNET-DB"
   resource_group_name  = "${azurerm_resource_group.resourcegroupvnet.name}"
   virtual_network_name = "${azurerm_virtual_network.vnet.name}"
   address_prefix       = "${var.subnet_db[var.DEPLOYMENTCOLOR]}"
@@ -51,26 +51,26 @@ resource "azurerm_subnet" "subnet4" {
 }
 
 resource "azurerm_route_table" "webroute" {
-  name                = "${var.PREFIX}-RT-WEB"
+  name                = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-RT-WEB"
   location            = "${var.LOCATION}"
   resource_group_name = "${azurerm_resource_group.resourcegroupvnet.name}"
 
   route {
-    name                   = "${var.PREFIX}-WebToInternet"
+    name                   = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-WebToInternet"
     address_prefix         = "0.0.0.0/0"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress[var.DEPLOYMENTCOLOR]}"
   }
 
   route {
-    name                   = "${var.PREFIX}-WebToWAF"
+    name                   = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-WebToWAF"
     address_prefix         = "${var.subnet_waf[var.DEPLOYMENTCOLOR]}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress[var.DEPLOYMENTCOLOR]}"
   }
 
   route {
-    name                   = "${var.PREFIX}-WebToDB"
+    name                   = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-WebToDB"
     address_prefix         = "${var.subnet_db[var.DEPLOYMENTCOLOR]}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress[var.DEPLOYMENTCOLOR]}"
@@ -78,33 +78,33 @@ resource "azurerm_route_table" "webroute" {
 }
 
 resource "azurerm_route_table" "wafroute" {
-  name                = "${var.PREFIX}-RT-WAF"
+  name                = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-RT-WAF"
   location            = "${var.LOCATION}"
   resource_group_name = "${azurerm_resource_group.resourcegroupvnet.name}"
 
   route {
-    name                   = "${var.PREFIX}-WAFToWEB"
+    name                   = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-WAFToWEB"
     address_prefix         = "${var.subnet_web[var.DEPLOYMENTCOLOR]}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress[var.DEPLOYMENTCOLOR]}"
   }
 
   route {
-    name                   = "${var.PREFIX}-WAFToDB"
+    name                   = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-WAFToDB"
     address_prefix         = "${var.subnet_db[var.DEPLOYMENTCOLOR]}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress[var.DEPLOYMENTCOLOR]}"
   }
 
   route {
-    name                   = "${var.PREFIX}-WAFToCUDALAB"
+    name                   = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-WAFToCUDALAB"
     address_prefix         = "${var.network_cudalab}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress[var.DEPLOYMENTCOLOR]}"
   }
 
   route {
-    name                   = "${var.PREFIX}-WAFToDEV"
+    name                   = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-WAFToDEV"
     address_prefix         = "172.16.250.0/24"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress[var.DEPLOYMENTCOLOR]}"
@@ -112,26 +112,26 @@ resource "azurerm_route_table" "wafroute" {
 }
 
 resource "azurerm_route_table" "dbroute" {
-  name                = "${var.PREFIX}-RT-DB"
+  name                = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-RT-DB"
   location            = "${var.LOCATION}"
   resource_group_name = "${azurerm_resource_group.resourcegroupvnet.name}"
 
   route {
-    name                   = "${var.PREFIX}-DBToInternet"
+    name                   = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-DBToInternet"
     address_prefix         = "0.0.0.0/0"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress[var.DEPLOYMENTCOLOR]}"
   }
 
   route {
-    name                   = "${var.PREFIX}-DBToWAF"
+    name                   = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-DBToWAF"
     address_prefix         = "${var.subnet_waf[var.DEPLOYMENTCOLOR]}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress[var.DEPLOYMENTCOLOR]}"
   }
 
   route {
-    name                   = "${var.PREFIX}-DBToWEB"
+    name                   = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-DBToWEB"
     address_prefix         = "${var.subnet_web[var.DEPLOYMENTCOLOR]}"
     next_hop_type          = "VirtualAppliance"
     next_hop_in_ip_address = "${var.cgf_a_ipaddress[var.DEPLOYMENTCOLOR]}"
