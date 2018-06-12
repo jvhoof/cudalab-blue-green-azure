@@ -52,12 +52,6 @@ echo ""
 cd terraform/
 
 echo ""
-echo "==> Terraform workspace [$DEPLOYMENTCOLOR]"
-echo ""
-terraform workspace list
-terraform workspace select $DEPLOYMENTCOLOR || terraform workspace new $DEPLOYMENTCOLOR
-
-echo ""
 echo "==> Terraform init"
 echo ""
 terraform init \
@@ -65,7 +59,12 @@ terraform init \
   -backend-config="container_name=$BACKEND_CONTAINER_NAME" \
   -backend-config="key=$BACKEND_KEY_COLOR" \
   -backend-config="access_key=$BACKEND_ARM_ACCESS_KEY" \
-#  terraform/
+
+echo ""
+echo "==> Terraform workspace [$DEPLOYMENTCOLOR]"
+echo ""
+terraform workspace list
+terraform workspace select $DEPLOYMENTCOLOR || terraform workspace new $DEPLOYMENTCOLOR
 
 echo ""
 echo "==> Terraform plan"
