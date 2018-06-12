@@ -117,7 +117,6 @@ cd ../
 echo ""
 echo "==> Ansible configuration web server"
 echo ""
-echo "ansible-playbook ansible/web.yml $ANSIBLEOPTS -i \"$ANSIBLEWEBINVENTORY\""
 ansible-playbook ansible/web.yml $ANSIBLEOPTS -i "$ANSIBLEWEBINVENTORY"
 
 echo ""
