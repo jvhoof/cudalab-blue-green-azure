@@ -226,7 +226,7 @@
     request_url: "{{ waf_base_url }}"
     request_path: "/restapi/v3/services/{{ waf_service_name }}/content-rules"
     request_name: "{{ waf_content_rule_tm_name }}"
-    request_body: '{ "access-log": "Enable", "url-match": "/*", "status": "On", "mode": "Active", "name": "{{ waf_content_rule_portal_name }}", "comments": "{{ waf_content_rule_portal_comment }}", "web-firewall-policy": "default", "app-id": "{{ waf_service_name }}", "host-match": "{{ waf_content_rule_portal_hostname }}" }'
+    request_body: '{ "access-log": "Enable", "url-match": "/*", "status": "On", "mode": "Active", "name": "{{ waf_content_rule_tm_name }}", "comments": "{{ waf_content_rule_tm_comment }}", "web-firewall-policy": "default", "app-id": "{{ waf_service_name }}", "host-match": "{{ waf_content_rule_tm_hostname }}" }'
   when: inventory_hostname == ansible_play_hosts[0]
 
 #### WAF Create TRAFFIC MANAGER content rule server ###
@@ -234,7 +234,7 @@
   vars:
     request_comment: "Create Traffic Manager content rule server"
     request_url: "{{ waf_base_url }}"
-    request_path: "/restapi/v3/services/{{ waf_service_name }}/content-rules/{{ waf_content_rule_portal_name }}/content-rule-servers"
-    request_name: "{{ waf_content_rule_portal_server_name }}"
-    request_body: '{ "backup-server": "No", "status": "In Service", "name": "{{ waf_content_rule_portal_server_name }}", "port": {{ waf_content_rule_portal_port }}, "identifier": "IP Address", "weight": 1, "ip-address": "{{ waf_content_rule_portal_ip_address }}" }'
+    request_path: "/restapi/v3/services/{{ waf_service_name }}/content-rules/{{ waf_content_rule_tm_name }}/content-rule-servers"
+    request_name: "{{ waf_content_rule_tm_server_name }}"
+    request_body: '{ "backup-server": "No", "status": "In Service", "name": "{{ waf_content_rule_tm_server_name }}", "port": {{ waf_content_rule_tm_port }}, "identifier": "IP Address", "weight": 1, "ip-address": "{{ waf_content_rule_tm_ip_address }}" }'
   when: inventory_hostname == ansible_play_hosts[0]
