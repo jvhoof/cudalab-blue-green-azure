@@ -13,8 +13,8 @@ echo "
 # Stop running when command returns error
 set -e
 
-echo "Agent.BuildDirectory: [$(Agent.BuildDirectory)]"
-echo "Agent.WorkFolder: [$(Agent.WorkFolder)]"
-echo "Build.BuildId: [$(Build.BuildId)]"
+echo "Agent.BuildDirectory: [$(AGENT_BUILDDIRECTORY)]"
+echo "Agent.WorkFolder: [$(AGENT_WORKFOLDER)]"
+echo "Build.BuildId: [$(BUILD_BUILDID)]"
 
 set
