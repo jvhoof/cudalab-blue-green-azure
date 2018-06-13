@@ -29,12 +29,6 @@ echo "==> Starting Terraform deployment"
 echo ""
 
 echo ""
-echo "==> Terraform workspace [$DEPLOYMENTCOLOR]"
-echo ""
-terraform workspace list
-terraform workspace select $DEPLOYMENTCOLOR || terraform workspace new $DEPLOYMENTCOLOR
-
-echo ""
 echo "==> Terraform init"
 echo ""
 echo "BACKEND_STORAGE_ACCOUNT_NAME: [$BACKEND_STORAGE_ACCOUNT_NAME]"
@@ -43,6 +37,12 @@ terraform init \
   -backend-config="container_name=$BACKEND_CONTAINER_NAME" \
   -backend-config="key=$BACKEND_KEY_COLOR" \
   -backend-config="access_key=$BACKEND_ARM_ACCESS_KEY" \
+
+echo ""
+echo "==> Terraform workspace [$DEPLOYMENTCOLOR]"
+echo ""
+terraform workspace list
+terraform workspace select $DEPLOYMENTCOLOR || terraform workspace new $DEPLOYMENTCOLOR
 
 echo ""
 echo "==> Terraform destroy"
