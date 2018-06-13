@@ -16,6 +16,5 @@ set -e
 echo "Agent.BuildDirectory: [$(Agent.BuildDirectory)]"
 echo "Agent.WorkFolder: [$(Agent.WorkFolder)]"
 echo "Build.BuildId: [$(Build.BuildId)]"
-echo "BACKEND_STORAGE_ACCOUNT_NAME: [$BACKEND_STORAGE_ACCOUNT_NAME]"
-echo "BACKEND_CONTAINER_NAME: [$BACKEND_CONTAINER_NAME]"
-echo "BACKEND_KEY_COLOR: [$BACKEND_KEY_COLOR]"
+
+set
