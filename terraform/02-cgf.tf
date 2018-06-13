@@ -154,7 +154,7 @@ resource "azurerm_virtual_machine" "cgfvma" {
     computer_name  = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-CGF-A"
     admin_username = "azureuser"
     admin_password = "${var.PASSWORD}"
-    custom_data    = "${base64encode("#!/bin/bash\n\nCCSECRET=${var.CCSECRET}\n\nCCIP=${var.CCIPADDRESS}\n\nCCRANGEID=${var.CCRANGEID}\n\nCCCLUSTERNAME=${var.CCCLUSTERNAME}\n\nCGFNAME=${var.CFGVMNAME}\n\n${file("${path.module}/provisioncgf.sh")}")}"
+    custom_data    = "${base64encode("#!/bin/bash\n\nCCSECRET=${var.CCSECRET}\n\nCCIP=${var.CCIPADDRESS}\n\nCCRANGEID=${var.CCRANGEID}\n\nCCCLUSTERNAME=${var.CCCLUSTERNAME}\n\nCGFNAME=${var.CGFVMNAME}\n\n${file("${path.module}/provisioncgf.sh")}")}"
   }
 
   os_profile_linux_config {

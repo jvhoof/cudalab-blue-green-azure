@@ -47,7 +47,7 @@ variable "CCRANGEID" {
 variable "CCCLUSTERNAME" {}
 
 # Barracuda Firewall Control Center Firewall identifier
-variable "CFGVMNAME" {
+variable "CGFVMNAME" {
   description = "CloudGen Firewall Name"
 }
 
