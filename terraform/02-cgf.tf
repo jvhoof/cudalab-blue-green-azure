@@ -24,7 +24,7 @@ resource "azurerm_public_ip" "cgflbpip" {
   location                     = "${var.LOCATION}"
   resource_group_name          = "${azurerm_resource_group.resourcegroupcgf.name}"
   public_ip_address_allocation = "static"
-  domain_name_label            = "${format("%s%s", lower(var.PREFIX), "-cgf-pip")}"
+  domain_name_label            = "${format("%s-%s%s", lower(var.PREFIX), var.DEPLOYMENTCOLOR, "-cgf-pip")}"
 }
 
 resource "azurerm_lb" "cgflb" {
