@@ -77,7 +77,6 @@ terraform plan --out "$PLAN" \
                 -var "AZURE_CLIENT_SECRET=$AZURE_CLIENT_SECRET" \
                 -var "AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID" \
                 -var "AZURE_TENANT_ID=$AZURE_TENANT_ID" \
-                -var "WAF_LICENSE_TOKENS=$WAF_LICENSE_TOKENS" \
                 -var "DEPLOYMENTCOLOR=$DEPLOYMENTCOLOR" 
 
 echo ""
@@ -162,12 +161,11 @@ terraform plan --out "$PLANATM" \
                 -var "CCSECRET=$CCSECRET" \
                 -var "PASSWORD=$PASSWORD" \
                 -var "SSH_KEY_DATA=$SSH_KEY_DATA" \
-                -var "DEPLOYMENTCOLOR=$DEPLOYMENTCOLOR" \
                 -var "AZURE_CLIENT_ID=$AZURE_CLIENT_ID" \
                 -var "AZURE_CLIENT_SECRET=$AZURE_CLIENT_SECRET" \
                 -var "AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID" \
                 -var "AZURE_TENANT_ID=$AZURE_TENANT_ID" \
-                -var "DEPLOYMENTCOLOR=$DEPLOYMENTCOLOR" 
+                -var "DEPLOYMENTCOLOR=$DEPLOYMENTCOLOR"
 
 echo ""
 echo "==> Terraform apply"
