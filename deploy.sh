@@ -35,10 +35,6 @@ while getopts "a:b:c:d:p:s:z:" option; do
     esac
 done
 
-echo "BACKEND_ARM_ACCESS_KEY: [$BACKEND_ARM_ACCESS_KEY]"
-echo "BACKEND_STORAGE_ACCOUNT_NAME: [$BACKEND_STORAGE_ACCOUNT_NAME]"
-echo "BACKEND_CONTAINER_NAME: [$BACKEND_CONTAINER_NAME]"
-echo "BACKEND_KEY_COLOR: [$BACKEND_KEY_COLOR]"
 echo ""
 echo "==> Deployment of the [$DEPLOYMENTCOLOR] environment"
 echo ""
