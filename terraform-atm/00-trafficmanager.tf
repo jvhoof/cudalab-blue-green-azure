@@ -38,16 +38,16 @@ terraform {
 # Microsoft Azure Service Principle information for deployment
 ##############################################################################################################
 
-variable "SUBSCRIPTION_ID" {}
-variable "CLIENT_ID" {}
-variable "CLIENT_SECRET" {}
-variable "TENANT_ID" {}
+variable "AZURE_SUBSCRIPTION_ID" {}
+variable "AZURE_CLIENT_ID" {}
+variable "AZURE_CLIENT_SECRET" {}
+variable "AZURE_TENANT_ID" {}
 
 provider "azurerm" {
-  subscription_id = "${var.SUBSCRIPTION_ID}"
-  client_id       = "${var.CLIENT_ID}"
-  client_secret   = "${var.CLIENT_SECRET}"
-  tenant_id       = "${var.TENANT_ID}"
+  subscription_id = "${var.AZURE_SUBSCRIPTION_ID}"
+  client_id       = "${var.AZURE_CLIENT_ID}"
+  client_secret   = "${var.AZURE_CLIENT_SECRET}"
+  tenant_id       = "${var.AZURE_TENANT_ID}"
 }
 
 ##############################################################################################################
