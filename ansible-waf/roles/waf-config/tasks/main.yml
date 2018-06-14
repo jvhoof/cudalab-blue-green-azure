@@ -99,6 +99,16 @@
   retries: 60
   delay: 15
 
+### WAF Create InstantSSL service
+- include_tasks: waf-create-edit-item.yml
+  vars:
+    request_comment: "Create InstantSSL service"
+    request_url: "{{ waf_base_url }}"
+    request_path: "/restapi/v3/services"
+    request_name: "{{ waf_service_http_name }}"
+    request_body: '{"name":"{{ waf_service_http_name }}", "ip-address":"{{ waf_service_http_ip_address }}", "port":"{{ waf_service_http_port }}", "type":"INSTANTSSL", "address-version":"ipv4", "vsite":"default", "group":"default"}'
+  when: inventory_hostname == ansible_play_hosts[0]
+
 ### WAF Create HTTPS service
 - include_tasks: waf-create-edit-item.yml
   vars:
