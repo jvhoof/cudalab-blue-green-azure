@@ -47,4 +47,15 @@ terraform workspace select $DEPLOYMENTCOLOR || terraform workspace new $DEPLOYME
 echo ""
 echo "==> Terraform destroy"
 echo ""
-terraform destroy -var "CCSECRET=$CCSECRET" -var "PASSWORD=$PASSWORD" -var "SSH_KEY_DATA=$SSH_KEY_DATA" -auto-approve 
+terraform destroy -var "CCSECRET=$CCSECRET" \
+                  -var "PASSWORD=$PASSWORD" \
+                  -var "SSH_KEY_DATA=$SSH_KEY_DATA" \
+                  -var "CCSECRET=$CCSECRET" \
+                  -var "PASSWORD=$PASSWORD" \
+                  -var "SSH_KEY_DATA=$SSH_KEY_DATA" \
+                  -var "AZURE_CLIENT_ID=$AZURE_CLIENT_ID" \
+                  -var "AZURE_CLIENT_SECRET=$AZURE_CLIENT_SECRET" \
+                  -var "AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID" \
+                  -var "AZURE_TENANT_ID=$AZURE_TENANT_ID" \
+                  -var "DEPLOYMENTCOLOR=$DEPLOYMENTCOLOR" \
+                  -auto-approve 

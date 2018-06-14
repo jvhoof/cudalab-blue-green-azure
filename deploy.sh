@@ -31,6 +31,10 @@ while getopts "a:b:c:d:p:s:z:" option; do
         d) DB_PASSWORD="$OPTARG" ;;
         p) PASSWORD="$OPTARG" ;;
         s) SSH_KEY_DATA="$OPTARG" ;;
+        v) AZURE_CLIENT_ID="$OPTARG" ;;
+        w) AZURE_CLIENT_SECRET="$OPTARG" ;;
+        x) AZURE_SUBSCRIPTION_ID="$OPTARG" ;;
+        y) AZURE_TENANT_ID="$OPTARG" ;;
         z) DEPLOYMENTCOLOR="$OPTARG"; ;;
     esac
 done
