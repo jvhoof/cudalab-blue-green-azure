@@ -69,7 +69,16 @@ terraform workspace select $DEPLOYMENTCOLOR || terraform workspace new $DEPLOYME
 echo ""
 echo "==> Terraform plan"
 echo ""
-terraform plan --out "$PLAN" -var "CCSECRET=$CCSECRET" -var "PASSWORD=$PASSWORD" -var "SSH_KEY_DATA=$SSH_KEY_DATA" -var "DEPLOYMENTCOLOR=$DEPLOYMENTCOLOR" 
+terraform plan --out "$PLAN" \
+                -var "CCSECRET=$CCSECRET" \
+                -var "PASSWORD=$PASSWORD" \
+                -var "SSH_KEY_DATA=$SSH_KEY_DATA" \
+                -var "AZURE_CLIENT_ID=$AZURE_CLIENT_ID" \
+                -var "AZURE_CLIENT_SECRET=$AZURE_CLIENT_SECRET" \
+                -var "AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID" \
+                -var "AZURE_TENANT_ID=$AZURE_TENANT_ID" \
+                -var "WAF_LICENSE_TOKENS=$WAF_LICENSE_TOKENS" 
+                -var "DEPLOYMENTCOLOR=$DEPLOYMENTCOLOR" 
 
 echo ""
 echo "==> Terraform apply"
@@ -80,7 +89,6 @@ echo ""
 echo "==> Terraform graph"
 echo ""
 terraform graph | dot -Tsvg > "../output/graph-$DEPLOYMENTCOLOR.svg"
-#terraform graph terraform/ > "dot-$DEPLOYMENTCOLOR.dot"
 
 echo ""
 echo "==> Creating inventory directories for Ansible"
