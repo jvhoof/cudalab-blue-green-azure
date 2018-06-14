@@ -153,7 +153,7 @@ terraform init \
   -backend-config="storage_account_name=$BACKEND_STORAGE_ACCOUNT_NAME" \
   -backend-config="container_name=$BACKEND_CONTAINER_NAME" \
   -backend-config="key=$BACKEND_KEY_TM" \
-  -backend-config="access_key=$BACKEND_ARM_ACCESS_KEY" \
+  -backend-config="access_key=$BACKEND_ARM_ACCESS_KEY" 
 
 echo ""
 echo "==> Terraform plan"
