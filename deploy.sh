@@ -70,7 +70,6 @@ echo ""
 echo "==> Terraform plan"
 echo ""
 terraform plan --out "$PLAN" -var "CCSECRET=$CCSECRET" -var "PASSWORD=$PASSWORD" -var "SSH_KEY_DATA=$SSH_KEY_DATA" -var "DEPLOYMENTCOLOR=$DEPLOYMENTCOLOR" 
-#terraform/
 
 echo ""
 echo "==> Terraform apply"
@@ -80,7 +79,7 @@ terraform apply "$PLAN"
 echo ""
 echo "==> Terraform graph"
 echo ""
-terraform graph | dot -Tsvg > "../graph-$DEPLOYMENTCOLOR.svg"
+terraform graph | dot -Tsvg > "../output/graph-$DEPLOYMENTCOLOR.svg"
 #terraform graph terraform/ > "dot-$DEPLOYMENTCOLOR.dot"
 
 echo ""
@@ -107,7 +106,7 @@ terraform output waf_ansible_inventory > "../$ANSIBLEWAFINVENTORY"
 echo ""
 echo "==> Terraform output deployment summary"
 echo ""
-terraform output deployment_summary > "../$SUMMARY"
+terraform output deployment_summary > "../output/$SUMMARY"
 
 cd ../
 echo ""
