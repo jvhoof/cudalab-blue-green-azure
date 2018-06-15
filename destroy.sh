@@ -16,9 +16,13 @@ set -e
 #SECRET="/ssh/secrets.tfvars"
 #STATE="terraform.tfstate"
 
-while getopts "b:z:" option; do
+while getopts "b:v:w:x:y:z:" option; do
     case "${option}" in
         b) BACKEND_ARM_ACCESS_KEY="$OPTARG" ;;
+        v) AZURE_CLIENT_ID="$OPTARG" ;;
+        w) AZURE_CLIENT_SECRET="$OPTARG" ;;
+        x) AZURE_SUBSCRIPTION_ID="$OPTARG" ;;
+        y) AZURE_TENANT_ID="$OPTARG" ;;
         z) DEPLOYMENTCOLOR="$OPTARG" ;;
     esac
 done
