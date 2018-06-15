@@ -23,7 +23,7 @@ ANSIBLEWEBINVENTORY="$ANSIBLEINVENTORYDIR/web"
 ANSIBLESQLINVENTORY="$ANSIBLEINVENTORYDIR/sql"
 ANSIBLEWAFINVENTORY="$ANSIBLEWAFINVENTORYDIR/waf"
 
-while getopts "a:b:c:d:p:s:z:" option; do
+while getopts "a:b:c:d:p:s:v:w:x:y:z:" option; do
     case "${option}" in
         a) ANSIBLEOPTS="$OPTARG" ;;
         b) BACKEND_ARM_ACCESS_KEY="$OPTARG" ;;
