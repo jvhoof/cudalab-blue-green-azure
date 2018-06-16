@@ -4,7 +4,7 @@
 
 - name: Sync colors files to the remote server
   synchronize:
-    src: colors
+    src: colors/
     dest: /data/colors/
     delete: yes
     recursive: yes
