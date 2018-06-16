@@ -1,10 +1,9 @@
 ---
-- name: Wait 900 seconds for port 22 to become open on the host, don't start checking for 5 seconds
+- name: Wait 900 seconds for port 22 to become open on the host
   wait_for:
     host: "{{ hostvars[inventory_hostname].ansible_host }}"
     search_regex: OpenSSH
     port: 22
-    delay: 5
     timeout: 900
   become: no
   delegate_to: localhost
@@ -37,7 +36,6 @@
   wait_for:
     host: "{{ hostvars[inventory_hostname].ansible_host }}"
     port: 22
-    delay: 5
     timeout: 600
   become: no
   delegate_to: localhost

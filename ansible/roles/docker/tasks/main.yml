@@ -21,6 +21,7 @@
     - { name: 'python3-setuptools' }
     - { name: 'python3-pkg-resources' }
     - { name: 'python3-pip' }
+    - { name: 'rsync' }
 
 - name: Upgrade pip
   pip:

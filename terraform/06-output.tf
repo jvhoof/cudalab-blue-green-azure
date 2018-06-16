@@ -39,3 +39,19 @@ EOF
 output "deployment_summary" {
   value = "${data.template_file.summary.rendered}"
 }
+
+data "template_file" "ansible_inventory" {
+  template = "${file("${path.module}/ansible_inventory.tpl")}"
+
+  vars {
+    env       = "${var.DEPLOYMENTCOLOR}"
+    sql_hosts = "${join("\n",data.template_file.sql_ansible.*.rendered)}"
+    web_hosts = "${join("\n",data.template_file.web_ansible.*.rendered)}"
+  }
+
+  depends_on = ["azurerm_virtual_machine.sqlvm", "azurerm_virtual_machine.webvm"]
+}
+
+output "ansible_inventory" {
+  value = "${data.template_file.ansible_inventory.rendered}"
+}

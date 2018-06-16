@@ -12,7 +12,6 @@
   wait_for:
     host: "{{ hostvars[inventory_hostname].ansible_host }}"
     port: 9200
-    delay: 5
     timeout: 300
   become: no
   delegate_to: localhost

@@ -1,8 +1,14 @@
 ---
-- name: Ansible copy directory to the remote server
-  copy:
+- name: Create data directory
+  file: dest=/data/colors state=directory owner=www-data group=www-data mode=0755
+
+- name: Sync colors files to the remote server
+  synchronize:
     src: colors
-    dest: /data
+    dest: /data/colors/
+    delete: yes
+    recursive: yes
+
 
 - name: Color-blue
   docker_container:
@@ -15,11 +21,10 @@
     volumes:
       - /data/colors/html/blue:/var/www/html:ro
 
-- name: Wait 300 seconds for port 9300 to become open on the host, don't start checking for 5 seconds
+- name: Wait 300 seconds for port 9300 to become open on the host
   wait_for:
     host: "{{ hostvars[inventory_hostname].ansible_host }}"
     port: 9300
-    delay: 5
     timeout: 300
   become: no
   delegate_to: localhost
@@ -35,11 +40,10 @@
     volumes:
       - /data/colors/html/green:/var/www/html:ro
 
-- name: Wait 300 seconds for port 9400 to become open on the host, don't start checking for 5 seconds
+- name: Wait 300 seconds for port 9400 to become open on the host
   wait_for:
     host: "{{ hostvars[inventory_hostname].ansible_host }}"
     port: 9400
-    delay: 5
     timeout: 300
   become: no
   delegate_to: localhost
@@ -55,11 +59,10 @@
     volumes:
       - /data/colors/html/pink:/var/www/html:ro
 
-- name: Wait 300 seconds for port 9500 to become open on the host, don't start checking for 5 seconds
+- name: Wait 300 seconds for port 9500 to become open on the host
   wait_for:
     host: "{{ hostvars[inventory_hostname].ansible_host }}"
     port: 9500
-    delay: 5
     timeout: 300
   become: no
   delegate_to: localhost

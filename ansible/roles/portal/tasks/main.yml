@@ -1,8 +1,13 @@
 ---
-- name: Ansible copy directory to the remote server
-  copy:
+- name: Create data directory
+  file: dest=/data/portal state=directory owner=www-data group=www-data mode=0755
+
+- name: Sync portal files to the remote server
+  synchronize:
     src: portal
-    dest: /data
+    dest: /data/portal/
+    delete: yes
+    recursive: yes
 
 - name: Install Portal webserver docker container
   docker_container:
@@ -15,11 +20,10 @@
     volumes:
       - /data/portal:/var/www/html:ro
 
-- name: Wait 300 seconds for port 9200 to become open on the host, don't start checking for 5 seconds
+- name: Wait 300 seconds for port 9200 to become open on the host
   wait_for:
     host: "{{ hostvars[inventory_hostname].ansible_host }}"
     port: 9000
-    delay: 5
     timeout: 300
   become: no
   delegate_to: localhost
