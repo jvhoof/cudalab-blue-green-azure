@@ -4,7 +4,7 @@
 
 - name: Sync portal files to the remote server
   synchronize:
-    src: portal/*
+    src: portal/
     dest: /data/portal/
     delete: yes
     recursive: yes
