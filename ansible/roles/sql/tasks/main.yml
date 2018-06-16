@@ -45,11 +45,11 @@
     login_user: root
     login_password: "{{ db_password }}"
 
-# Create database user with name 'bob' and password '12345' with all database privileges
+# Create database user with name 'bob' and password 'demo' with all database privileges
 - mysql_user:
     name: demo
     host: '%'
-    password: 12345
+    password: demo
     priv: 'demo.*:ALL'
     state: present
     login_host: "{{ hostvars[inventory_hostname].ansible_host }}"
