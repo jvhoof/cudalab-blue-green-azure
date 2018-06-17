@@ -22,7 +22,7 @@ $rowstart = 2;
 for ( $rowcnt = 0 ; $rowcnt < $rows ; $rowcnt++ ) {
 	echo '<tr>';
 	for ( $colcnt = 0 ; $colcnt < $cols ; $colcnt++ ) {
-//		if ( $rowcnt==$rowstart && $colcnt==$colstart ) {
+		if ( $rowcnt==$rowstart && $colcnt==$colstart ) {
 //			echo "<td colspan=$colspan rowspan=$rowspan >";
 //			$mysqli = new mysqli('172.30.105.196', 'demo', '', 'demo');
 			
@@ -40,13 +40,13 @@ for ( $rowcnt = 0 ; $rowcnt < $rows ; $rowcnt++ ) {
 //				echo "Error: Failed to make a MySQL connection, here is why: \n";
 //				echo "Errno: " . $mysqli->connect_errno . "\n";
 //				echo "Error: " . $mysqli->connect_error . "\n";
-//			}
-//			?>
+			}
+			?>
 <form>
 <input name="needle"><input type="submit" value="Search color"><br>
 </form>
 			<?php
-//			if (!empty( $_GET[ 'needle' ])) {
+			if (!empty( $_GET[ 'needle' ])) {
 //				$needle = $_GET[ 'needle' ];	
 //				$sql = "SELECT * FROM colors WHERE name LIKE '$needle'";
 //				if (!$result = $mysqli->query($sql)) {
@@ -69,7 +69,7 @@ for ( $rowcnt = 0 ; $rowcnt < $rows ; $rowcnt++ ) {
 //				}
 //			}
 //			echo "</td>";
-//		}
+		}
 		if ( $colcnt >= $colstart && $colcnt < ( $colstart + $colspan ) && $rowcnt >= $rowstart && $rowcnt < ( $rowstart+$rowspan )) {
 			$colcnt += $colspan;
 		}

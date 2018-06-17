@@ -23,7 +23,7 @@
     ports:
       - "3306:3306"
     env:
-      MYSQL_ROOT_PASSWORD: "{{ db_password }}"
+      MYSQL_ROOT_PASSWORD: "{{ DB_PASSWORD }}"
     volumes:
      - /data/db:/var/lib/mysql
 
@@ -43,7 +43,7 @@
     state: present
     login_host: "{{ hostvars[inventory_hostname].ansible_host }}"
     login_user: root
-    login_password: "{{ db_password }}"
+    login_password: "{{ DB_PASSWORD }}"
 
 # Create database user with name 'bob' and password 'demo' with all database privileges
 - mysql_user:
@@ -54,7 +54,7 @@
     state: present
     login_host: "{{ hostvars[inventory_hostname].ansible_host }}"
     login_user: root
-    login_password: "{{ db_password }}"
+    login_password: "{{ DB_PASSWORD }}"
 
 # Copy database dump file to remote host and restore it to database 'my_db'
 - name: Copy database dump file
@@ -69,4 +69,4 @@
     target: /tmp/colors.sql
     login_host: "{{ hostvars[inventory_hostname].ansible_host }}"
     login_user: root
-    login_password: "{{ db_password }}"
+    login_password: "{{ DB_PASSWORD }}"

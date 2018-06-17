@@ -66,3 +66,10 @@
     timeout: 300
   become: no
   delegate_to: localhost
+
+# Copy database dump file to remote host and restore it to database 'my_db'
+- name: Ansible Template Example
+  template:
+    src: db.j2
+    dest: /data/colors/db.conf
+

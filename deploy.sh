@@ -78,6 +78,7 @@ terraform plan --out "$PLAN" \
                 -var "CCSECRET=$CCSECRET" \
                 -var "PASSWORD=$PASSWORD" \
                 -var "SSH_KEY_DATA=$SSH_KEY_DATA" \
+                -var "DB_PASSWORD=$DB_PASSWORD" \
                 -var "AZURE_CLIENT_ID=$AZURE_CLIENT_ID" \
                 -var "AZURE_CLIENT_SECRET=$AZURE_CLIENT_SECRET" \
                 -var "AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID" \
@@ -129,7 +130,7 @@ cd ../
 echo ""
 echo "==> Ansible configuration"
 echo ""
-ansible-playbook ansible/all.yml $ANSIBLEOPTS -i "$ANSIBLEINVENTORY" --extra-vars "db_password=$DB_PASSWORD"
+ansible-playbook ansible/all.yml $ANSIBLEOPTS -i "$ANSIBLEINVENTORY" 
 
 #echo ""
 #echo "==> Ansible configuration web server"

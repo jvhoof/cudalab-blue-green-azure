@@ -27,6 +27,9 @@ variable "SSH_KEY_DATA" {}
 # Static password used for CGF, WAF and SQL database
 variable "PASSWORD" {}
 
+# Static password used for SQL database
+variable "DB_PASSWORD" {}
+
 # Barracuda Firewall Control Center Secret for deployment
 variable "CCSECRET" {
   description = "Barracuda Firewall Control Center Secret"
