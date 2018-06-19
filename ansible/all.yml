@@ -37,8 +37,6 @@
 
 - hosts: waf-green:waf-blue
   gather_facts: no
-  become: yes
-  become_method: sudo
   roles:
     - role: waf-bootstrap                     # define 'waf-bootstrap' role should be apply to hosts
     - role: waf-config                         # define 'waf-config' role should be apply to hosts
