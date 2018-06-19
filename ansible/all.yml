@@ -1,28 +1,64 @@
 ---
-- hosts: all                                # define 'docker' as our action target
-  gather_facts: False
+- hosts: web:sql
+  gather_facts: no
   become: yes
   become_method: sudo
-  strategy: free
   roles:
-  - role: common                            # define 'common' role should be apply to hosts
-  - role: docker                            # define 'docker' role should be apply to hosts
+    - role: common
+    - role: docker
 
-- hosts: web                                # define 'docker' as our action target
-  gather_facts: False
+- hosts: web:sql:waf-green:waf-blue
+  gather_facts: no
   become: yes
   become_method: sudo
   strategy: free
-  roles:
-  - role: badstore                          # define 'badstore' role should be apply to hosts
-  - role: dvwa                              # define 'dvwa' role should be apply to hosts
-  - role: portal                            # define 'portal' role should be apply to hosts
-  - role: colors                            # define 'portal' role should be apply to hosts
+  tasks:
+  - include_role: 
+      name: badstore
+    when:  "'web' in group_names"
+  - include_role: 
+      name: dvwa
+    when:  "'web' in group_names"
+  - include_role: 
+      name: colors
+    when:  "'web' in group_names"
+  - include_role: 
+      name: portal
+    when:  "'web' in group_names"
+  - include_role: 
+      name: sql
+    when: "'sql' in group_names"
+  - include_role: 
+      name: waf-bootstrap
+    when: "'waf' in group_names"
+  - include_role: 
+      name: waf-config
+    when: "'waf' in group_names"
 
-- hosts: sql                                # define 'docker' as our action target
-  gather_facts: False
-  become: yes
-  become_method: sudo
-  strategy: free
-  roles:
-  - role: sql                               # define 'sql' role should be apply to hosts
+#- hosts: all                                # define 'docker' as our action target
+#  gather_facts: False
+#  become: yes
+#  become_method: sudo
+#  strategy: free
+#  roles:
+#  - role: common                            # define 'common' role should be apply to hosts
+#  - role: docker                            # define 'docker' role should be apply to hosts
+#
+#- hosts: web                                # define 'docker' as our action target
+#  gather_facts: False
+#  become: yes
+#  become_method: sudo
+#  strategy: free
+#  roles:
+#  - role: badstore                          # define 'badstore' role should be apply to hosts
+#  - role: dvwa                              # define 'dvwa' role should be apply to hosts
+#  - role: portal                            # define 'portal' role should be apply to hosts
+#  - role: colors                            # define 'portal' role should be apply to hosts
+#
+#- hosts: sql                                # define 'docker' as our action target
+#  gather_facts: False
+#  become: yes
+#  become_method: sudo
+#  strategy: free
+#  roles:
+#  - role: sql                               # define 'sql' role should be apply to hosts
