@@ -1,45 +1,47 @@
 ---
-- hosts: web:sql
-  gather_facts: no
-  become: yes
-  become_method: sudo
-  roles:
-    - role: common
-    - role: docker
+- hosts: waf-blue:waf-green
+  - include_role: 
+      name: waf-bootstrap
+    when: "'waf' in group_names"
 
-- hosts: web:sql
+#- hosts: web:sql
+#  gather_facts: no
+#  become: yes
+#  become_method: sudo
+#  roles:
+#    - role: common
+#    - role: docker
+#
+- hosts: web:sql:waf-blue:waf-green
   gather_facts: no
   become: yes
   become_method: sudo
   strategy: free
   tasks:
-  - include_role: 
-      name: badstore
-    when:  "'web' in group_names"
-  - include_role: 
-      name: dvwa
-    when:  "'web' in group_names"
-  - include_role: 
-      name: colors
-    when:  "'web' in group_names"
-  - include_role: 
-      name: portal
-    when:  "'web' in group_names"
-  - include_role: 
-      name: sql
-    when: "'sql' in group_names"
 #  - include_role: 
-#      name: waf-bootstrap
-#    when: "'waf' in group_names"
+#      name: badstore
+#    when:  "'web' in group_names"
 #  - include_role: 
-#      name: waf-config
-#    when: "'waf' in group_names"
+#      name: dvwa
+#    when:  "'web' in group_names"
+#  - include_role: 
+#      name: colors
+#    when:  "'web' in group_names"
+#  - include_role: 
+#      name: portal
+#    when:  "'web' in group_names"
+#  - include_role: 
+#      name: sql
+#    when: "'sql' in group_names"
+  - include_role: 
+      name: waf-config
+    when: "'waf' in group_names"
 
-- hosts: waf-green:waf-blue
-  gather_facts: no
-  roles:
-    - role: waf-bootstrap                     # define 'waf-bootstrap' role should be apply to hosts
-    - role: waf-config                         # define 'waf-config' role should be apply to hosts
+#- hosts: waf-green:waf-blue
+#  gather_facts: no
+#  roles:
+#    - role: waf-bootstrap                     # define 'waf-bootstrap' role should be apply to hosts
+#    - role: waf-config                         # define 'waf-config' role should be apply to hosts
 
 #- hosts: all                                # define 'docker' as our action target
 #  gather_facts: False

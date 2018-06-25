@@ -21,13 +21,13 @@
     url: http://{{ hostvars[inventory_hostname].ansible_host }}:8000/
     return_content: true
     timeout: 60
-  register: response
+  register: provisioned
   retries: 2
   delay: 5
 
 - name: WAF - Is already provisioned, ending this playbook
   meta: end_play
-  when: "'/cgi-mod/index.cgi' in response.content"
+  when: "'/cgi-mod/index.cgi' in provisioned.content"
 
 - name: Check if license page is ready
   uri: 
@@ -64,8 +64,8 @@
 - set_fact: 
     eula_hash_val: "{{ response.content | regex_findall('eula_hash_val\" value=\"(.+)\"') }}"
 
-- debug:
-    msg: "System {{ hostvars[inventory_hostname].ansible_host }} has returned eula_hash_val {{ eula_hash_val }}"
+#- debug:
+#    msg: "System {{ hostvars[inventory_hostname].ansible_host }} has returned eula_hash_val {{ eula_hash_val }}"
 
 - name: Accept Barracuda Product Terms
   uri:

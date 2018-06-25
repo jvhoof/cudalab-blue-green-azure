@@ -1,4 +1,0 @@
----
-- role: common                            # define 'common' role should be apply to hosts
-- role: docker                            # define 'docker' role should be apply to hosts
-- role: sql                               # define 'sql' role should be apply to hosts

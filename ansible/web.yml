@@ -1,7 +1,0 @@
----
-- role: common                            # define 'common' role should be apply to hosts
-- role: docker                            # define 'docker' role should be apply to hosts
-- role: badstore                          # define 'badstore' role should be apply to hosts
-- role: dvwa                              # define 'dvwa' role should be apply to hosts
-- role: portal                            # define 'portal' role should be apply to hosts
-- role: colors                            # define 'portal' role should be apply to hosts

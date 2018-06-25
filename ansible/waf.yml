@@ -1,3 +1,0 @@
----
-- role: waf-bootstrap                     # define 'waf-bootstrap' role should be apply to hosts
-- role: waf-config                         # define 'waf-config' role should be apply to hosts
