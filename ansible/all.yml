@@ -2,7 +2,7 @@
 - hosts: waf-blue:waf-green
   gather_facts: no
   roles:
-  - include_role: 
+    - include_role: 
       name: waf-bootstrap
 
 - hosts: web:sql
