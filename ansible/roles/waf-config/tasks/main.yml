@@ -14,7 +14,7 @@
     return_content: true
     timeout: 300
   register: response
-  until: '"Please enter your administrator login and password" in response.content'
+  until: "\'Please enter your administrator login and password\' in response.content"
   retries: 60
   delay: 15
 
