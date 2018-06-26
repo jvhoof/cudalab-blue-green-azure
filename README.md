@@ -1,7 +1,7 @@
 # Barracuda CloudGen Firewall and Web Application Firewall - Blue / Green deployment
 
 ## Introduction
-Since the start of the begining of time people have tried to automate tasks. Also in computer sience we have seen this from the early days. One limition was the infrastructure that needed to be in place for automation to commence. With virtualisation and public cloud this automation has come full circle and we can now deploy, manage, redeploy everything using automation techniques. We can descibe the operating environment in code, validate it, test it, document it and deploy it from a code repository. 
+Since the begining of time people have tried to automate tasks. Also in computer sience we have seen this from the early days. One limition was the infrastructure that needed to be in place for automation to commence. With virtualisation and public cloud this automation has come full circle and we can now deploy, manage, redeploy everything using automation techniques. We can descibe the operating environment in code, validate it, test it, document it and deploy it from a code repository. 
 
 This is a giant change compared to the typical laborious deployment of infrastructure through cli, web ui, client or other. 
 
@@ -10,22 +10,36 @@ The purpose of this demo is to showcase how you can create, configure and secure
 ![CGF Azure Network Architecture](images/cudalab-blue-green.png)
 
 ## Prerequisites
-The tools used in this setup are HashiCorp Terraform and RedHat Ansible. Both tools have their pro's and con's. Working together they help maintaining the state of your infrastructure and the ensures the configuration is correct. The deployment can be done from either a bash shell script or from any CI tool. In our case we used Visual Studio Team Services (VSTS). The LINUX VSTS agent requires the Ansible and Terraform tools to be installed as well as the VSTS agent.
+The tools used in this setup are HashiCorp Terraform (> 0.11.x) and RedHat Ansible (> 2.x). Both tools have their pro's and con's. Working together they help maintaining the state of your infrastructure and the ensures the configuration is correct. The deployment can be done from either a bash shell script or from any CI tool. In our case we used Visual Studio Team Services (VSTS). The LINUX VSTS agent requires the Ansible and Terraform tools to be installed as well as the VSTS agent.
 
 ## Deployed resources
-Following resources will be created by the template:
-- One route table that will route all traffic for networks except for the internal networks to the CGF
-- Two Virtual machines with a network interface and public IP in a Availability Set
-- One external Azure Standard Load Balancer containing the deployed virtual machines with a public IP and services for IPSEC and TINA VPN tunnels available
-- One internal Azure Standard Load Balancer containing the deployed virtual machines 1 load balancing rule directing all UDP and TCP traffic to the active firewall (HA Ports).
+Following resources will be created by this deployment per color:
+- One virtual network with CGF, WAF, WEB and SQL subnets
+- Routing for the WEB and SQL subnets
+- One CGF virtual machine with a network interface and public IP in a Availability Set
+- One WAF virtual machine with a network interface and public IP in a Availability Set
+- One WEB Linux virtual machine with a network interface
+- One SQL Linux virtual machine with a network interface
+- Two external Azure Basic Load Balanceris containing either the CGF or WAF virtual machines with a public IP and services for HTTP, HTTPS IPSEC and/or TINA VPN tunnels available
+- Azure Traffic Manager to switch from Blue to Green deployment and back
 
-**Note** The backend subnets and resources are *not* automatically created by the template. This has to be done manually after template deployment has finished.
+## Launching the Template
 
-## Template Parameters
+The package provides a deploy.sh and destroy.sh scripts that will take your through the whole deployment. This can be peformed from the CLI or integrated with VSTS or another CI/CD tool. For VSTS you can find the build templates in the vsts directory. 
+
+## Parameters
+The script requires certain environment variables as well as some arguments. 
+
+### Environment Variables
+
 | Parameter Name | Description
 |---|---
-adminPassword | Password for the CloudGen Admin tool 
-prefix | identifying prefix for all VM's being build. e.g WeProd would become WeProd-VM-CGF (Max 19 char, no spaces, [A-Za-z0-9]
+BACKEND_ARM_ACCESS_KEY | Azure Storage Access Key for the Terraform state file
+BACKEND_STORAGE_ACCOUNT_NAME | Azure Storage Account Name for the Terraform state file
+BACKEND_CONTAINER_NAME | Azure Storage Container Name for the Terraform state file
+BACKEND_KEY_COLOR | Azure Storage File Name of the Terraform state file
+BACKEND_KEY_TM | Azure Storage File Name of the Terraform state file for the Traffic Manager deployment
+CCSECRET | identifying prefix for all VM's being build. e.g WeProd would become WeProd-VM-CGF (Max 19 char, no spaces, [A-Za-z0-9]
 vNetResourceGroup | Resource Group that contains the VNET where the CGF will be installed in
 vNetName | The name of the VNET where the CGF will be installed in
 subnetNameCGF | The name of the subnet where CGF will be installed
@@ -40,15 +54,5 @@ ccRangeId | The range location of this instance in the CloudGen Control Center
 ccIpAddress | IP address of the CloudGen Control Center
 ccSecret | Secret to retrieve the configuration from the CloudGen Control Center
 
-## Launching the Template
-
-The package provides a deploy.ps1 and deploy.sh for Powershell or Azure CLI based deployments. This can be peformed from the Azure Portal as well as the any system that has either of these scripting infrastructures installed. Or you can deploy from the Azure Portal using the provided link.
-
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjvhoof%2Fngf-azure-templates%2Fmaster%2FCGF-Custom-HA-1NIC-AS-ELB-ILB-STD%2Fazuredeploy.json" target="_blank">
-    <img src="http://azuredeploy.net/deploybutton.png"/>
-</a>
-<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fjvhoof%2Fngf-azure-templates%2Fmaster%2FCGF-Custom-HA-1NIC-AS-ELB-ILB-STD%2Fazuredeploy.json" target="_blank">
-    <img src="http://armviz.io/visualizebutton.png"/>
-</a>
 
 ## Additional Resources
