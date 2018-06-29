@@ -3,6 +3,10 @@
   gather_facts: no
   roles:
     - role: waf-bootstrap
+
+- hosts: waf-blue:waf-green
+  gather_facts: no
+  roles:
     - role: waf-config
 
 
