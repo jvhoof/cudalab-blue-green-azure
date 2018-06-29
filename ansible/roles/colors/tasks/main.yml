@@ -71,5 +71,16 @@
 - name: Copy database configuration
   template:
     src: db.j2
-    dest: /data/colors/db.conf
+    dest: /data/colors/html/blue/config.inc.php
 
+# Copy database dump file to remote host and restore it to database 'my_db'
+- name: Copy database configuration
+  template:
+    src: db.j2
+    dest: /data/colors/html/green/config.inc.php
+
+# Copy database dump file to remote host and restore it to database 'my_db'
+- name: Copy database configuration
+  template:
+    src: db.j2
+    dest: /data/colors/html/pink/config.inc.php

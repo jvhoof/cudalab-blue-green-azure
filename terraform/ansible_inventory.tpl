@@ -11,7 +11,7 @@ sql
 [${env}:vars]
 DB_NAME=demo
 DB_USER=demo
-DB_PASSWORD=${db_password}
+DB_PASSWORD=demo
 DB_HOST=${sql_host}
 
 [waf]
