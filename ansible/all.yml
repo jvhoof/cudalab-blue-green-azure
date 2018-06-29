@@ -9,7 +9,6 @@
   roles:
     - role: waf-config
 
-
 - hosts: web:sql
   gather_facts: no
   become: yes
