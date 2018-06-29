@@ -6,6 +6,9 @@
 # TF plan files
 *.tfplan
 
+# ANSIBLE retry files
+*.retry
+
 # Directories
 .terraform/
 .vagrant/
