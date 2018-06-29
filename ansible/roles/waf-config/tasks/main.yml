@@ -15,7 +15,7 @@
     timeout: 300
   register: response
 #  until: "'Please enter your administrator login and password' in response.content"
-  until: "cui-field-password in response.content"
+  until: "'cui-field-password' in response.content"
   retries: 60
   delay: 15
 
@@ -99,7 +99,7 @@
     timeout: 300
   register: response
 #  until: "Please enter your administrator login and password" in response.content'
-  until: "cui-field-password in response.content"
+  until: "'cui-field-password' in response.content"
   retries: 60
   delay: 15
 
