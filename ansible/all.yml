@@ -2,8 +2,9 @@
 - hosts: waf-blue:waf-green
   gather_facts: no
   roles:
-    - include_role: 
-      name: waf-bootstrap
+    - role: waf-bootstrap
+    - role: waf-config
+
 
 - hosts: web:sql
   gather_facts: no
@@ -13,7 +14,7 @@
     - role: common
     - role: docker
 
-- hosts: web:sql:waf-blue:waf-green
+- hosts: web:sql
   gather_facts: no
   become: yes
   become_method: sudo
@@ -34,9 +35,6 @@
   - include_role: 
       name: sql
     when: "'sql' in group_names"
-  - include_role: 
-      name: waf-config
-    when: "'waf' in group_names"
 
 #- hosts: waf-green:waf-blue
 #  gather_facts: no
