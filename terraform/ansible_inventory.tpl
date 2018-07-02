@@ -4,21 +4,22 @@ ${sql_hosts}
 [web]
 ${web_hosts}
 
-[${env}:children]
+[${deploymentcolor}:children]
 web
 sql
 
-[${env}:vars]
+[${deploymentcolor}:vars]
 DB_NAME=demo
 DB_USER=demo
 DB_PASSWORD=demo
 DB_HOST=${sql_host}
+DEPLOYMENTCOLOR=${deploymentcolor}
 
 [waf]
 ${waf_hosts}
 
-[waf-${env}:children]
+[waf-${deploymentcolor}:children]
 waf
 
-[waf-${env}:vars]
+[waf-${deploymentcolor}:vars]
 WAF_PASSWORD=${waf_password}
