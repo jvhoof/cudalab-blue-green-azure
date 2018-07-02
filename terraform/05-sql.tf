@@ -79,21 +79,6 @@ data "template_file" "sql_ansible" {
   depends_on = ["azurerm_virtual_machine.sqlvm"]
 }
 
-data "template_file" "sql_ansible_inventory" {
-  template = "${file("${path.module}/ansible_inventory_sql.tpl")}"
-
-  vars {
-    env       = "${var.DEPLOYMENTCOLOR}"
-    sql_hosts = "${join("\n",data.template_file.sql_ansible.*.rendered)}"
-  }
-
-  depends_on = ["azurerm_virtual_machine.sqlvm"]
-}
-
 output "sql_private_ip_address" {
   value = "${azurerm_network_interface.sqlifc.private_ip_address}"
-}
-
-output "sql_ansible_inventory" {
-  value = "${data.template_file.sql_ansible_inventory.rendered}"
 }

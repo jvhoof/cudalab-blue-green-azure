@@ -170,21 +170,6 @@ data "template_file" "waf_ansible" {
   depends_on = ["azurerm_virtual_machine.wafvm"]
 }
 
-data "template_file" "waf_ansible_inventory" {
-  template = "${file("${path.module}/ansible_inventory_waf.tpl")}"
-
-  vars {
-    env       = "${var.DEPLOYMENTCOLOR}"
-    waf_hosts = "${join("\n",data.template_file.waf_ansible.*.rendered)}"
-  }
-
-  depends_on = ["azurerm_virtual_machine.wafvm"]
-}
-
-output "waf_ansible_inventory" {
-  value = "${data.template_file.waf_ansible_inventory.rendered}"
-}
-
 output "waf_private_ip_address" {
   value = "${azurerm_network_interface.wafifc.*.private_ip_address}"
 }

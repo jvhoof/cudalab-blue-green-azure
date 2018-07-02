@@ -79,21 +79,6 @@ data "template_file" "web_ansible" {
   depends_on = ["azurerm_virtual_machine.webvm"]
 }
 
-data "template_file" "web_ansible_inventory" {
-  template = "${file("${path.module}/ansible_inventory_web.tpl")}"
-
-  vars {
-    env       = "${var.DEPLOYMENTCOLOR}"
-    web_hosts = "${join("\n",data.template_file.web_ansible.*.rendered)}"
-  }
-
-  depends_on = ["azurerm_virtual_machine.webvm"]
-}
-
 output "web_private_ip_address" {
   value = "${azurerm_network_interface.webifc.private_ip_address}"
-}
-
-output "web_ansible_inventory" {
-  value = "${data.template_file.web_ansible_inventory.rendered}"
 }
