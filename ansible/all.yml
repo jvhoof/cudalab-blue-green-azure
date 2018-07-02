@@ -4,11 +4,6 @@
   roles:
     - role: waf-bootstrap
 
-- hosts: waf-blue:waf-green
-  gather_facts: no
-  roles:
-    - role: waf-config
-
 - hosts: web:sql
   gather_facts: no
   become: yes
@@ -38,6 +33,11 @@
   - include_role: 
       name: sql
     when: "'sql' in group_names"
+
+- hosts: waf-blue:waf-green
+  gather_facts: no
+  roles:
+    - role: waf-config
 
 #- hosts: waf-green:waf-blue
 #  gather_facts: no
