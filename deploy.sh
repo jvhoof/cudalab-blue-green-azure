@@ -13,8 +13,6 @@ echo "
 # Stop running when command returns error
 set -e
 
-#SECRET="/ssh/secrets.tfvars"
-#STATE="terraform.tfstate"
 PLAN="terraform.tfplan"
 PLANATM="terraform-atm.tfplan"
 ANSIBLEINVENTORYDIR="ansible/inventory"
@@ -106,21 +104,6 @@ echo "==> Terraform output to Ansible inventory"
 echo ""
 terraform output ansible_inventory > "../$ANSIBLEINVENTORY"
 
-#echo ""
-#echo "==> Terraform output to Ansible web inventory"
-#echo ""
-#terraform output web_ansible_inventory > "../$ANSIBLEWEBINVENTORY"
-
-#echo ""
-#echo "==> Terraform output to Ansible sql inventory"
-#echo ""
-#terraform output sql_ansible_inventory > "../$ANSIBLESQLINVENTORY"
-
-#echo ""
-#echo "==> Terraform output to Ansible waf inventory"
-#echo ""
-#terraform output waf_ansible_inventory > "../$ANSIBLEWAFINVENTORY"
-
 echo ""
 echo "==> Terraform output deployment summary"
 echo ""
@@ -131,26 +114,6 @@ echo ""
 echo "==> Ansible configuration"
 echo ""
 ansible-playbook ansible/all.yml $ANSIBLEOPTS -i "$ANSIBLEINVENTORY" 
-
-#echo ""
-#echo "==> Ansible configuration web server"
-#echo ""
-#ansible-playbook ansible/web.yml $ANSIBLEOPTS -i "$ANSIBLEWEBINVENTORY"
-
-#echo ""
-#echo "==> Ansible configuration sql server"
-#echo ""
-#ansible-playbook ansible/sql.yml $ANSIBLEOPTS -i "$ANSIBLESQLINVENTORY" --extra-vars "db_password=$DB_PASSWORD"
-
-#echo ""
-#echo "==> Ansible bootstrap waf server"
-#echo ""
-#ansible-playbook ansible-waf/bootstrap.yml $ANSIBLEOPTS -i "$ANSIBLEWAFINVENTORY"
-
-#echo ""
-#echo "==> Ansible configuration waf server"
-#echo ""
-#ansible-playbook ansible-waf/deploy.yml $ANSIBLEOPTS -i "$ANSIBLEWAFINVENTORY" --extra-vars "waf_password=$PASSWORD"
 
 echo ""
 echo "==> Connectivity verification $DEPLOYMENTCOLOR environment"

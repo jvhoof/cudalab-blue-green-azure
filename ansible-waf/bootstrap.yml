@@ -1,6 +1,0 @@
----
-- hosts: waf                                # define 'docker' as our action target
-  gather_facts: no
-  serial: 1                                 # define the action will be done one by one
-  roles:
-  - role: waf-bootstrap                     # define 'waf-bootstrap' role should be apply to hosts

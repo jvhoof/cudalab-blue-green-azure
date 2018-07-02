@@ -1,0 +1,429 @@
+{
+    "options": [
+        {
+            "enabled": false,
+            "definition": {
+                "id": "5d58cc01-7c75-450c-be18-a388ddb129ec"
+            },
+            "inputs": {
+                "branchFilters": "[\"+refs/heads/*\"]",
+                "additionalFields": "{}"
+            }
+        },
+        {
+            "enabled": false,
+            "definition": {
+                "id": "a9db38f9-9fdc-478c-b0f9-464221e58316"
+            },
+            "inputs": {
+                "workItemType": "1594449",
+                "assignToRequestor": "true",
+                "additionalFields": "{}"
+            }
+        }
+    ],
+    "variables": {
+        "AZURE_CLIENT_ID": {
+            "value": null,
+            "isSecret": true
+        },
+        "AZURE_CLIENT_SECRET": {
+            "value": null,
+            "isSecret": true
+        },
+        "AZURE_SUBSCRIPTION_ID": {
+            "value": null,
+            "isSecret": true
+        },
+        "AZURE_TENANT_ID": {
+            "value": null,
+            "isSecret": true
+        },
+        "BACKEND_ARM_ACCESS_KEY": {
+            "value": null,
+            "isSecret": true
+        },
+        "BACKEND_CONTAINER_NAME": {
+            "value": ""
+        },
+        "BACKEND_KEY_COLOR": {
+            "value": ""
+        },
+        "BACKEND_KEY_TM": {
+            "value": ""
+        },
+        "BACKEND_STORAGE_ACCOUNT_NAME": {
+            "value": ""
+        },
+        "CCSECRET": {
+            "value": null,
+            "isSecret": true
+        },
+        "DB_PASSWORD": {
+            "value": null,
+            "isSecret": true
+        },
+        "DEPLOYMENTCOLOR": {
+            "value": "blue"
+        },
+        "PASSWORD": {
+            "value": null,
+            "isSecret": true
+        },
+        "SSH_KEY_DATA": {
+            "value": null,
+            "isSecret": true
+        },
+        "system.debug": {
+            "value": "false",
+            "allowOverride": true
+        },
+        "TF_VAR_CCCLUSTERNAME": {
+            "value": ""
+        },
+        "TF_VAR_CCIPADDRESS": {
+            "value": ".235.148.20"
+        },
+        "TF_VAR_CCRANGEID": {
+            "value": ""
+        },
+        "TF_VAR_CGFVMNAME": {
+            "value": "-AZURE-BLUE-CGF-A"
+        },
+        "TF_VAR_LOCATION": {
+            "value": ""
+        },
+        "TF_VAR_PREFIX": {
+            "value": ""
+        },
+        "TF_VAR_TMDNSNAME": {
+            "value": ""
+        },
+        "TF_VAR_WAF_LICENSE_TOKENS": {
+            "value": "[ \"\", \"\" ]"
+        }
+    },
+    "retentionRules": [
+        {
+            "branches": [
+                "+refs/heads/*"
+            ],
+            "artifacts": [],
+            "artifactTypesToDelete": [
+                "FilePath",
+                "SymbolStore"
+            ],
+            "daysToKeep": 10,
+            "minimumToKeep": 1,
+            "deleteBuildRecord": true,
+            "deleteTestResults": true
+        }
+    ],
+    "properties": {},
+    "tags": [],
+    "metrics": [
+        {
+            "name": "CurrentBuildsInQueue",
+            "scope": "refs/heads/master",
+            "intValue": 0
+        },
+        {
+            "name": "CurrentBuildsInProgress",
+            "scope": "refs/heads/master",
+            "intValue": 0
+        },
+        {
+            "name": "CanceledBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 1,
+            "date": "2018-07-02T00:00:00.000Z"
+        },
+        {
+            "name": "FailedBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 2,
+            "date": "2018-07-02T00:00:00.000Z"
+        },
+        {
+            "name": "PartiallySuccessfulBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 0,
+            "date": "2018-07-02T00:00:00.000Z"
+        },
+        {
+            "name": "SuccessfulBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 1,
+            "date": "2018-07-02T00:00:00.000Z"
+        },
+        {
+            "name": "TotalBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 4,
+            "date": "2018-07-02T00:00:00.000Z"
+        },
+        {
+            "name": "CanceledBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 3,
+            "date": "2018-06-29T00:00:00.000Z"
+        },
+        {
+            "name": "FailedBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 4,
+            "date": "2018-06-29T00:00:00.000Z"
+        },
+        {
+            "name": "PartiallySuccessfulBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 0,
+            "date": "2018-06-29T00:00:00.000Z"
+        },
+        {
+            "name": "SuccessfulBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 1,
+            "date": "2018-06-29T00:00:00.000Z"
+        },
+        {
+            "name": "TotalBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 8,
+            "date": "2018-06-29T00:00:00.000Z"
+        },
+        {
+            "name": "CanceledBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 3,
+            "date": "2018-06-26T00:00:00.000Z"
+        },
+        {
+            "name": "FailedBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 1,
+            "date": "2018-06-26T00:00:00.000Z"
+        },
+        {
+            "name": "PartiallySuccessfulBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 0,
+            "date": "2018-06-26T00:00:00.000Z"
+        },
+        {
+            "name": "SuccessfulBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 0,
+            "date": "2018-06-26T00:00:00.000Z"
+        },
+        {
+            "name": "TotalBuilds",
+            "scope": "refs/heads/master",
+            "intValue": 4,
+            "date": "2018-06-26T00:00:00.000Z"
+        }
+    ],
+    "_links": {
+        "self": {
+            "href": "https://cudajvhoof.visualstudio.com/fc3f4d89-efed-4751-bbfa-792a6474ff4d/_apis/build/Definitions/13?revision=63"
+        },
+        "web": {
+            "href": "https://cudajvhoof.visualstudio.com/fc3f4d89-efed-4751-bbfa-792a6474ff4d/_build/definition?definitionId=13"
+        },
+        "editor": {
+            "href": "https://cudajvhoof.visualstudio.com/fc3f4d89-efed-4751-bbfa-792a6474ff4d/_build/designer?id=13&_a=edit-build-definition"
+        },
+        "badge": {
+            "href": "https://cudajvhoof.visualstudio.com/fc3f4d89-efed-4751-bbfa-792a6474ff4d/_apis/build/status/13"
+        }
+    },
+    "jobAuthorizationScope": 1,
+    "jobTimeoutInMinutes": 60,
+    "jobCancelTimeoutInMinutes": 5,
+    "process": {
+        "phases": [
+            {
+                "steps": [
+                    {
+                        "environment": {},
+                        "enabled": true,
+                        "continueOnError": false,
+                        "alwaysRun": false,
+                        "displayName": "Download Private SSH key",
+                        "timeoutInMinutes": 0,
+                        "condition": "succeeded()",
+                        "task": {
+                            "id": "2a6ca863-f2ce-4f4d-8bcb-15e64608ec4b",
+                            "versionSpec": "1.*",
+                            "definitionType": "task"
+                        },
+                        "inputs": {
+                            "secureFile": "284457ce-2b40-4a91-b02b-641b89ea761c"
+                        }
+                    },
+                    {
+                        "environment": {},
+                        "enabled": true,
+                        "continueOnError": false,
+                        "alwaysRun": false,
+                        "displayName": "Download CUDALAB TLS Certificate",
+                        "timeoutInMinutes": 0,
+                        "condition": "succeeded()",
+                        "task": {
+                            "id": "2a6ca863-f2ce-4f4d-8bcb-15e64608ec4b",
+                            "versionSpec": "1.*",
+                            "definitionType": "task"
+                        },
+                        "inputs": {
+                            "secureFile": "4cef5b8c-d081-4a3b-ac04-6357605f9406"
+                        }
+                    },
+                    {
+                        "environment": {},
+                        "enabled": true,
+                        "continueOnError": false,
+                        "alwaysRun": false,
+                        "displayName": "Shell Script deploy.sh",
+                        "timeoutInMinutes": 0,
+                        "condition": "succeeded()",
+                        "task": {
+                            "id": "6c731c3c-3c68-459a-a5c9-bde6e6595b5b",
+                            "versionSpec": "2.*",
+                            "definitionType": "task"
+                        },
+                        "inputs": {
+                            "scriptPath": "deploy.sh",
+                            "args": "-a \"-v\" -b \"$(BACKEND_ARM_ACCESS_KEY)\" -c \"$(CCSECRET)\" -d \"$(DB_PASSWORD)\" -p \"$(PASSWORD)\" -s \"$(SSH_KEY_DATA)\" -v \"$(AZURE_CLIENT_ID)\" -w \"$(AZURE_CLIENT_SECRET)\" -x \"$(AZURE_SUBSCRIPTION_ID)\" -y \"$(AZURE_TENANT_ID)\" -z $(DEPLOYMENTCOLOR)",
+                            "disableAutoCwd": "false",
+                            "cwd": "",
+                            "failOnStandardError": "false"
+                        }
+                    },
+                    {
+                        "environment": {},
+                        "enabled": true,
+                        "continueOnError": false,
+                        "alwaysRun": false,
+                        "displayName": "Publish Artifact: graph-blue.svg",
+                        "timeoutInMinutes": 0,
+                        "condition": "succeeded()",
+                        "task": {
+                            "id": "2ff763a7-ce83-4e1f-bc89-0ae63477cebe",
+                            "versionSpec": "1.*",
+                            "definitionType": "task"
+                        },
+                        "inputs": {
+                            "PathtoPublish": "$(Build.SourcesDirectory)/output/graph-blue.svg",
+                            "ArtifactName": "graph-blue.svg",
+                            "ArtifactType": "Container",
+                            "TargetPath": "",
+                            "Parallel": "false",
+                            "ParallelCount": "8"
+                        }
+                    },
+                    {
+                        "environment": {},
+                        "enabled": true,
+                        "continueOnError": false,
+                        "alwaysRun": false,
+                        "displayName": "Publish Artifact: summary-blue.out",
+                        "timeoutInMinutes": 0,
+                        "condition": "succeeded()",
+                        "task": {
+                            "id": "2ff763a7-ce83-4e1f-bc89-0ae63477cebe",
+                            "versionSpec": "1.*",
+                            "definitionType": "task"
+                        },
+                        "inputs": {
+                            "PathtoPublish": "$(Build.SourcesDirectory)/output/summary-blue.out",
+                            "ArtifactName": "summary-blue.out",
+                            "ArtifactType": "Container",
+                            "TargetPath": "",
+                            "Parallel": "false",
+                            "ParallelCount": "8"
+                        }
+                    }
+                ],
+                "name": "Phase 1",
+                "refName": "Phase_1",
+                "condition": "succeeded()",
+                "target": {
+                    "executionOptions": {
+                        "type": 0
+                    },
+                    "allowScriptsAuthAccessOption": false,
+                    "type": 1
+                },
+                "jobAuthorizationScope": "projectCollection",
+                "jobCancelTimeoutInMinutes": 1
+            }
+        ],
+        "type": 1
+    },
+    "repository": {
+        "properties": {
+            "cleanOptions": "2",
+            "labelSources": "0",
+            "labelSourcesFormat": "$(build.buildNumber)",
+            "reportBuildStatus": "true",
+            "gitLfsSupport": "false",
+            "skipSyncSource": "false",
+            "checkoutNestedSubmodules": "false",
+            "fetchDepth": "0"
+        },
+        "id": "e10ffa89-ce56-43de-9152-25f49498b33c",
+        "type": "TfsGit",
+        "name": "cudalab-blue-green",
+        "url": "https://cudajvhoof.visualstudio.com/cudalab-blue-green/_git/cudalab-blue-green",
+        "defaultBranch": "refs/heads/master",
+        "clean": "true",
+        "checkoutSubmodules": false
+    },
+    "processParameters": {},
+    "quality": 1,
+    "authoredBy": {
+        "displayName": "Joeri Van Hoof",
+        "url": "https://app.vssps.visualstudio.com/A63faed8e-74b9-4362-bcfe-45ea7e741ba8/_apis/Identities/adc50636-a131-4068-af42-223fe3013b53",
+        "_links": {
+            "avatar": {
+                "href": "https://cudajvhoof.visualstudio.com/_apis/GraphProfile/MemberAvatars/aad.N2U4OTVkMTAtZmYzYy03MmE3LTlhMDQtMDAwOTFlNDZlYmFm"
+            }
+        },
+        "id": "adc50636-a131-4068-af42-223fe3013b53",
+        "uniqueName": "jvanhoof@cudazure.onmicrosoft.com",
+        "imageUrl": "https://cudajvhoof.visualstudio.com/_api/_common/identityImage?id=adc50636-a131-4068-af42-223fe3013b53",
+        "descriptor": "aad.N2U4OTVkMTAtZmYzYy03MmE3LTlhMDQtMDAwOTFlNDZlYmFm"
+    },
+    "drafts": [],
+    "queue": {
+        "_links": {
+            "self": {
+                "href": "https://cudajvhoof.visualstudio.com/_apis/build/Queues/46"
+            }
+        },
+        "id": 46,
+        "name": "CUDALAB-LNX",
+        "url": "https://cudajvhoof.visualstudio.com/_apis/build/Queues/46",
+        "pool": {
+            "id": 7,
+            "name": "CUDALAB-LNX"
+        }
+    },
+    "id": 13,
+    "name": "CUDALAB-BLUE-build",
+    "url": "https://cudajvhoof.visualstudio.com/fc3f4d89-efed-4751-bbfa-792a6474ff4d/_apis/build/Definitions/13?revision=63",
+    "uri": "vstfs:///Build/Definition/13",
+    "path": "\\",
+    "type": 2,
+    "queueStatus": 0,
+    "revision": 63,
+    "createdDate": "2018-06-29T17:31:48.790Z",
+    "project": {
+        "id": "fc3f4d89-efed-4751-bbfa-792a6474ff4d",
+        "name": "cudalab-blue-green",
+        "url": "https://cudajvhoof.visualstudio.com/_apis/projects/fc3f4d89-efed-4751-bbfa-792a6474ff4d",
+        "state": "wellFormed",
+        "revision": 54,
+        "visibility": 0
+    }
+}

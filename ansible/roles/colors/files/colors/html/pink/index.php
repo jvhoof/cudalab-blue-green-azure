@@ -1,3 +1,4 @@
+<?php include('config.inc.php'); ?>
 <html>
 <head>
 <title>Barracuda Demo Web App</title>
@@ -10,8 +11,9 @@ table {
 </style>
 </head>
 
+<body>
+<h1><?php echo DEPLOYMENTCOLOR; ?></h1>
 <table>
-<?php include('config.inc.php'); ?>
 <?php
 $rows = 7;
 $cols = 12;
@@ -82,4 +84,5 @@ for ( $rowcnt = 0 ; $rowcnt < $rows ; $rowcnt++ ) {
 }
 ?>
 </table>
+</body>
 </html>

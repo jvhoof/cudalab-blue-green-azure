@@ -27,3 +27,9 @@
     timeout: 300
   become: no
   delegate_to: localhost
+
+# Create configuration file for portal
+- name: Create configuration for portal
+  template:
+    src: config.j2
+    dest: /data/portal/config.inc.php

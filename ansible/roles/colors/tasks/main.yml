@@ -9,7 +9,6 @@
     delete: yes
     recursive: yes
 
-
 - name: Color-blue
   docker_container:
     name: colorblue
@@ -67,20 +66,26 @@
   become: no
   delegate_to: localhost
 
-# Copy database dump file to remote host and restore it to database 'my_db'
-- name: Copy database configuration
+# Create database configuration file for blue
+- name: Create database configuration for blue
   template:
-    src: db.j2
+    src: config.j2
     dest: /data/colors/html/blue/config.inc.php
 
-# Copy database dump file to remote host and restore it to database 'my_db'
-- name: Copy database configuration
+# Create database configuration file for green
+- name: Create database configuration for green
   template:
-    src: db.j2
+    src: config.j2
     dest: /data/colors/html/green/config.inc.php
 
-# Copy database dump file to remote host and restore it to database 'my_db'
-- name: Copy database configuration
+# Create database configuration file for pink
+- name: Create database configuration for pink
   template:
-    src: db.j2
+    src: config.j2
+    dest: /data/colors/html/pink/config.inc.php
+
+# Create database configuration file for red
+- name: Create database configuration for red
+  template:
+    src: config.j2
     dest: /data/colors/html/pink/config.inc.php

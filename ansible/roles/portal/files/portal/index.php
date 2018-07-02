@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php include('config.inc.php'); ?>
 <html>
     <head>
 	<link rel="icon" href="https://www.barracuda.com/assets/img/layout/logo/favicon.png" type="image/x-icon" />
@@ -12,7 +13,7 @@
     </head>
     <body class="metro">
         <div class="tile-area tile-area-dark" style="background-image: url(images/2.png);">
-      <h1 class="tile-area-title fg-white">Start</h1>
+      <h1 class="tile-area-title fg-white"><?php echo DEPLOYMENTCOLOR; ?></h1>
 
             <div class="tile-group two">
                 <a class="tile double bg-grayDark live" data-role="live-tile" data-effect="slideUpDown" data-click="transform" href="https://www.barracuda.com/programs/cloudready" target="_blank">
