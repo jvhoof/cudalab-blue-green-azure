@@ -11,7 +11,7 @@ table {
 </head>
 
 <table>
-<?php include('config.php'); ?>
+<?php include('config.inc.php'); ?>
 <?php
 $rows = 7;
 $cols = 12;
