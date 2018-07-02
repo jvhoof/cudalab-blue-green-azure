@@ -13,7 +13,7 @@
     </head>
     <body class="metro">
         <div class="tile-area tile-area-dark" style="background-image: url(images/2.png);">
-      <h1 class="tile-area-title fg-white"><?php echo DEPLOYMENTCOLOR; ?></h1>
+      <h1 class="tile-area-title fg-white">Start - <?php echo DEPLOYMENTCOLOR; ?></h1>
 
             <div class="tile-group two">
                 <a class="tile double bg-grayDark live" data-role="live-tile" data-effect="slideUpDown" data-click="transform" href="https://www.barracuda.com/programs/cloudready" target="_blank">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </a> <!-- end tile -->
-                <a class="tile bg-grayLight" href="https://az-badstore.cudalab.eu" data-click="transform">
+                <a class="tile bg-grayLight" href="https://az-badstore.cudalab.eu" target="_blank">
                     <div class="tile-content">
                         <div class="text-right padding10">
                             <h3 class="fg-white no-margin">Badstore</h1>
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                 </a> <!-- end tile -->
-                <a class="tile bg-grayLight" href="https://azure.cudalab.eu:8443/cgi-mod/index.cgi" target="_blank">
+                <a class="tile bg-grayLight" href="https://azure.cudalab.eu:8443/" target="_blank">
                     <div class="tile-content">
                         <div class="text-right padding10">
                             <h3 class="fg-white no-margin">WAF</h1>
