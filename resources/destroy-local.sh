@@ -42,5 +42,5 @@ docker run --rm -itv $PWD/../vsts-cudalab-blue-green:/data \
                     -v terraform-run:/.terraform/ \
                     -v ~/.ssh:/ssh/ \
                     --env-file $DEPLOYMENTVARFILE \
-                    jvhoof/ansible-docker \
+                    jvhoof/cloudgen-essentials \
                     /bin/bash -c "cd /data; ./destroy.sh -b '$BACKEND_ARM_ACCESS_KEY' -d '$DB_PASSWORD' -v '$AZURE_CLIENT_ID' -w '$AZURE_CLIENT_SECRET' -x '$AZURE_SUBSCRIPTION_ID' -y '$AZURE_TENANT_ID' -z '$DEPLOYMENTCOLOR'"
