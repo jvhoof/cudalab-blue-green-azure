@@ -44,7 +44,7 @@ The script requires certain environment variables as well as some arguments.
 -y | X | X | AZURE_TENANT_ID | Azure Tenant ID
 -z | X | X | DEPLOYMENTCOLOR | Which version do you want to deploy... [blue|green]
 
-### Environment Variables
+## Environment Variables
 
 | Variable Name | Description
 |---|---
@@ -63,7 +63,7 @@ TF_VAR_WAF_LICENSE_TOKENS | License tokens for the Barracuda CloudGen WAF BYOL V
 DOWNLOADSECUREFILE1_SECUREFILEPATH | The location of the SSH private key used to connect to the backend servers
 DOWNLOADSECUREFILE2_SECUREFILEPATH | The location of the PFX file containing the TLS certificate for the LAB
 
-### Detailed deployment & configuration steps
+## Detailed deployment & configuration steps
 
 The deployment using VSTS is done is different steps. From a network point of view the configuration from the Barracuda CloudGen Firewall is pulled from the Firewall Control Center On-Premise. This contains the whole configuration of the CloudGen Firewall and will automatically establish a TINA VPN tunnel between the On-Premise site and the new deployment. All Ansible configuration is done over this TINA VPN tunnel. The public footprint of this deployment is as such reduced to only the public websites. After the deployment the demo websites are available via the URL https://azure.cudalab.eu/
 
