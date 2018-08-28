@@ -25,9 +25,34 @@ Following resources will be created by this deployment per color:
 
 ## Launching the Template
 
-The package provides a deploy.sh and destroy.sh scripts which will build or remove the whole setup per color when the correct arguments are supplied as well as the correct environment variables are set. This can be peformed from the CLI or integrated with VSTS or another CI/CD tool. For VSTS you can find the build templates in the resources/vsts directory. 
+Ideally the deployment of the Blue or Green environments is done using Visual Studio Team Services (VSTS) or another CI/CD tools. In this reference architecture we used VSTS. The deployment is also possible from a CLI that provides the Terraform and Ansible tools. Within Azure this is certainly possible with the Azure Cloud Shell which contains both.
 
-## Parameters
+The package provides a deploy.sh and destroy.sh scripts which will build or remove the whole setup per color when the correct arguments are supplied as well as the correct environment variables are set. For VSTS you can find the build configuration files in the resources/vsts directory. For CLI we recommand the deployment from the Azure Cloud Shell as this comes pre-installed with the reqiured tools. 
+
+For the Barracuda CGF it is also required to have a Barracuda CloudGen Firewall Control Center ready to go. This Control Center 
+
+### Checklist - Local deployment
+
+- [Azure Cloud Shell](https://azure.microsoft.com/en-us/features/cloud-shell/)
+- [Barracuda CloudGen Firewall Control Center](https://campus.barracuda.com/product/cloudgenfirewall/doc/73719437/getting-started-control-center-for-microsoft-azure/)
+- [Azure Storage Account for the Terraform state](https://www.terraform.io/docs/backends/types/azurerm.html)
+- [Azure AD Service Principal](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest)
+
+### Checklist - VSTS deployment
+
+- [Visual Studio Team Services](https://visualstudio.microsoft.com/team-services/)
+- [Barracuda CloudGen Firewall Control Center](https://campus.barracuda.com/product/cloudgenfirewall/doc/73719437/getting-started-control-center-for-microsoft-azure/)
+- [Azure Storage Account for the Terraform state](https://www.terraform.io/docs/backends/types/azurerm.html)
+- [Azure AD Service Principal](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest)
+
+## Deployment - Local Deployment
+
+- Start up Azure Cloud Shell from the Azure Portal or go directly to [https://shell.azure.com](https://shell.azure.com/)
+- Download the latest version of the of templates in the persistant clouddrive:
+`cd ~/clouddrive/ && wget -qO- https://github.com/jvhoof/cudalab-blue-green-azure/archive/master.zip | jar xv && cd ~/clouddrive/cudalab-blue-green-azure-master/`
+- Fill in the deploy-local.sh and var-blue.env and/or var-green.env. 
+
+## deploy.sh and destroy.sh Parameters
 The script requires certain environment variables as well as some arguments. 
 
 | Argument | Deploy | Destroy | Parameter Name | Description

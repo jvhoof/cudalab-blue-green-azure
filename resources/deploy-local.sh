@@ -39,7 +39,7 @@ AZURE_SUBSCRIPTION_ID=''
 AZURE_TENANT_ID=''
 
 echo ""
-echo "==> Starting local deployment for $DEPLOYMENTCOLOR deployment"
+echo "==> Starting local deployment for $DEPLOYMENTCOLOR"
 echo ""
 
 ./../deploy.sh -a '-v' -b '$BACKEND_ARM_ACCESS_KEY' -c '$CCSECRET' -d '$DB_PASSWORD' -p '$PASSWORD' -s '$SSH_KEY_DATA' -v '$AZURE_CLIENT_ID' -w '$AZURE_CLIENT_SECRET' -x '$AZURE_SUBSCRIPTION_ID' -y '$AZURE_TENANT_ID' -z '$DEPLOYMENTCOLOR'
