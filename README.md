@@ -50,7 +50,7 @@ For the Barracuda CGF it is also required to have a Barracuda CloudGen Firewall 
 - Start up Azure Cloud Shell from the Azure Portal or go directly to [https://shell.azure.com](https://shell.azure.com/)
 - Download the latest version of the of templates in the persistant clouddrive:
 `cd ~/clouddrive/ && wget -qO- https://github.com/jvhoof/cudalab-blue-green-azure/archive/master.zip | jar xv && cd ~/clouddrive/cudalab-blue-green-azure-master/`
-- Fill in the deploy-local.sh and var-blue.env and/or var-green.env. 
+- Fill in the deploy-local.sh and var-blue.env and/or var-green.env variables
 
 ## deploy.sh and destroy.sh Parameters
 The script requires certain environment variables as well as some arguments. 

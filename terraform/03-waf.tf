@@ -145,7 +145,7 @@ resource "azurerm_virtual_machine" "wafvm" {
 
   os_profile {
     computer_name  = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-WAF-${count.index}"
-    admin_username = "azureuser"
+    admin_username = "notused"
     admin_password = "${var.PASSWORD}"
   }
 
