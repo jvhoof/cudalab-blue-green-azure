@@ -133,14 +133,14 @@ resource "azurerm_virtual_machine" "cgfvma" {
   storage_image_reference {
     publisher = "barracudanetworks"
     offer     = "barracuda-ng-firewall"
-    sku       = "byol"
+    sku       = "${var.CGFIMAGESKU}"
     version   = "latest"
   }
 
   plan {
     publisher = "barracudanetworks"
     product   = "barracuda-ng-firewall"
-    name      = "byol"
+    name      = "${var.CGFIMAGESKU}"
   }
 
   storage_os_disk {
@@ -152,7 +152,7 @@ resource "azurerm_virtual_machine" "cgfvma" {
 
   os_profile {
     computer_name  = "${var.PREFIX}-${var.DEPLOYMENTCOLOR}-VM-CGF-A"
-    admin_username = "azureuser"
+    admin_username = "notused"
     admin_password = "${var.PASSWORD}"
     custom_data    = "${base64encode("#!/bin/bash\n\nCCSECRET=${var.CCSECRET}\n\nCCIP=${var.CCIPADDRESS}\n\nCCRANGEID=${var.CCRANGEID}\n\nCCCLUSTERNAME=${var.CCCLUSTERNAME}\n\nCGFNAME=${var.CGFVMNAME}\n\n${file("${path.module}/provisioncgf.sh")}")}"
   }

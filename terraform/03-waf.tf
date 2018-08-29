@@ -126,14 +126,14 @@ resource "azurerm_virtual_machine" "wafvm" {
   storage_image_reference {
     publisher = "barracudanetworks"
     offer     = "waf"
-    sku       = "byol"
+    sku       = "${var.WAFIMAGESKU}"
     version   = "latest"
   }
 
   plan {
     publisher = "barracudanetworks"
     product   = "waf"
-    name      = "byol"
+    name      = "${var.WAFIMAGESKU}"
   }
 
   storage_os_disk {
