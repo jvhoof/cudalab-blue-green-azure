@@ -66,13 +66,13 @@ variable "WAF_LICENSE_TOKENS" {
 # This variable defined the type of CGF and billing used. For BYOL you can use pool licenses for repeated deployments.
 variable "CGFIMAGESKU" {
   description = "Azure Marketplace Image SKU hourly (PAYG) or byol (Bring your own license)"
-  default = "payg"
+  default = "byol"
 }
 
 # This variable defined the type of WAF and billing used. For BYOL you can use pool licenses for repeated deployments.
 variable "WAFIMAGESKU" {
   description = "Azure Marketplace Image SKU hourly (PAYG) or byol (Bring your own license)"
-  default = "payg"
+  default = "byol"
 }
 
 ##############################################################################################################
